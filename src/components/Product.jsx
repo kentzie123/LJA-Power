@@ -95,8 +95,8 @@ const Product = () => {
       <div className="container mx-auto">
         <div className="max-w-7xl mx-auto text-center mb-12">
           <h2 className="product-header text-5xl md:text-7xl font-bold mb-4">
-            Our Featured{" "}
-            <span className="text-[var(--accent-yellow)]">Generators</span>
+            Our{" "}
+            <span className="text-[var(--accent-yellow)]">Products</span>
           </h2>
           <p className="product-p text-[var(--muted-gray)] max-w-2xl mx-auto">
             Explore our range of high-quality generators designed to keep your
