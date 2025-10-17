@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+
+@layer components {
+  .product-card {
+    @apply bg-[var(--bg-dark)] rounded-2xl border-[1px] border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[0_10px_15px_5px_var(--accent-yellow)]/10 transition-all;
+
+    .card-content {
+        @apply space-y-2 p-6;
+      h4 {
+        @apply font-bold text-xl;
+      }
+      p {
+        @apply text-[var(--accent-yellow)] text-sm font-semibold;
+      }
+      ul li {
+        @apply flex items-center gap-2;
+
+        svg {
+          @apply text-[var(--accent-yellow)] size-4;
+        }
+
+        div {
+            @apply text-sm text-[var(--muted-gray)];
+        }
+      }
+    }
+  }
+}

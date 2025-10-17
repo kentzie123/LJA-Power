@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@font-face {
+  font-family: "Modern Negra";
+  src: url("/fonts/Modern Negra Demo.ttf") format("truetype");
+}
+
+:root {
+  --warning: #f5ec19; /* change the warning color */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@theme {
+  --bg-dark: #0c2430; /* deep navy / near-black background */
+  --panel-blue: #145d77; /* teal-blue panels / footer */
+  --card-blue: #0f4b5a; /* mid dark blue for cards / headers */
+  --accent-yellow: #f5ec19; /* bright lemon yellow for CTAs and highlights */
+  --muted-gray: #a9b6bd; /* light gray for secondary text */
+  --white: #ffffff;
+}
+
+@layer components {
+  main {
+    @apply overflow-hidden;
+  }
+}

@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer components {
+  .top-grid {
+    @apply grid grid-cols-1 xl:grid-cols-12 gap-5 mb-5 md:px-0 px-5;
+
+    > div {
+      @apply relative rounded-3xl overflow-hidden h-72;
+    }
+
+    img {
+      @apply object-cover w-full h-full;
+    }
+  }
+
+  .bottom-grid {
+    @apply grid grid-cols-1 md:grid-cols-12 gap-5 md:px-0 px-5;
+
+    > div {
+      @apply rounded-3xl overflow-hidden h-72 relative;
+    }
+
+    img {
+      @apply object-cover w-full h-full [border-image:fill_0_linear-gradient(#0003,#000)];
+    }
+  }
+}

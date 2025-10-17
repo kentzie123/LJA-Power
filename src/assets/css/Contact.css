@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer components {
+  .contact-card {
+    @apply border-[1px] border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[0_10px_15px_5px_var(--accent-yellow)]/10 transition-all;
+  }
+
+  .contact-btn-shadowed {
+      @apply shadow-[-5px_8px_10px_0px_var(--accent-yellow)]/30 hover:shadow-[-5px_10px_25px_0px_var(--accent-yellow)]/60 transition-all hover:scale-105 flex items-center justify-center gap-2 text-[var(--bg-dark)] text-lg font-bold bg-[var(--accent-yellow)] px-7 py-3 rounded-4xl cursor-pointer;
+  }
+  
+  .contact-btn {
+    @apply flex items-center justify-center gap-2 font-bold text-lg text-[var(--accent-yellow)] px-7 py-3 rounded-4xl border border-[var(--accent-yellow)] transition-all hover:scale-105 hover:bg-[var(--accent-yellow)]/10 cursor-pointer;
+  }
+}
