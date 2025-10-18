@@ -75,7 +75,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="will-appear text-6xl md:text-7xl lg:text-8xl text-[#0d9dd1] font-bold">
+        <div className="will-appear text-4xl md:text-6xl lg:text-8xl text-[#0d9dd1] font-bold">
           Reliable <br />
           Diesel Generators <br />& Energy Solutions <br />
           Across the Philippines

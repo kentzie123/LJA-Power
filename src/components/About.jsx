@@ -48,7 +48,7 @@ const About = () => {
               - Who We Are
             </div>
 
-            <h2 className="about-title text-5xl font-bold text-[var(--white)] leading-17">
+            <h2 className="about-title text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--white)] leading-12 md:leading-14 lg:leading-17">
               LJA Power Limitid Co.
               <br />
               — Your Trusted
