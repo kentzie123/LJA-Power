@@ -11,8 +11,8 @@ const Navbar = () => {
       <a href="#home" className="flex items-center gap-2">
         <img
           className="rounded-full size-12"
-          src="/images/lja-logo.jpg"
-          alt="logo"
+          src="/images/lja-logo.webp"
+          alt="LJA Power Limited Co. company logo"
         />
         <h2 className="text-2xl font-[700] text-[#f5ec19]">LJA POWER</h2>
       </a>
@@ -57,7 +57,7 @@ const Navbar = () => {
             <a href="#home" className="flex items-center gap-2">
               <img
                 className="rounded-full size-12"
-                src="/images/lja-logo.jpg"
+                src="/images/lja-logo.webp"
                 alt="logo"
               />
               <h2 className="text-2xl font-[700] text-[#f5ec19]">LJA POWER</h2>
@@ -67,7 +67,7 @@ const Navbar = () => {
               <a href="#home" className="flex items-center gap-2">
                 <img
                   className="rounded-full size-12"
-                  src="/images/lja-logo.jpg"
+                  src="/images/lja-logo.webp"
                   alt="logo"
                 />
                 <h2 className="text-2xl font-[700] text-[#0c2430]">

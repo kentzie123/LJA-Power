@@ -63,23 +63,23 @@ const Hero = () => {
       className="relative min-h-dvh flex-center text-center md:text-left overflow-hidden"
     >
       <img
-        src="/images/hero1.jpg"
+        src="/images/hero1.webp"
         className="absolute inset-0 w-full h-full object-cover parallax-bg"
-        alt="Hero background"
+        alt="LJA Power Limited Co. company hero background"
       />
       <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80"></div>
       <div className="relative z-10 container mx-auto px-6 text-white space-y-6">
         <div className="uppercase text-[var(--accent-yellow)] font-semibold tracking-wide">
-          <div className="will-appear uppercase">
+          <h2 className="will-appear uppercase">
             Powering Progress, Comfort, and Connection ⚡️
-          </div>
+          </h2>
         </div>
 
-        <div className="will-appear text-4xl md:text-6xl lg:text-8xl text-[#0d9dd1] font-bold">
+        <h1 className="will-appear text-4xl md:text-6xl lg:text-8xl text-[#0d9dd1] font-bold">
           Reliable <br />
           Diesel Generators <br />& Energy Solutions <br />
           Across the Philippines
-        </div>
+        </h1>
 
         <p className="will-appear-p">
           We don't just sell generators — we deliver peace of mind, <br />

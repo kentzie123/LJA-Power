@@ -10,7 +10,7 @@ const ProductModal = ({ setShowModal, selectedProduct }) => {
       >
         <img
           className="object-cover w-full h-70"
-          src="/images/abt4.jpg"
+          src="/images/abt4.webp"
           alt=""
         />
 

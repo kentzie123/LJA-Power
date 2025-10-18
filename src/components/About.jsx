@@ -48,13 +48,13 @@ const About = () => {
               - Who We Are
             </div>
 
-            <h2 className="about-title text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--white)] leading-12 md:leading-14 lg:leading-17">
+            <h1 className="about-title text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--white)] leading-12 md:leading-14 lg:leading-17">
               LJA Power Limitid Co.
               <br />
               — Your Trusted
               <br />
               Energy Lifeline ⚡
-            </h2>
+            </h1>
           </div>
           <div className="col-span-4 space-y-6">
             <p className="text-[var(--white)] leading-relaxed">
@@ -76,29 +76,29 @@ const About = () => {
         <div className="top-grid">
           <div className="md:col-span-3">
             <div className="noisy" />
-            <img src="/images/abt3.jpg" alt="grid-img-1" />
+            <img src="/images/abt3.webp" alt="grid-img-1" />
             <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#145d77_100%)]"></div>
           </div>
 
           <div className="md:col-span-6">
-            <img src="/images/abt2.jpg" alt="grid-img-2" />
+            <img src="/images/abt2.webp" alt="grid-img-2" />
             <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#145d77_100%)]"></div>
           </div>
 
           <div className="md:col-span-3">
-            <img src="/images/abt4.jpg" alt="grid-img-5" />
+            <img src="/images/abt4.webp" alt="grid-img-5" />
             <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#145d77_100%)]"></div>
           </div>
         </div>
 
         <div className="bottom-grid">
           <div className="md:col-span-8">
-            <img src="/images/abt1.jpg" alt="grid-img-3" />
+            <img src="/images/abt1.webp" alt="grid-img-3" />
             <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#145d77_100%)]"></div>
           </div>
 
           <div className="md:col-span-4">
-            <img src="/images/abt5.jpg" alt="grid-img-4" />
+            <img src="/images/abt5.webp" alt="grid-img-4" />
             <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#145d77_100%)]"></div>
           </div>
         </div>

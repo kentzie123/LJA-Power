@@ -116,7 +116,7 @@ const Product = () => {
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   className="group-hover:scale-110 transition-transform duration-500 w-full h-full object-cover"
-                  src={"/images/abt4.jpg"}
+                  src={"/images/abt4.webp"}
                   alt={prod.name}
                 />
                 <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#0c2430_100%)]" />

@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="flex items-center gap-3">
             <img
               className="size-12 rounded-full border border-[var(--accent-yellow)]/30 shadow-md"
-              src="/images/lja-logo.jpg"
+              src="/images/lja-logo.webp"
               alt="LJA Power Logo"
             />
             <div>
