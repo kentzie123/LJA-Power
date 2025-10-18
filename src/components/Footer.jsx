@@ -11,7 +11,7 @@ const Footer = () => {
             <img
               className="size-12 rounded-full border border-[var(--accent-yellow)]/30 shadow-md"
               src="/images/lja-logo.webp"
-              alt="LJA Power Logo"
+              alt="LJA Power Limited Co. company logo"
             />
             <div>
               <h2 className="text-white text-xl md:text-2xl font-bold">
