@@ -65,7 +65,7 @@ const Hero = () => {
       <img
         src="/images/hero1.webp"
         className="absolute inset-0 w-full h-full object-cover parallax-bg"
-        alt="LJA Power Limited Co. company hero background"
+        alt="Diesel generator power station in the Philippines"
       />
       <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80"></div>
       <div className="relative z-10 container mx-auto px-6 text-white space-y-6">

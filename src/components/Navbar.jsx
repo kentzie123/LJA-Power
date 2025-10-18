@@ -62,28 +62,29 @@ const Navbar = () => {
               />
               <h2 className="text-2xl font-[700] text-[#f5ec19]">LJA POWER</h2>
             </a>
-            <ul className="menu bg-base-200 min-h-full w-80 p-4 space-y-2">
+
+            <ul className="menu bg-base-200 min-h-full w-80 p-4 bg-gradient-to-tl from-[#1b6f8d] to-[#0c2430] text-white">
               {/* Sidebar content here */}
-              <a href="#home" className="flex items-center gap-2">
+              <a href="#home" className="flex items-center gap-2 mb-3">
                 <img
                   className="rounded-full size-12"
                   src="/images/lja-logo.webp"
                   alt="logo"
                 />
-                <h2 className="text-2xl font-[700] text-[#0c2430]">
+                <h2 className="text-2xl font-[700] !text-[var(--accent-yellow)]">
                   LJA POWER
                 </h2>
               </a>
 
               {navItems.map((link) => (
                 <li key={link.href}>
-                  <a className="font-[500]" href={`#${link.href}`}>
+                  <a className="font-[500] py-2" href={`#${link.href}`}>
                     {link.name}
                   </a>
                 </li>
               ))}
 
-              <a className="ms-2" href="#contact">
+              <a className="ms-2 mt-2" href="#contact">
                 <button className="btn btn-warning text-white">
                   Contact Us
                 </button>
