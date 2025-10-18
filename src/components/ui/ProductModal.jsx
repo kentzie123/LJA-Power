@@ -6,31 +6,31 @@ const ProductModal = ({ setShowModal, selectedProduct }) => {
       {/* Modal box */}
       <div
         id="product-modal"
-        className="relative p-8 border border-[var(--accent-yellow)]/20 space-y-6 w-full max-w-2xl bg-[linear-gradient(to_right,_#0c2430,_#145d77_50%,_#0c2430)]"
+        className="relative p-5 lg:p-8 border border-[var(--accent-yellow)]/20 space-y-2 lg:space-y-6 w-full max-w-2xl bg-[linear-gradient(to_right,_#0c2430,_#145d77_50%,_#0c2430)]"
       >
         <img
-          className="object-cover w-full h-70"
+          className="object-cover w-full h-45 lg:h-70"
           src="/images/abt4.webp"
           alt=""
         />
 
         <div className="space-y-2">
-          <h2 className="text-3xl text-[var(--accent-yellow)] font-bold">
+          <h2 className="text-xl lg:text-3xl text-[var(--accent-yellow)] font-bold">
             {selectedProduct.name}
           </h2>
-          <div className="text-lg text-[var(--accent-yellow)] font-semibold">
+          <div className="lg:text-lg text-[var(--accent-yellow)] font-semibold">
             {selectedProduct.specs}
           </div>
         </div>
 
-        <p className="text-[var(--muted-gray)]">
+        <p className="text-sm lg:text-base text-[var(--muted-gray)]">
           {selectedProduct.description}
         </p>
 
         <div className="space-y-2">
-          <h4 className="font-bold text-xl">Key Features:</h4>
+          <h4 className="font-bold lg:text-xl">Key Features:</h4>
 
-          <ul className="space-y-2 text-[var(--muted-gray)]">
+          <ul className="space-y-2 text-sm lg:text-base  text-[var(--muted-gray)]">
             <li className="flex items-center gap-2">
               <ShieldCheck className="inline !text-[var(--accent-yellow)] size-5" />
               {selectedProduct.features[0]}
