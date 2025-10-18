@@ -31,7 +31,7 @@ const Hero = () => {
           yPercent: 100,
           ease: "expo.out",
         },
-        "-=0.5"
+        "-=0.8"
       )
       .from(
         ".hero-contact-btn",
@@ -41,7 +41,7 @@ const Hero = () => {
           yPercent: 100,
           ease: "expo.out",
         },
-        "-=0.5"
+        "-=0.8"
       );
 
     // Parallax effect for background image
