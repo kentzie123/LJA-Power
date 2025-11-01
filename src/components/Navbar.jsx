@@ -4,8 +4,6 @@ import { navItems } from "../../constants";
 import { Menu } from "lucide-react";
 
 const Navbar = () => {
-  console.log(navItems);
-
   return (
     <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-4 py-3 bg-[#0C2430] text-white z-50">
       <a href="#home" className="flex items-center gap-2">
@@ -55,7 +53,6 @@ const Navbar = () => {
               className="drawer-overlay"
             ></label>
             <a href="#home" className="flex items-center gap-2">
-              
               <h2 className="text-2xl font-[700] text-[#f5ec19]">LJA POWER</h2>
             </a>
 

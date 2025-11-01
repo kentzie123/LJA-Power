@@ -1,11 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@font-face {
-  font-family: "Modern Negra";
-  src: url("/fonts/Modern Negra Demo.ttf") format("truetype");
-}
-
 :root {
   --warning: #f5ec19; /* change the warning color */
 }
