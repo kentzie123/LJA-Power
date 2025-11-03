@@ -20,6 +20,7 @@ body {
   @apply flex justify-center items-center;
 }
 
+
 @theme {
   --bg-dark: #0c2430; /* deep navy / near-black background */
   --panel-blue: #145d77; /* teal-blue panels / footer */
@@ -27,6 +28,18 @@ body {
   --accent-yellow: #f5ec19; /* bright lemon yellow for CTAs and highlights */
   --muted-gray: #a9b6bd; /* light gray for secondary text */
   --white: #ffffff;
+}
+
+@utility bg-backdrop {
+  @apply bg-[#0C2430]/60 backdrop-blur-md border-b border-white/20;
+}
+
+@utility btn-backdrop {
+  @apply rounded-md bg-[#0C2430]/50 hover:bg-[#0C2430]/30 active:bg-[#0C2430]/20 backdrop-blur-md border border-white/20 transition-colors duration-200 py-2;
+}
+
+@utility btn-yellow {
+  @apply bg-[var(--accent-yellow)] text-black text-sm font-medium flex-center px-3 py-2 rounded-md;
 }
 
 @layer components {

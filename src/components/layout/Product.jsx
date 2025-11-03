@@ -1,4 +1,4 @@
-import { products } from "../../constants";
+
 
 // Styling
 import "../assets/css/Products.css";
@@ -7,8 +7,7 @@ import "../assets/css/Products.css";
 import { BatteryCharging, Zap, ShieldCheck } from "lucide-react";
 
 //UI
-import Button from "./ui/Button";
-import ProductModal from "./ui/ProductModal";
+import Button from "../ui/Button";
 
 // Hooks
 import { useState, useRef } from "react";
@@ -16,11 +15,8 @@ import { useState, useRef } from "react";
 // GSAP
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-// Register GSAP plugins
-gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const Product = () => {
   const [limit, setLimit] = useState(8);

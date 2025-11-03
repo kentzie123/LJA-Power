@@ -1,11 +1,16 @@
 // Components
-import Hero from "./components/Hero";
-import Navbar from "./components/Navbar";
-import About from "./components/About";
-import Product from "./components/Product";
-import Services from "./components/Services";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import Navbar from "./components/layout/Navbar";
+
+// Common
+import ScrollToTop from "./components/common/ScrollToTop";
+
+// For routing
+import { Routes, Route } from "react-router-dom";
+
+// Pages
+import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 // GSAP
 import { ScrollTrigger, SplitText } from "gsap/all";
@@ -16,12 +21,12 @@ function App() {
   return (
     <main>
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Product />
-      <Contact />
-      <Footer />
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:slug" element={<ProductDetailPage />} />
+      </Routes>
     </main>
   );
 }

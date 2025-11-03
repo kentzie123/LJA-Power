@@ -1,0 +1,7 @@
+#product-page-hero {
+  background-image: url("/images/ProductPageHeroImg.webp");
+  /* background-attachment: fixed; */
+  background-position: bottom ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,6 +1,13 @@
+// Style
+import "../../assets/css/pages/HomePage.css";
+
+// GSAP
 import { SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+
+// Routing
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   useGSAP(() => {
@@ -34,7 +41,7 @@ const Hero = () => {
         "-=0.8"
       )
       .from(
-        ".hero-contact-btn",
+        ".hero-btns",
         {
           opacity: 0,
           duration: 1,
@@ -43,32 +50,12 @@ const Hero = () => {
         },
         "-=0.8"
       );
-
-    // Parallax effect for background image
-    gsap.to(".parallax-bg", {
-      yPercent: 90,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
   });
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-dvh flex-center text-center md:text-left overflow-hidden"
-    >
-      <img
-        src="/images/hero1.webp"
-        className="absolute inset-0 w-full h-full object-cover parallax-bg"
-        alt="Diesel generator power station in the Philippines"
-      />
-      <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80"></div>
-      <div className="relative z-10 container mx-auto px-6 text-white space-y-6">
+    <section id="hero" className="relative min-h-dvh pt-30">
+      <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80" />
+      <div className="container mx-auto px-6 text-white space-y-6">
         <div className="uppercase text-[var(--accent-yellow)] font-semibold tracking-wide">
           <h2 className="will-appear uppercase">
             Powering Progress, Comfort, and Connection ⚡️
@@ -87,9 +74,18 @@ const Hero = () => {
           forward.
         </p>
 
-        <button className="hero-contact-btn btn btn-warning text-white">
-          CONTACT US
-        </button>
+        <div className="hero-btns flex gap-4">
+          <Link className="btn-yellow !px-7" to="products">
+            View our products
+          </Link>
+
+          <Link
+            className="btn-backdrop font-semibold px-7 py-3 rounded-md text-sm"
+            to="contacts"
+          >
+            Contact Us
+          </Link>
+        </div>
       </div>
     </section>
   );
