@@ -53,6 +53,38 @@ const ProductDetailPage = () => {
     );
   }
 
+  // ✅ Dynamic JSON-LD structured data
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.name,
+    image: product.images,
+    description:
+      product.description || "High-performance generator by LJA Power.",
+    sku: product.slug,
+    brand: {
+      "@type": "Brand",
+      name: "LJA Power",
+    },
+    category: product.category,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "56",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://ljapower-revised.netlify.app/products/${product.slug}`,
+      priceCurrency: "PHP",
+      price: product.price || "0",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: "LJA Power Limited Co.",
+      },
+    },
+  };
+
   return (
     <>
       <Helmet>
@@ -66,7 +98,7 @@ const ProductDetailPage = () => {
         {/* 🔹 Canonical URL */}
         <link
           rel="canonical"
-          href={`https://lja-power.com/products/${product.slug}`}
+          href={`https://ljapower-revised.netlify.app/products/${product.slug}`}
         />
 
         {/* 🔹 Open Graph (Facebook, LinkedIn) */}
@@ -79,14 +111,10 @@ const ProductDetailPage = () => {
           property="og:description"
           content={`Explore ${product.name} — ${product.description}`}
         />
-        {/* Use first image as default OG image */}
-        <meta
-          property="og:image"
-          content={`https://lja-power.com${product.images[0]}`}
-        />
+        <meta property="og:image" content={product.images[0]} />
         <meta
           property="og:url"
-          content={`https://lja-power.com/products/${product.slug}`}
+          content={`https://ljapower-revised.netlify.app/products/${product.slug}`}
         />
         <meta property="og:site_name" content="LJA Power Limited Co." />
 
@@ -102,55 +130,21 @@ const ProductDetailPage = () => {
             product.description || "High-performance generator by LJA Power."
           }
         />
-        <meta
-          name="twitter:image"
-          content={`https://lja-power.com${product.images[0]}`}
-        />
+        <meta name="twitter:image" content={product.images[0]} />
 
-        {/* 🔹 Preload Hero Image for faster LCP */}
+        {/* 🔹 Preload Hero Image */}
         <link
           rel="preload"
           as="image"
-          href={`https://lja-power.com${product.images[0]}`}
+          href={product.images[0]}
           fetchpriority="high"
         />
 
-        {/* 🔹 Structured Data (JSON-LD Rich Snippets) */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org/",
-            "@type": "Product",
-            name: product.name,
-            image: product.images.map((img) => `https://lja-power.com${img}`),
-            description:
-              product.description ||
-              "High-performance power generator by LJA Power.",
-            sku: product.slug,
-            brand: {
-              "@type": "Brand",
-              name: "LJA Power",
-            },
-            category: product.category,
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.8",
-              reviewCount: "56",
-            },
-            offers: {
-              "@type": "Offer",
-              url: `https://lja-power.com/products/${product.slug}`,
-              priceCurrency: "PHP",
-              price: product.price || "0",
-              availability: "https://schema.org/InStock",
-              seller: {
-                "@type": "Organization",
-                name: "LJA Power Limited Co.",
-              },
-            },
-          })}
-        </script>
+        {/* 🔹 Structured Data (Rich Snippets) */}
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
+      {/* ✅ Your existing layout stays unchanged */}
       <div className="min-h-screen bg-[#0c2430] pt-[60px]">
         {/* Navigation */}
         <nav className="bg-[#0f4b5a] shadow-lg">

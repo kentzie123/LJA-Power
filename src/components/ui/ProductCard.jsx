@@ -1,5 +1,5 @@
 // Icons
-import { Zap, ShieldCheck, Fuel, Gauge, Settings, Battery } from "lucide-react";
+import { Zap, ShieldCheck, Fuel, Gauge } from "lucide-react";
 
 const ProductCard = ({ product }) => {
   return (
@@ -23,9 +23,9 @@ const ProductCard = ({ product }) => {
 
       <div className="card-content p-4 flex flex-col flex-1 justify-between">
         <div>
-          <h4 className="text-lg font-bold text-[#f5ec19] mb-2">
+          <div className="text-lg font-bold text-[#f5ec19] mb-2">
             {product.name}
-          </h4>
+          </div>
 
           {/* Power Specifications */}
           <div className="mb-4">
@@ -86,7 +86,7 @@ const ProductCard = ({ product }) => {
               // Navigate to product detail page
               window.location.href = `/products/${product.slug}`;
             }}
-            className="w-full bg-[var(--bg-dark)] text-black hover:bg-[#1a6d8a] hover:text-white py-2 px-4 rounded-lg transition-colors font-medium border"
+            className="w-full bg-[var(--panel-blue)] text-white hover:bg-[var(--accent-yellow)] hover:text-black py-2 px-4 rounded-lg transition-colors font-medium border"
           >
             View Details
           </button>
