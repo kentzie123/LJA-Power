@@ -1,7 +1,6 @@
 const navItems = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Services", href: "/services" },
   { name: "Products", href: "/products" },
   { name: "Projects & Testimonies", href: "/project-and-testimonies" },
   { name: "Contact Us", href: "/contacts" },
@@ -1601,4 +1600,71 @@ const generators = [
   },
 ];
 
-export { navItems, generators };
+const testimonies = [
+  {
+    rating: 5,
+    description:
+      "LJA Power Limited Co. delivered exceptional service from consultation to installation. Our facility has been running smoothly with zero downtime.",
+    by: "Sarah Johnson",
+    company: "Manufacturing Solutions Inc.",
+  },
+  {
+    rating: 5,
+    description:
+      "LJA Power Limited Co. delivered exceptional service from consultation to installation. Our facility has been running smoothly with zero downtime.",
+    by: "Sarah Johnson",
+    company: "Manufacturing Solutions Inc.",
+  },
+  {
+    rating: 5,
+    description:
+      "LJA Power Limited Co. delivered exceptional service from consultation to installation. Our facility has been running smoothly with zero downtime.",
+    by: "Sarah Johnson",
+    company: "Manufacturing Solutions Inc.",
+  },
+];
+
+const contacts = [
+  {
+    office: "Cagayan de Oro Branch",
+    address:
+      "Warehouse 3, Syhongyao Sons Corp, Barra-Opol St Bulua Highway, Barra, Opol, Misamis Oriental",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4243.953832176309!2d124.59842037533245!3d8.504019291537835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32fff3ec7fc7cbcd%3A0x4ea994f10f34c24c!2sLJA%20Power%20Limited%20Co-%20Misamis%20Oriental!5e1!3m2!1sen!2sph!4v1762825411433!5m2!1sen!2sph",
+    direction:
+      "https://www.google.com/maps/dir/?api=1&destination=LJA+Power+Limited+Co-+Misamis+Oriental",
+    schedules: [
+      "Monday - Friday: 8:00 AM - 6:00 PM",
+      "Saturday: 9:00 AM - 2:00 PM",
+      "Sunday: Closed",
+    ],
+    number: "0915-749-5102",
+  },
+  {
+    office: "Bukidnon Branch",
+    address: "Sayre Highway, Brgy Kalasungay, Malaybalay City, Bukidnon",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4247.5880842667075!2d125.10756707532906!3d8.169339591861618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ffabdd354dfaa7%3A0xb8c531a78ad28473!2sLJA%20Power%20Limited%20Co-%20Bukidnon%20Branch!5e1!3m2!1sen!2sph!4v1762825701718!5m2!1sen!2sph",
+    direction:
+      "https://www.google.com/maps/dir/?api=1&destination=LJA+Power+Limited+Co-+Bukidnon+Branch",
+    schedules: [
+      "Monday - Friday: 8:00 AM - 6:00 PM",
+      "Saturday: 9:00 AM - 2:00 PM",
+      "Sunday: Closed",
+    ],
+    number: "0915-749-5102",
+  },
+  {
+    office: "Zamboanga Del Sur Branch",
+    address: "Zone 1 Brgy Tiguma, Pagadian City",
+    map: "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2125.515974544728!2d123.4537426816445!3d7.839111324937285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sph!4v1762868943148!5m2!1sen!2sph",
+    direction:
+      "https://www.google.com/maps/dir/?api=1&destination=7.8391455,123.4539118",
+    schedules: [
+      "Monday - Friday: 8:00 AM - 6:00 PM",
+      "Saturday: 9:00 AM - 2:00 PM",
+      "Sunday: Closed",
+    ],
+    number: "0915-749-5102",
+  },
+];
+
+export { navItems, generators, testimonies, contacts };

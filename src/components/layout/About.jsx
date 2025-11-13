@@ -1,4 +1,4 @@
-import "../assets/css/About.css";
+import "../../assets/css/About.css"
 
 import SplitText from "gsap/SplitText";
 import gsap from "gsap";

@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@layer components {
+  .quick-links {
+    li {
+      @apply hover:text-[var(--accent-yellow)] transition-colors;
+    }
+  }
+}

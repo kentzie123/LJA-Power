@@ -70,14 +70,6 @@ const ProductCard = ({ product }) => {
               </div>
             </li>
           </ul>
-
-          {/* Additional Info */}
-          <div className="mt-3 pt-3 border-t border-[#145d77]">
-            <div className="flex justify-between text-xs text-[#a9b6bd]">
-              <span>Weight: {product.weight}</span>
-              <span>Fuel: {product.fuelCapacity}</span>
-            </div>
-          </div>
         </div>
 
         <div className="mt-6">
@@ -86,7 +78,7 @@ const ProductCard = ({ product }) => {
               // Navigate to product detail page
               window.location.href = `/products/${product.slug}`;
             }}
-            className="w-full bg-[var(--panel-blue)] text-white hover:bg-[var(--accent-yellow)] hover:text-black py-2 px-4 rounded-lg transition-colors font-medium border"
+            className="w-full bg-[var(--panel-blue)] text-white hover:bg-[var(--accent-yellow)] hover:text-black py-2 px-4 rounded-lg transition-colors font-medium border cursor-pointer"
           >
             View Details
           </button>

@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+#contact-page-hero {
+  background-image: url("/images/ProductPageHeroImg.webp");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@layer components {
+  .contact-form {
+    label {
+      @apply text-[var(--white)] text-sm font-medium mb-1 block;
+    }
+
+    input,
+    textarea {
+      @apply w-full rounded-md border border-[var(--card-blue)] 
+             bg-[var(--bg-dark)] text-[var(--white)] placeholder-[var(--muted-gray)]
+             px-3 py-2 outline-none transition-all duration-200 text-sm;
+    }
+
+    input:focus,
+    textarea:focus {
+      @apply border-[var(--accent-yellow)] ring-1 ring-[var(--accent-yellow)];
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--muted-gray);
+    }
+
+    button {
+      @apply bg-[var(--accent-yellow)] text-[var(--bg-dark)] font-medium rounded-md 
+             px-4 py-2 mt-4 transition-all duration-200 hover:opacity-90;
+    }
+  }
+}

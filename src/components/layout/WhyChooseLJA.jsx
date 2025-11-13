@@ -5,27 +5,50 @@ import { Zap, ShieldCheck, Clock } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+// Hooks
+import { useRef } from "react";
+
+// UI
+import InfoCard from "../ui/InfoCard";
+
 // Data
-const ad = [
+const adData = [
   {
-    icon: <Zap className="w-8 h-8 text-[var(--bg-dark)]" />,
+    icon: <Zap className="w-8 h-8 text-[var(--accent-yellow)]" />,
     title: "Reliable Power",
     desc: "Industry-leading generators that deliver consistent power when you need it most, ensuring your operations never skip a beat.",
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-[var(--bg-dark)]" />,
+    icon: <ShieldCheck className="w-8 h-8 text-[var(--accent-yellow)]" />,
     title: "Quality Assurance",
     desc: "All our generators meet the highest industry standards with comprehensive warranties and quality certifications.",
   },
   {
-    icon: <Clock className="w-8 h-8 text-[var(--bg-dark)]" />,
+    icon: <Clock className="w-8 h-8 text-[var(--accent-yellow)]" />,
     title: "24/7 Support",
     desc: "Round-the-clock technical support and emergency service to keep your power systems running smoothly.",
   },
 ];
 
 const WhyChooseLJA = () => {
+  const adRef = useRef();
+
   useGSAP(() => {
+    const adCards = gsap.utils.toArray(adRef.current.children);
+
+    adCards.forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+        },
+        opacity: 0,
+        yPercent: 100,
+        ease: "power2.inOut",
+        delay: 0.2 * i,
+      });
+    });
+
     const whyChooseUsTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: "#whyChooseUs",
@@ -48,18 +71,13 @@ const WhyChooseLJA = () => {
           ease: "power2.inOut",
         },
         "-=0.2"
-      )
-      .fromTo(
-        ".wcu-card",
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, stagger: 0.2, ease: "power2.inOut" }, "-=0.2"
       );
   });
 
   return (
     <section
       id="whyChooseUs"
-      className="min-h-dvh bg-[var(--bg-dark)] py-30 lg:px-16 px-6"
+      className="bg-[var(--bg-dark)] py-30 lg:px-16 px-6"
     >
       <div className="container mx-auto">
         <div className="text-center mb-12">
@@ -72,24 +90,17 @@ const WhyChooseLJA = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-25">
-          {ad.map((item, index) => (
-            <div
+        <div
+          ref={adRef}
+          className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 mt-25"
+        >
+          {adData.map((item, index) => (
+            <InfoCard
               key={index}
-              className="wcu-card bg-[var(--card-blue)] rounded-2xl p-8 text-center shadow-lg hover:-translate-y-2 transition-transform duration-300"
-            >
-              <div className="flex justify-center mb-4">
-                <div className="bg-[var(--accent-yellow)] rounded-full p-4">
-                  {item.icon}
-                </div>
-              </div>
-              <h3 className="text-white text-xl font-semibold mb-3">
-                {item.title}
-              </h3>
-              <p className="text-[var(--muted-gray)] text-sm leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
+              icon={item.icon}
+              title={item.title}
+              desc={item.desc}
+            />
           ))}
         </div>
       </div>

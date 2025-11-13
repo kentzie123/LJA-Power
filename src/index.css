@@ -20,13 +20,12 @@ body {
   @apply flex justify-center items-center;
 }
 
-
 @theme {
   --bg-dark: #0c2430; /* deep navy / near-black background */
   --panel-blue: #145d77; /* teal-blue panels / footer */
   --card-blue: #0f4b5a; /* mid dark blue for cards / headers */
   --accent-yellow: #f5ec19; /* bright lemon yellow for CTAs and highlights */
-  --muted-gray: #a9b6bd; /* light gray for secondary text */
+  --muted-gray: #b8c7ce; /* light gray for secondary text */
   --white: #ffffff;
 }
 
@@ -39,11 +38,9 @@ body {
 }
 
 @utility btn-yellow {
-  @apply bg-[var(--accent-yellow)] text-black text-sm font-medium flex-center px-3 py-2 rounded-md;
+  @apply bg-[var(--accent-yellow)] text-black text-sm font-medium flex-center px-5 py-3 rounded-md;
 }
 
-@layer components {
-  main {
-    @apply overflow-hidden;
-  }
+@utility btn-blue {
+  @apply bg-[var(--panel-blue)] border flex-center rounded-md;
 }

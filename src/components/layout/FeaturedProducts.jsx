@@ -40,7 +40,6 @@ const FeaturedProducts = () => {
           y: 0,
           opacity: 1,
           delay: i * 0.2,
-          duration: 1,
           scrollTrigger: {
             trigger: card,
             start: "top 90%",
@@ -108,7 +107,7 @@ const FeaturedProducts = () => {
         <div className="mt-20 flex-center">
           <Link
             to="/products"
-            className="bg-[#145d77] border border-[var(--accent-yellow)]/60 hover:border-[#1a6d8a] px-6 py-3 rounded-lg hover:bg-[var(--accent-yellow)] hover:text-black transition-colors font-medium"
+            className="bg-[#145d77] border border-[var(--panel-blue)] hover:border-[#1a6d8a] px-6 py-3 rounded-lg hover:bg-[var(--accent-yellow)] hover:text-black transition-colors font-medium"
           >
             View all products
           </Link>

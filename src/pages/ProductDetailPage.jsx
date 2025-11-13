@@ -56,20 +56,20 @@ const ProductDetailPage = () => {
   return (
     <>
       <Helmet>
-        {/* 🔹 Meta Title & Description */}
+        {/* Meta Title & Description */}
         <title>{`${product.name} | LJA Power Limited Co.`}</title>
         <meta
           name="description"
           content={`Buy ${product.name} — a dependable ${product.category} generator featuring ${product.engine} engine and ${product.standbyPower} standby power. Ideal for commercial and industrial use.`}
         />
 
-        {/* 🔹 Canonical URL */}
+        {/* Canonical URL */}
         <link
           rel="canonical"
           href={`https://lja-power.com/products/${product.slug}`}
         />
 
-        {/* 🔹 Open Graph (Facebook, LinkedIn) */}
+        {/* Open Graph */}
         <meta property="og:type" content="product" />
         <meta
           property="og:title"
@@ -79,7 +79,6 @@ const ProductDetailPage = () => {
           property="og:description"
           content={`Explore ${product.name} — ${product.description}`}
         />
-        {/* Use first image as default OG image */}
         <meta
           property="og:image"
           content={`https://lja-power.com${product.images[0]}`}
@@ -89,8 +88,9 @@ const ProductDetailPage = () => {
           content={`https://lja-power.com/products/${product.slug}`}
         />
         <meta property="og:site_name" content="LJA Power Limited Co." />
+        <meta property="og:locale" content="en_PH" />
 
-        {/* 🔹 Twitter Card */}
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -107,7 +107,7 @@ const ProductDetailPage = () => {
           content={`https://lja-power.com${product.images[0]}`}
         />
 
-        {/* 🔹 Preload Hero Image for faster LCP */}
+        {/* Preload Hero Image for faster LCP */}
         <link
           rel="preload"
           as="image"
@@ -115,7 +115,7 @@ const ProductDetailPage = () => {
           fetchpriority="high"
         />
 
-        {/* 🔹 Structured Data (JSON-LD Rich Snippets) */}
+        {/* Structured Data (JSON-LD) */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org/",
@@ -124,7 +124,7 @@ const ProductDetailPage = () => {
             image: product.images.map((img) => `https://lja-power.com${img}`),
             description:
               product.description ||
-              "High-performance power generator by LJA Power.",
+              "High-performance power generator by LJA Power Limited Co.",
             sku: product.slug,
             brand: {
               "@type": "Brand",
@@ -257,7 +257,9 @@ const ProductDetailPage = () => {
 
               {/* Key Features */}
               <div className="bg-[#0f4b5a] rounded-lg border border-[#145d77] p-6 mb-6">
-                <h3 className="font-semibold text-white mb-4">Key Features</h3>
+                <div className="font-semibold text-white mb-4">
+                  Key Features
+                </div>
                 <ul className="space-y-3">
                   {product.features.slice(0, 3).map((feature, index) => (
                     <li key={index} className="flex items-center gap-3">
@@ -270,9 +272,9 @@ const ProductDetailPage = () => {
 
               {/* Operation Conditions */}
               <div className="bg-[#0f4b5a] rounded-lg border border-[#145d77] p-4 mb-6">
-                <h3 className="font-semibold text-white mb-3">
+                <div className="font-semibold text-white mb-3">
                   Operation Conditions
-                </h3>
+                </div>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div className="flex items-center gap-2">
                     <Mountain className="w-4 h-4 text-[#f5ec19]" />
@@ -301,11 +303,11 @@ const ProductDetailPage = () => {
                   Request Quote
                 </button>
                 <div className="grid grid-cols-2 gap-4">
-                  <button className="flex items-center justify-center bg-[#145d77] text-[#a9b6bd] border border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
+                  <button className="flex items-center justify-center bg-[#145d77] border text-white border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
                     <Phone className="h-5 w-5 mr-2" />
                     Call Now
                   </button>
-                  <button className="flex items-center justify-center bg-[#145d77] text-[#a9b6bd] border border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
+                  <button className="flex items-center justify-center bg-[#145d77] text-white border border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
                     <Mail className="h-5 w-5 mr-2" />
                     Email Us
                   </button>

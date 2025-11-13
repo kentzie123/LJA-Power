@@ -4,6 +4,10 @@ import { Helmet } from "react-helmet";
 import FeaturedProducts from "../components/layout/FeaturedProducts";
 import Hero from "../components/layout/Hero";
 import WhyChooseLJA from "../components/layout/WhyChooseLJA";
+import About from "../components/layout/About";
+import ServicesHomePage from "../components/layout/ServicesHomePage";
+import TestimoniesHomePage from "../components/layout/TestimoniesHomePage";
+import BottomContentHomePage from "../components/layout/BottomContentHomePage";
 
 const HomePage = () => {
   return (
@@ -84,8 +88,12 @@ const HomePage = () => {
       </Helmet>
 
       <Hero />
+      <About />
       <WhyChooseLJA />
       <FeaturedProducts />
+      <ServicesHomePage />
+      <TestimoniesHomePage />
+      <BottomContentHomePage />
     </div>
   );
 };
