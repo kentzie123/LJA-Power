@@ -1,9 +1,12 @@
 // Icons
-import { Zap, ShieldCheck, Fuel, Gauge } from "lucide-react";
+import { Zap, ShieldCheck, Fuel, Gauge, Settings, Battery } from "lucide-react";
+
+// Routing
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="product-card group overflow-hidden flex flex-col h-full bg-[#0f4b5a] rounded-lg border border-[var(--panel-blue)] hover:border-[var(--accent-yellow)]/60 hover:shadow-[5px_3px_10px_0_var(--accent-yellow)]/20 hover:translate-y-[-5px] hover:translate-x-[-3px] transition-all  duration-300">
+    <div className="product-card group overflow-hidden flex flex-col h-full bg-[#0f4b5a] rounded-lg border border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[5px_3px_10px_0_var(--accent-yellow)]/20 hover:translate-y-[-5px] hover:translate-x-[-3px] transition-all  duration-300">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           className="group-hover:scale-110 transition-transform duration-500 w-full h-full object-cover"
@@ -23,9 +26,9 @@ const ProductCard = ({ product }) => {
 
       <div className="card-content p-4 flex flex-col flex-1 justify-between">
         <div>
-          <div className="text-lg font-bold text-[#f5ec19] mb-2">
+          <h4 className="text-lg font-bold text-[#f5ec19] mb-2">
             {product.name}
-          </div>
+          </h4>
 
           {/* Power Specifications */}
           <div className="mb-4">
@@ -70,18 +73,28 @@ const ProductCard = ({ product }) => {
               </div>
             </li>
           </ul>
+
+          {/* Additional Info */}
+          <div className="mt-3 pt-3 border-t border-[#145d77]">
+            <div className="flex justify-between text-xs text-[#a9b6bd]">
+              <div>
+                <span className="font-medium text-white me-1">Weight:</span>
+                {product.weight}
+              </div>
+              <div>
+                <span className="font-medium text-white me-1">Fuel:</span>
+                {product.fuelCapacity}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-6">
-          <button
-            onClick={() => {
-              // Navigate to product detail page
-              window.location.href = `/products/${product.slug}`;
-            }}
-            className="w-full bg-[var(--panel-blue)] text-white hover:bg-[var(--accent-yellow)] hover:text-black py-2 px-4 rounded-lg transition-colors font-medium border cursor-pointer"
-          >
-            View Details
-          </button>
+          <Link to={`/products/${product.slug}`}>
+            <button className="w-full bg-[var(--accent-yellow)]/90 text-black hover:bg-[#1a6d8a] hover:text-white py-2 px-4 rounded-lg transition-colors font-medium border cursor-pointer">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

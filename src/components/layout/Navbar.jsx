@@ -1,21 +1,38 @@
-// Data
-import { navItems } from "../../../constants";
-
-// Routing
+import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
-// Hamburger bar component
 import { Twirl as Hamburger } from "hamburger-react";
-
-// Hooks
-import { useState } from "react";
+import { navItems } from "../../../constants";
 
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
+  const mobileNavRef = useRef(null);
+  const hamburgerRef = useRef(null); // ref for hamburger menu
+
+  // Close navbar if click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside both mobile nav AND hamburger button
+      if (
+        mobileNavRef.current &&
+        !mobileNavRef.current.contains(event.target) &&
+        hamburgerRef.current &&
+        !hamburgerRef.current.contains(event.target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       {/* Mobile Navigation */}
       <div
+        ref={mobileNavRef}
         className={`block md:hidden fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-[-130%] opacity-0"
         }`}
@@ -38,18 +55,23 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <NavLink className="cursor-pointer btn-yellow" to="/contacts">
+          <NavLink
+            className="cursor-pointer btn-yellow"
+            to="/contacts"
+            onClick={() => setOpen(false)}
+          >
             Get a Quote
           </NavLink>
         </ul>
       </div>
 
+      {/* Header */}
       <header className="fixed top-0 left-0 w-full z-50">
         <nav className="flex items-center justify-between px-4 py-3 bg-backdrop text-white">
           <NavLink to="/" className="flex items-center gap-2">
             <img
               className="rounded-full size-8 lg:size-9"
-              src="/images/lja-logo.webp"
+              src="/images/favicon-96x96.png"
               alt="LJA Power Limited Co. company logo"
             />
             <h2 className="lg:text-xl font-[600]">LJA Power Limited Co.</h2>
@@ -78,7 +100,7 @@ const Navbar = () => {
               ))}
             </ul>
 
-            <div className="md:hidden block">
+            <div className="md:hidden block" ref={hamburgerRef}>
               <Hamburger toggled={isOpen} toggle={setOpen} />
             </div>
           </div>

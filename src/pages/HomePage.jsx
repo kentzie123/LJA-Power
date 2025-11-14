@@ -66,22 +66,10 @@ const HomePage = () => {
             "url": "https://lja-power.com/",
             "logo": "https://lja-power.com/images/lja-logo.png",
             "description": "LJA Power Limited Co. provides reliable diesel generators and energy solutions across the Philippines.",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Sayre Hwy, Malaybalay City",
-              "addressLocality": "Malaybalay City",
-              "addressRegion": "Bukidnon",
-              "addressCountry": "PH"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+63 915 749 5102",
-              "contactType": "Customer Service",
-              "areaServed": "PH"
-            },
             "sameAs": [
               "https://www.facebook.com/profile.php?id=61572436091637",
-              "https://maps.app.goo.gl/uTQVY2m7NyvnGoiA6"
+              "https://www.facebook.com/marc88fyi",
+              "https://www.facebook.com/profile.php?id=61576825362962",
             ]
           }
         `}</script>

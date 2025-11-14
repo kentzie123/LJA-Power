@@ -53,7 +53,7 @@ const Hero = () => {
   });
 
   return (
-    <section id="hero" className="relative min-h-dvh pt-30">
+    <section id="hero" className="relative md:min-h-dvh pt-30 pb-10 md:pb-0">
       <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80" />
       <div className="container mx-auto px-6 text-white space-y-6">
         <div className="uppercase text-[var(--accent-yellow)] font-semibold tracking-wide">
@@ -74,7 +74,7 @@ const Hero = () => {
           forward.
         </p>
 
-        <div className="hero-btns flex gap-4">
+        <div className="hero-btns flex flex-wrap gap-4">
           <Link className="btn-yellow !px-7" to="products">
             View our products
           </Link>

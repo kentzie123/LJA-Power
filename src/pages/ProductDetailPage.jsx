@@ -307,13 +307,19 @@ const ProductDetailPage = () => {
 
               {/* Action Buttons */}
               <div className="space-y-4">
-                <Link className="w-full btn-yellow">Request Quote</Link>
+                <Link to="/contacts" className="w-full btn-yellow">Request Quote</Link>
                 <div className="grid grid-cols-2 gap-4 text-white">
-                  <Link className="flex items-center justify-center btn-blue">
+                  <Link
+                    to="tel:09157495102"
+                    className="flex items-center justify-center btn-blue"
+                  >
                     <Phone className="h-5 w-5 mr-2" />
                     Call Now
                   </Link>
-                  <Link className="flex items-center justify-center btn-blue">
+                  <Link
+                    to="mail:lja.ljapowerlimitedco@gmail.com"
+                    className="flex items-center justify-center btn-blue"
+                  >
                     <Mail className="h-5 w-5 mr-2" />
                     Email Us
                   </Link>

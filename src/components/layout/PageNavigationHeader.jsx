@@ -38,7 +38,7 @@ const PageNavigationHeader = ({
           ease: "power2.inOut",
           duration: 1,
         },
-        "-=0.5"
+        "-=0.7"
       )
       .from(
         routeRef.current,
@@ -48,7 +48,7 @@ const PageNavigationHeader = ({
           duration: 1,
           ease: "back.inOut",
         },
-        "-=0.5"
+        "-=0.7"
       );
   }, [id]);
 

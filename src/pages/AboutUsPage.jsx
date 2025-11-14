@@ -179,7 +179,7 @@ const AboutUsPage = () => {
               alt="image floating right"
             />
             <img
-              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-60 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
+              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-45 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
 "
               src="/images/abt3.webp"
               alt="image floating left"
