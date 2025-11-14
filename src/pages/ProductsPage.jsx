@@ -200,7 +200,7 @@ const ProductsPage = () => {
         </script>
       </Helmet>
 
-      <div className="min-h-screen bg-[#0c2430] pt-15">
+      <div className="min-h-screen bg-[#0c2430]">
         <PageNavigationHeader
           h1="Our"
           h1Yellow="Products"
@@ -274,7 +274,7 @@ const ProductsPage = () => {
 
           {/* Products Grid */}
           {sortedGenerators.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6">
               {sortedGenerators.slice(0, limit).map((generator) => (
                 <ProductCard key={generator.slug} product={generator} />
               ))}
@@ -309,8 +309,8 @@ const ProductsPage = () => {
             </div>
           )}
 
-          <div className="bg-[var(--card-blue)] flex-center flex-col gap-6 py-12 mx-6 my-12 rounded-md">
-            <div className="text-2xl font-bold text-white">
+          <div className="bg-[var(--card-blue)] flex-center flex-col gap-6 py-12 p-4 mx-2 md:mx-6 my-12 rounded-md">
+            <div className="text-2xl font-bold text-white text-center">
               Not Sure Which Generator You Need?
             </div>
             <p className="text-center text-[var(--muted-gray)] text-balance">

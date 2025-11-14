@@ -97,7 +97,7 @@ const FeaturedProducts = () => {
 
         <div
           ref={featuredProductsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7 items-stretch px-4 md:px-16 lg:px-0"
         >
           {featuredProducts.map((featuredProduct) => (
             <ProductCard key={featuredProduct.slug} product={featuredProduct} />

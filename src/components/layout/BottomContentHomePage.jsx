@@ -45,7 +45,7 @@ const BottomContentHomePage = () => {
       id="btm-hp"
       className="bg-[var(--accent-yellow)] text-[var(--bg-dark)]"
     >
-      <div className="mx-auto container flex-center flex-col py-22 space-y-4">
+      <div className="mx-auto container flex-center flex-col py-22 px-6 space-y-4  text-center md:text-left">
         <div className="btm-hp-header text-3xl font-bold">
           Ready to Power Your Business?
         </div>

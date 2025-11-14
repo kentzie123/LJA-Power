@@ -12,8 +12,8 @@ body {
 html,
 body {
   width: 100%;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* scroll-behavior: smooth;
+  overflow-x: hidden; */
 }
 
 @utility flex-center {
@@ -42,5 +42,5 @@ body {
 }
 
 @utility btn-blue {
-  @apply bg-[var(--panel-blue)] border flex-center rounded-md;
+  @apply bg-[var(--panel-blue)] border flex-center rounded-md px-5 py-3;
 }

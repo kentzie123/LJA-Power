@@ -1,5 +1,5 @@
 // Icons
-import { Zap, ShieldCheck, Clock } from "lucide-react";
+import { HardHat, Settings, Wrench } from "lucide-react";
 
 // GSAP
 import gsap from "gsap";
@@ -14,19 +14,19 @@ import InfoCard from "../ui/InfoCard";
 // Data
 const adData = [
   {
-    icon: <Zap className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    title: "Reliable Power",
-    desc: "Industry-leading generators that deliver consistent power when you need it most, ensuring your operations never skip a beat.",
+    icon: <HardHat className="w-8 h-8 text-[var(--accent-yellow)]" />,
+    title: "Expertise and Experience",
+    desc: "Top-quality generator installation with extensive industry experience and reliability.",
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    title: "Quality Assurance",
-    desc: "All our generators meet the highest industry standards with comprehensive warranties and quality certifications.",
+    icon: <Settings className="w-8 h-8 text-[var(--accent-yellow)]" />,
+    title: "Customized Solutions",
+    desc: "Tailored generator installations for efficiency, performance, and cost-effectiveness.",
   },
   {
-    icon: <Clock className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    title: "24/7 Support",
-    desc: "Round-the-clock technical support and emergency service to keep your power systems running smoothly.",
+    icon: <Wrench className="w-8 h-8 text-[var(--accent-yellow)]" />,
+    title: "Comprehensive Service",
+    desc: "Complete service from consultation to commissioning, with professionalism and meticulous attention to detail.",
   },
 ];
 

@@ -4,9 +4,6 @@ import { navItems } from "../../../constants";
 // Routing
 import { NavLink } from "react-router-dom";
 
-// Lucide Icons
-import { Menu } from "lucide-react";
-
 // Hamburger bar component
 import { Twirl as Hamburger } from "hamburger-react";
 
@@ -19,7 +16,7 @@ const Navbar = () => {
     <>
       {/* Mobile Navigation */}
       <div
-        className={`block md:hidden fixed top-[72px] left-0 bg-[var(--bg-dark)] w-full transition-all duration-500 ease-in-out z-40 ${
+        className={`block md:hidden fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-[-130%] opacity-0"
         }`}
       >
@@ -28,7 +25,7 @@ const Navbar = () => {
             <li className="relative group" key={link.href}>
               <NavLink
                 to={link.href}
-                onClick={()=> setOpen(false)}
+                onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `relative text-md transition-all duration-300 transform after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:bg-[var(--accent-yellow)] after:transition-all after:duration-300 ${
                     isActive
@@ -41,8 +38,8 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <NavLink to="/contacts">
-            <button className="btn-yellow">Get a Quote</button>
+          <NavLink className="cursor-pointer btn-yellow" to="/contacts">
+            Get a Quote
           </NavLink>
         </ul>
       </div>
@@ -86,8 +83,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <NavLink to="/contacts" className="lg:block hidden">
-            <button className="btn-yellow">Get a Quote</button>
+          <NavLink to="/contacts" className="lg:block hidden btn-yellow">
+            Get a Quote
           </NavLink>
         </nav>
       </header>

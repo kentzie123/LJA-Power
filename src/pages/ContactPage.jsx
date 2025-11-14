@@ -95,7 +95,7 @@ const ContactPage = () => {
 
       {/* Main Content */}
       <div className="mx-auto container text-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-30 p-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-30 p-6 lg:p-12">
           {/* Contact Form */}
           <div>
             <ContactForm />

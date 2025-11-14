@@ -43,10 +43,7 @@ const Footer = () => {
 
           <ul className="quick-links text-[var(--muted-gray)] text-sm space-y-2 mt-4">
             <li>
-              <Link to="/about">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">Abous Us</Link>
+              <Link to="/about">About Us</Link>
             </li>
             <li>
               <Link to="/products">Products</Link>
@@ -55,7 +52,10 @@ const Footer = () => {
               <Link to="/services">Services</Link>
             </li>
             <li>
-              <Link to="/project-and-testimonies">Projects & Testimonies</Link>
+              <Link to="/contacts">Contact Us</Link>
+            </li>
+            <li>
+              <Link to="/projects-and-testimonies">Projects & Testimonies</Link>
             </li>
           </ul>
         </div>

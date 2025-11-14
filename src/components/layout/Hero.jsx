@@ -68,7 +68,7 @@ const Hero = () => {
           Across the Philippines
         </h1>
 
-        <p className="will-appear-p">
+        <p className="will-appear-p text-sm lg:text-base">
           We don't just sell generators — we deliver peace of mind, <br />
           keeping your lights on, your business running, and your life moving
           forward.

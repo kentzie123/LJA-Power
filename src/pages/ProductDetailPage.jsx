@@ -1,14 +1,22 @@
+// Hooks
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+
+// Routing
+import { useParams, useNavigate, Link } from "react-router-dom";
+
+// SEO
 import { Helmet } from "react-helmet";
 
+// Components
 import SpecificationTab from "../components/layout/SpecificationTab";
 import FeaturesTab from "../components/layout/FeaturesTab";
 import ApplicationTab from "../components/layout/ApplicationTab";
 import CertificationsTab from "../components/layout/CertificationsTab";
 
+// Data
 import { generators } from "../../constants";
 
+// Icons
 import {
   ArrowLeft,
   Check,
@@ -299,18 +307,16 @@ const ProductDetailPage = () => {
 
               {/* Action Buttons */}
               <div className="space-y-4">
-                <button className="w-full bg-[#f5ec19] text-[#0c2430] py-3 px-6 rounded-lg hover:bg-[#e6dc17] transition-colors font-semibold text-lg">
-                  Request Quote
-                </button>
-                <div className="grid grid-cols-2 gap-4">
-                  <button className="flex items-center justify-center bg-[#145d77] border text-white border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
+                <Link className="w-full btn-yellow">Request Quote</Link>
+                <div className="grid grid-cols-2 gap-4 text-white">
+                  <Link className="flex items-center justify-center btn-blue">
                     <Phone className="h-5 w-5 mr-2" />
                     Call Now
-                  </button>
-                  <button className="flex items-center justify-center bg-[#145d77] text-white border border-[#1a6d8a] py-3 px-6 rounded-lg hover:bg-[#1a6d8a] hover:text-white transition-colors">
+                  </Link>
+                  <Link className="flex items-center justify-center btn-blue">
                     <Mail className="h-5 w-5 mr-2" />
                     Email Us
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

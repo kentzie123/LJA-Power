@@ -10,6 +10,10 @@ import "../assets/css/pages/AboutUsPage.css";
 // Icons
 import { Target, Eye, Award } from "lucide-react";
 
+// GSAP
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 const AboutUsPage = () => {
   const aboutUsData = [
     {
@@ -55,6 +59,20 @@ const AboutUsPage = () => {
       desc: "Trusted by businesses across the region for consistent performance, reliability, and excellence.",
     },
   ];
+
+  useGSAP(() => {
+    const mainHeaderTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".main-header",
+        start: "top center",
+        scrub: 2,
+      },
+    });
+
+    mainHeaderTimeline
+      .from(".abt-float-left", { y: 40, duration: 1 })
+      .from(".abt-float-right", { y: -40, duration: 1 }, "-=1");
+  });
 
   return (
     <div className="bg-[var(--bg-dark)] text-white">
@@ -122,7 +140,7 @@ const AboutUsPage = () => {
 
       <div className="mx-auto container p-6 lg:p-12 space-y-20">
         {/* Company Info */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <section className="main-header grid grid-cols-1 lg:grid-cols-2 gap-10 py-22">
           <div>
             <h2 className="text-4xl text-center lg:text-left font-bold mb-4">
               Our Company
@@ -148,11 +166,23 @@ const AboutUsPage = () => {
             </div>
           </div>
 
-          <div className="place-self-center">
+          <div className="place-self-center relative my-16 lg:my-0">
             <img
-              className="rounded-md"
-              src="/images/ProductPageHeroImg.webp"
+              className="rounded-md shadow-[0_25px_50px_-12px_var(--panel-blue)]"
+              src="/images/about-main-image.webp"
               alt="LJA Power Limited Co. Office"
+            />
+            <img
+              className="abt-float-right absolute top-[-80px] right-[-40px] md:top-[-100px] md:right-[-150px] lg:top-[-100px] lg:right-[-30px] object-contain h-40 md:h-60 lg:h-50 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
+"
+              src="/images/about-float-right.webp"
+              alt="image floating right"
+            />
+            <img
+              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-60 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
+"
+              src="/images/abt3.webp"
+              alt="image floating left"
             />
           </div>
         </section>
@@ -176,7 +206,7 @@ const AboutUsPage = () => {
           <h2 className="text-center text-4xl font-bold mb-10">
             Why Businesses Choose Us
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center md:text-left">
             {whyChooseUsData.map((item, i) => (
               <div key={i} className="p-4">
                 <h3 className="text-lg font-semibold mb-2">{item.title}</h3>

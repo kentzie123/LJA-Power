@@ -1,3 +1,5 @@
+import { useLayoutEffect } from "react";
+
 // For routing
 import { Routes, Route } from "react-router-dom";
 
@@ -14,30 +16,48 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ContactPage from "./pages/ContactPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import Page404 from "./pages/Page404";
 
 // Toast Container
 import { ToastContainer } from "react-toastify";
 
 // GSAP
-import { ScrollTrigger, SplitText } from "gsap/all";
+import { ScrollTrigger, SplitText, ScrollSmoother } from "gsap/all";
 import gsap from "gsap";
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
 
 function App() {
+  useLayoutEffect(() => {
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.2,
+      smoothTouch: 0.1,
+      effects: true,
+    });
+
+    return () => smoother.kill();
+  }, []);
+
   return (
-    <main>
-      <ToastContainer />
+    <div id="smooth-wrapper">
       <Navbar />
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:slug" element={<ProductDetailPage />} />
-        <Route path="/contacts" element={<ContactPage />} />
-        <Route path="/about" element={<AboutUsPage />} />
-      </Routes>
-      <Footer />
-    </main>
+      <main id="smooth-content">
+        <ToastContainer />
+        <ScrollToTop />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:slug" element={<ProductDetailPage />} />
+          <Route path="/contacts" element={<ContactPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+
+        <Footer />
+      </main>
+    </div>
   );
 }
 
