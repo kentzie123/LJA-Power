@@ -64,7 +64,7 @@ const ProjectDetailsPage = () => {
 
       <div className="section-container">
         <section>
-          <div className="py-16 grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className=" grid grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-[var(--card-blue)] flex-center flex-col py-8 rounded-xl gap-2">
               <MapPin className="text-[var(--accent-yellow)] size-8" />
               <div className="text-sm text-[var(--muted-gray)]">Location</div>
@@ -96,7 +96,7 @@ const ProjectDetailsPage = () => {
           </div>
         </section>
 
-        <div className="h-[1px] bg-gray-700"></div>
+        <div className="h-[1px] bg-gray-700 my-10"></div>
 
         <section className="py-22 space-y-32">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

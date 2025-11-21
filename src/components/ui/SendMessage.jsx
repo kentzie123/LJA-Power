@@ -17,6 +17,7 @@ import EmojiPicker from "emoji-picker-react";
 const SendMessage = () => {
   const { sendMessage, isSendingMessage } = useChatStore();
   const selectFileRef = useRef();
+  const textareaRef = useRef();
   const emojiPickerRef = useRef();
   const [message, setMessage] = useState({
     text: "",
@@ -25,7 +26,7 @@ const SendMessage = () => {
   const [uploading, setUploading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  // Close emoji picker when clicking outside
+  // Close emoji picker when clicking outside and handle scroll
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -36,11 +37,37 @@ const SendMessage = () => {
       }
     };
 
+    // Prevent page scroll when scrolling inside emoji picker
+    const handleWheel = (e) => {
+      if (showEmojiPicker && emojiPickerRef.current?.contains(e.target)) {
+        e.stopPropagation();
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("wheel", handleWheel, { passive: false });
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [showEmojiPicker]);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      const newHeight = Math.min(textareaRef.current.scrollHeight, 120); // Max 120px
+      textareaRef.current.style.height = `${newHeight}px`;
+
+      // Show scroll only when at max height
+      if (textareaRef.current.scrollHeight > 120) {
+        textareaRef.current.style.overflowY = "auto";
+      } else {
+        textareaRef.current.style.overflowY = "hidden";
+      }
+    }
+  }, [message.text]);
 
   const getFileIcon = (file) => {
     if (file.type.includes("word")) {
@@ -152,10 +179,10 @@ const SendMessage = () => {
   };
 
   const handleSendMessage = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
 
     if (
-      (!message.text && selectedFiles.length === 0) ||
+      (!message.text.trim() && selectedFiles.length === 0) ||
       uploading ||
       isSendingMessage
     ) {
@@ -197,7 +224,7 @@ const SendMessage = () => {
 
       // Prepare message with file data (server will handle upload)
       const messageToSend = {
-        text: message.text,
+        text: message.text, // Keep the newlines intact
         attachments: fileAttachments, // Array of files as base64
       };
 
@@ -214,6 +241,12 @@ const SendMessage = () => {
       });
       setMessage({ text: "" });
       setSelectedFiles([]);
+
+      // Reset textarea height
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.overflowY = "hidden";
+      }
     } catch (error) {
       console.error("Error sending message:", error);
       toast.error("Failed to send message");
@@ -237,14 +270,25 @@ const SendMessage = () => {
       ...prev,
       text: prev.text + emojiData.emoji,
     }));
+    // Focus back to textarea after emoji selection
+    textareaRef.current?.focus();
   };
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker((prev) => !prev);
   };
 
+  const handleKeyDown = (e) => {
+    // Enter sends message, Shift+Enter creates new line
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+    // Shift+Enter will naturally create a new line in textarea
+  };
+
   const isSendDisabled =
-    (!message.text && selectedFiles.length === 0) ||
+    (!message.text.trim() && selectedFiles.length === 0) ||
     uploading ||
     isSendingMessage;
 
@@ -336,11 +380,12 @@ const SendMessage = () => {
       )}
 
       <div className="relative">
-        {/* Emoji Picker */}
+        {/* Emoji Picker - FIXED: Added scroll prevention */}
         {showEmojiPicker && (
           <div
             ref={emojiPickerRef}
-            className="absolute bottom-full right-0 mb-2 z-10 hidden md:block"
+            className="absolute bottom-full right-0 mb-2 z-10 hidden md:block overflow-hidden"
+            onWheel={(e) => e.stopPropagation()} // Prevent wheel event propagation
           >
             <EmojiPicker
               onEmojiClick={handleEmojiSelect}
@@ -356,15 +401,18 @@ const SendMessage = () => {
           </div>
         )}
 
-        <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+        <form onSubmit={handleSendMessage} className="flex items-start gap-2">
           <div className="relative flex-grow">
-            <input
+            <textarea
+              ref={textareaRef}
               value={message.text}
-              type="text"
               placeholder="Send a message..."
               disabled={uploading}
-              className="w-full px-4 py-2 rounded-lg bg-[var(--card-blue)] border border-[var(--panel-blue)] text-white placeholder-[var(--muted-gray)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent transition-all duration-200 disabled:opacity-50"
+              onKeyDown={handleKeyDown}
               onChange={(e) => setMessage({ ...message, text: e.target.value })}
+              rows={1}
+              className="w-full px-4 py-2 rounded-lg bg-[var(--card-blue)] border border-[var(--panel-blue)] text-white placeholder-[var(--muted-gray)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent transition-all duration-200 disabled:opacity-50 resize-none min-h-[40px] scrollbar-thin scrollbar-thumb-[var(--panel-blue)] scrollbar-track-[var(--card-blue)]"
+              style={{ overflowY: "hidden" }}
             />
           </div>
 
@@ -383,7 +431,7 @@ const SendMessage = () => {
             type="button"
             onClick={toggleEmojiPicker}
             disabled={uploading}
-            className="p-2 rounded-full bg-[var(--card-blue)] hover:bg-[var(--accent-yellow)] hover:text-[var(--bg-dark)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] border border-[var(--panel-blue)] disabled:opacity-50 disabled:hover:bg-[var(--card-blue)] disabled:hover:text-[var(--muted-gray)] hidden md:flex"
+            className="p-2 rounded-full bg-[var(--card-blue)] hover:bg-[var(--accent-yellow)] hover:text-[var(--bg-dark)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] border border-[var(--panel-blue)] disabled:opacity-50 disabled:hover:bg-[var(--card-blue)] disabled:hover:text-[var(--muted-gray)] hidden md:flex mt-1"
             title="Add emoji"
           >
             <Smile className="size-5 text-[var(--muted-gray)] hover:text-[var(--bg-dark)] transition-colors" />
@@ -393,7 +441,7 @@ const SendMessage = () => {
             onClick={() => selectFileRef.current?.click()}
             type="button"
             disabled={uploading}
-            className="p-2 rounded-full bg-[var(--card-blue)] hover:bg-[var(--accent-yellow)] hover:text-[var(--bg-dark)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] border border-[var(--panel-blue)] disabled:opacity-50 disabled:hover:bg-[var(--card-blue)] disabled:hover:text-[var(--muted-gray)]"
+            className="p-2 rounded-full bg-[var(--card-blue)] hover:bg-[var(--accent-yellow)] hover:text-[var(--bg-dark)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--accent-yellow)] border border-[var(--panel-blue)] disabled:opacity-50 disabled:hover:bg-[var(--card-blue)] disabled:hover:text-[var(--muted-gray)] mt-1"
             title="Attach files"
           >
             <Paperclip className="size-5 text-[var(--muted-gray)] hover:text-[var(--bg-dark)] transition-colors" />
@@ -402,7 +450,7 @@ const SendMessage = () => {
           <button
             disabled={isSendDisabled}
             type="submit"
-            className="p-2 rounded-full bg-[var(--accent-yellow)] text-[var(--bg-dark)] hover:bg-yellow-300 disabled:bg-[var(--card-blue)] disabled:text-[var(--muted-gray)] disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white shadow-lg hover:shadow-xl"
+            className="p-2 rounded-full bg-[var(--accent-yellow)] text-[var(--bg-dark)] hover:bg-yellow-300 disabled:bg-[var(--card-blue)] disabled:text-[var(--muted-gray)] disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white shadow-lg hover:shadow-xl mt-1"
             title="Send message"
           >
             {uploading || isSendingMessage ? (

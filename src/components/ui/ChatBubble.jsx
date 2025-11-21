@@ -110,11 +110,11 @@ const ChatBubble = ({ message, isMine }) => {
           <div
             className={`${
               message.attachments
-                ? "mt-2 p-3 bg-[var(--card-blue)] rounded-lg"
+                ? "mt-2 p-3 bg-base-300 rounded-lg"
                 : ""
             }`}
           >
-            <p className="break-words text-black">{message.text}</p>
+            <p className="break-words whitespace-pre-wrap text-black">{message.text}</p>
           </div>
         )}
       </div>

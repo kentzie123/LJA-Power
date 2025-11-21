@@ -32,7 +32,7 @@ const ChatFloatingButton = () => {
       {!openChat && (
         <button
           onClick={openChatBox}
-          className="animate-bouncing fixed flex-center bottom-12 right-12 z-100 bg-[var(--panel-blue)] text-white gap-3 rounded-full border border-[var(--accent-yellow)]/50 cursor-pointer px-4 py-2 md:px-8 md:py-4"
+          className="animate-bouncing fixed flex-center bottom-32 right-6 md:bottom-12 md:right-12 z-100 bg-[var(--panel-blue)] text-white gap-3 rounded-full border border-[var(--accent-yellow)]/50 cursor-pointer px-4 py-2 md:px-8 md:py-4"
         >
           <MessageCircle className="size-5 md:size-6" />
           <div className="font-bold text-lg md:text-xl">Chat Us!</div>
