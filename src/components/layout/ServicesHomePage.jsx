@@ -62,6 +62,7 @@ const ServicesHomePage = () => {
         <div className="flex items-center">
           <div className="overflow-hidden aspect-square rounded-xl">
             <img
+              className="service-hp-img"
               src="/images/abt4.webp"
               alt="Technician Checking the Generator"
             />

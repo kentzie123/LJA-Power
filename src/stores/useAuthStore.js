@@ -35,19 +35,29 @@ export const useAuthStore = create((set, get) => ({
       set({ socket });
     });
 
-
     // New Messages Listener
     useChatStore.getState().handleNewMessageListener(socket);
-
   },
 
-  fetchClientLocalData: () => {
-    const clientId = localStorage.getItem("clientId");
+  fetchClientLocalData: async () => {
+    try {
+      const clientId = localStorage.getItem("clientId");
 
-    if (clientId) {
-      set({ clientId });
+      if (!clientId) return false;
+      console.log(`Have CientId: ${clientId}`);
+
+      const fetchedUser = await api.get(`/auth/check-user-exist/${clientId}`); // Check if local storage client exist in db
+      const fetchedUserData = fetchedUser.data.data;
+      console.log(fetchedUserData);
+
+      if (!fetchedUserData) return false;
+      console.log(`Found in DB: ${fetchedUserData}`);
+      set({ clientId: fetchedUserData.id});
       const { fetchMessages } = useChatStore.getState();
-      fetchMessages(clientId);
+      fetchMessages(fetchedUserData.id);
+      return true;
+    } catch (error) {
+      console.log(error);
     }
   },
 

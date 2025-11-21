@@ -60,8 +60,6 @@ export const useChatStore = create((set, get) => ({
   },
 
   sendMessage: async (message) => {
-    console.log(message);
-    
     const { clientId } = useAuthStore.getState();
     try {
       set({ isSendingMessage: true });

@@ -11,21 +11,16 @@ import ChatContainer from "./ChatContainer";
 import { useAuthStore } from "../../stores/useAuthStore";
 
 const ChatFloatingButton = () => {
-  const {
-    connectSocket,
-    fetchClientLocalData,
-    clientId,
-    createClientAccount
-  } = useAuthStore();
+  const { connectSocket, fetchClientLocalData, clientId, createClientAccount } =
+    useAuthStore();
 
   const [openChat, setOpenChat] = useState(false);
 
-  useEffect(() => {
-    fetchClientLocalData();
-  }, []);
-
-  const openChatBox = () => {
-    if (!clientId) {
+  const openChatBox = async () => {
+    const isClientHaveData = await fetchClientLocalData();
+    
+    if (!isClientHaveData) {
+      console.log(`No clientId: ${clientId}`);
       createClientAccount();
     }
     setOpenChat(true);
