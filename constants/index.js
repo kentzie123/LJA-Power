@@ -3,7 +3,7 @@ const navItems = [
   { name: "About Us", href: "/about" },
   { name: "Products", href: "/products" },
   { name: "Services", href: "/services" },
-  { name: "Projects & Testimonies", href: "/project-and-testimonies" },
+  { name: "Projects & Testimonies", href: "/projects-and-testimonies" },
   { name: "Contact Us", href: "/contacts" },
 ];
 
@@ -99,7 +99,7 @@ const generators = [
     ],
     standbyPower: "25 kVA / 20 kW",
     primePower: "22 kVA / 18 kW",
-    engine: "FAN/DE 4DW91-38D",
+    engine: "FAWDE 4DW91-38D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -178,7 +178,7 @@ const generators = [
     ],
     standbyPower: "35 kVA / 28 kW",
     primePower: "31 kVA / 25 kW",
-    engine: "FAN/DE 4DW92-42D",
+    engine: "FAWDE 4DW92-42D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -257,7 +257,7 @@ const generators = [
     ],
     standbyPower: "50 kVA / 40 kW",
     primePower: "45 kVA / 36 kW",
-    engine: "FAN/DE 4DX21-61D",
+    engine: "FAWDE 4DX21-61D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -336,7 +336,7 @@ const generators = [
     ],
     standbyPower: "60 kVA / 48 kW",
     primePower: "54 kVA / 53 kW",
-    engine: "FAN/DE 40X22-75D",
+    engine: "FAWDE 40X22-75D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -415,7 +415,7 @@ const generators = [
     ],
     standbyPower: "75 kVA / 60 kW",
     primePower: "69 kVA / 55 kW",
-    engine: "FAN/DE 4DX23-90D",
+    engine: "FAWDE 4DX23-90D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -494,7 +494,7 @@ const generators = [
     ],
     standbyPower: "100 kVA / 80 kW",
     primePower: "90 kVA / 72 kW",
-    engine: "FAN/DE 6A4DF2-14D",
+    engine: "FAWDE 6A4DF2-14D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -573,7 +573,7 @@ const generators = [
     ],
     standbyPower: "125 kVA / 100 kW",
     primePower: "112 kVA / 90 kW",
-    engine: "FAN/DE CABDF2D-16D",
+    engine: "FAWDE CABDF2D-16D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -652,7 +652,7 @@ const generators = [
     ],
     standbyPower: "150 kVA / 120 kW",
     primePower: "135 kVA / 108 kW",
-    engine: "FAN/DE CABDF2D-21D",
+    engine: "FAWDE CABDF2D-21D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -731,7 +731,7 @@ const generators = [
     ],
     standbyPower: "175 kVA / 140 kW",
     primePower: "160 kVA / 128 kW",
-    engine: "FAN/DE CABDF2D-21D",
+    engine: "FAWDE CABDF2D-21D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -810,7 +810,7 @@ const generators = [
     ],
     standbyPower: "200 kVA / 165 kW",
     primePower: "188 kVA / 150 kW",
-    engine: "FAN/DE CABD-L-27D",
+    engine: "FAWDE CABD-L-27D",
     speed: "1800 rpm",
     frequency: "60 Hz",
     fuelType: "Diesel",
@@ -1601,6 +1601,133 @@ const generators = [
   },
 ];
 
+const projects = [
+  {
+    slug: "hospital-backup-power-system",
+    title: "Hospital Backup Power System",
+    client: "Regional Medical Center",
+    location: "Downtown District",
+    capacity: "1,500 kW",
+    image:
+      "https://images.pexels.com/photos/4667439/pexels-photo-4667439.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    description:
+      "Complete backup power solution ensuring uninterrupted operations during power outages with dual redundancy.",
+    details: {
+      duration: "6 months",
+      completedDate: "March 2024",
+      challenges:
+        "Installing critical infrastructure while maintaining hospital operations",
+      solution:
+        "Phased installation with redundant systems to ensure zero downtime during construction",
+      outcome:
+        "100% uptime since installation with seamless automatic failover tested monthly",
+    },
+  },
+  {
+    slug: "manufacturing-facility-power",
+    title: "Manufacturing Facility Power",
+    client: "Manufacturing Solutions Inc.",
+    location: "Industrial Park",
+    capacity: "2,000 kW",
+    image:
+      "https://cdn.pixabay.com/photo/2017/12/18/18/43/generator-3029389_1280.jpg",
+    description:
+      "Prime power installation supporting continuous 24/7 manufacturing operations with load management system.",
+    details: {
+      duration: "8 months",
+      completedDate: "January 2024",
+      challenges:
+        "Supporting continuous operations with precise power quality requirements",
+      solution:
+        "Custom load management system with advanced voltage regulation and harmonic filtering",
+      outcome:
+        "Zero production interruptions with 15% energy cost reduction through load optimization",
+    },
+  },
+  {
+    slug: "data-center-infrastructure",
+    title: "Data Center Infrastructure",
+    client: "Tech Industries Corp.",
+    location: "Technology District",
+    capacity: "3,000 kW",
+    image:
+      "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    description:
+      "Mission-critical power system with N+1 redundancy and automated failover capabilities.",
+    details: {
+      duration: "10 months",
+      completedDate: "November 2023",
+      challenges:
+        "Meeting Tier III data center uptime requirements with multiple redundancy levels",
+      solution:
+        "N+1 generator configuration with automatic transfer switches and UPS integration",
+      outcome:
+        "99.982% uptime achieved, exceeding Tier III certification requirements",
+    },
+  },
+  {
+    slug: "commercial-complex-backup",
+    title: "Commercial Complex Backup",
+    client: "Metro Shopping Center",
+    location: "City Center",
+    capacity: "800 kW",
+    image:
+      "https://cdn.pixabay.com/photo/2016/11/29/03/53/power-1868762_1280.jpg",
+    description:
+      "Emergency backup power for high-traffic commercial facility with integrated building management.",
+    details: {
+      duration: "4 months",
+      completedDate: "September 2023",
+      challenges: "Limited space in urban environment with noise restrictions",
+      solution:
+        "Compact rooftop installation with advanced sound attenuation and vibration isolation",
+      outcome:
+        "Maintains full operations during outages while meeting strict city noise ordinances",
+    },
+  },
+  {
+    slug: "university-campus-power",
+    title: "University Campus Power",
+    client: "State University",
+    location: "University District",
+    capacity: "1,200 kW",
+    image:
+      "https://images.pexels.com/photos/373541/pexels-photo-373541.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    description:
+      "Distributed power generation system serving multiple campus buildings with central monitoring.",
+    details: {
+      duration: "12 months",
+      completedDate: "June 2023",
+      challenges:
+        "Coordinating installation across active campus during academic year",
+      solution:
+        "Distributed generator placement with centralized monitoring and control system",
+      outcome:
+        "Uninterrupted campus operations with integrated smart grid capabilities",
+    },
+  },
+  {
+    slug: "water-treatment-facility",
+    title: "Water Treatment Facility",
+    client: "Municipal Water Authority",
+    location: "Waterfront",
+    capacity: "1,800 kW",
+    image:
+      "https://cdn.pixabay.com/photo/2018/07/24/20/34/energy-3558035_1280.jpg",
+    description:
+      "Critical infrastructure power backup ensuring continuous water treatment and distribution.",
+    details: {
+      duration: "7 months",
+      completedDate: "April 2023",
+      challenges: "Ensuring continuous water supply to 500,000+ residents",
+      solution:
+        "Dual generator system with automatic load sharing and priority load management",
+      outcome:
+        "Zero service interruptions with automated testing and maintenance schedules",
+    },
+  },
+];
+
 const testimonies = [
   {
     rating: 5,
@@ -1668,4 +1795,4 @@ const contacts = [
   },
 ];
 
-export { navItems, generators, testimonies, contacts };
+export { navItems, generators, testimonies, contacts, projects };

@@ -14,29 +14,31 @@ const HomePage = () => {
     <div>
       <Helmet>
         <title>
-          LJA Power Limited Co. | Reliable Diesel Generators & Energy Solutions
+          LJA Power Limited Co. | Diesel Generators, ATS Installation &
+          Maintenance Philippines
         </title>
 
         <meta
           name="description"
-          content="LJA Power Limited Co. provides reliable diesel generators and energy solutions across the Philippines. Powering homes, businesses, and industries nationwide."
+          content="LJA Power Limited Co. provides diesel generators, preventive maintenance, ATS installation, troubleshooting, and complete power solutions across the Philippines."
         />
+
         <meta
           name="keywords"
-          content="diesel generators, power solutions, energy systems, generator supplier Philippines, LJA Power, power equipment, generator maintenance"
+          content="diesel generators Philippines, generator supplier Cebu, generator maintenance, ATS installation, genset services, generator troubleshooting, LJA Power"
         />
-        <meta name="author" content="LJA Power Limited Co." />
+
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://lja-power.com/" />
 
-        {/* ✅ Open Graph (for social sharing) */}
+        {/* Social SEO */}
         <meta
           property="og:title"
-          content="LJA Power Limited Co. | Reliable Diesel Generators & Energy Solutions"
+          content="LJA Power Limited Co. | Power Solutions Philippines"
         />
         <meta
           property="og:description"
-          content="Reliable Diesel Generators & Energy Solutions Across the Philippines."
+          content="Reliable diesel generators and complete power services."
         />
         <meta
           property="og:image"
@@ -45,34 +47,54 @@ const HomePage = () => {
         <meta property="og:url" content="https://lja-power.com/" />
         <meta property="og:type" content="website" />
 
-        {/* ✅ Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="LJA Power Limited Co." />
-        <meta
-          name="twitter:description"
-          content="Reliable Diesel Generators & Energy Solutions Across the Philippines."
-        />
-        <meta
-          name="twitter:image"
-          content="https://lja-power.com/images/lja-logo.png"
-        />
 
-        {/* ✅ Structured Data */}
         <script type="application/ld+json">{`
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "LJA Power Limited Co.",
-            "url": "https://lja-power.com/",
-            "logo": "https://lja-power.com/images/lja-logo.png",
-            "description": "LJA Power Limited Co. provides reliable diesel generators and energy solutions across the Philippines.",
-            "sameAs": [
-              "https://www.facebook.com/profile.php?id=61572436091637",
-              "https://www.facebook.com/marc88fyi",
-              "https://www.facebook.com/profile.php?id=61576825362962",
-            ]
-          }
-        `}</script>
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "LJA Power Limited Co.",
+        "url": "https://lja-power.com",
+        "logo": "https://lja-power.com/images/lja-logo.png",
+        "description": "Supplier of diesel generators and provider of complete power generation services across the Philippines.",
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61572436091637",
+          "https://www.facebook.com/marc88fyi",
+          "https://www.facebook.com/profile.php?id=61576825362962"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+63 915 689 2189",
+          "contactType": "customer service",
+          "areaServed": "PH"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "LJA Power Limited Co.",
+        "url": "https://lja-power.com"
+      },
+      {
+        "@type": "Service",
+        "name": "Generator Services",
+        "provider": {
+          "@type": "Organization",
+          "name": "LJA Power Limited Co."
+        },
+        "serviceType": [
+          "Preventive Maintenance",
+          "Automatic Transfer Switch (ATS) Installation",
+          "Troubleshooting & Diagnostics",
+          "Delivery & Installation",
+          "Controller Conversion"
+        ],
+        "areaServed": "Philippines"
+      }
+    ]
+  }
+  `}</script>
       </Helmet>
 
       <Hero />

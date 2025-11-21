@@ -53,16 +53,28 @@ const Hero = () => {
   });
 
   return (
-    <section id="hero" className="relative md:min-h-dvh pt-30 pb-10 md:pb-0">
+    <section
+      id="hero"
+      className="relative pt-30 pb-10 md:pb-30 overflow-hidden"
+    >
+      <video
+        className="absolute object-cover w-full h-full top-0 left-0"
+        src="/videos/mndesigns.mp4"
+        muted
+        autoPlay
+        playsInline
+        loop
+      ></video>
       <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80" />
-      <div className="container mx-auto px-6 text-white space-y-6">
+      {/* <div className="absolute inset-0 bg-[var(--bg-dark)]/80 bg-[linear-gradient(to_left,rgba(255,255,255,0.3),transparent_70%)]" /> */}
+      <div className="flex flex-col section-container text-white space-y-6">
         <div className="uppercase text-[var(--accent-yellow)] font-semibold tracking-wide">
           <h2 className="will-appear uppercase">
             Powering Progress, Comfort, and Connection ⚡️
           </h2>
         </div>
 
-        <h1 className="will-appear text-4xl md:text-6xl lg:text-8xl text-[#0d9dd1] font-bold">
+        <h1 className="will-appear text-4xl md:text-6xl lg:text-7xl text-[#0d9dd1] font-bold">
           Reliable <br />
           Diesel Generators <br />& Energy Solutions <br />
           Across the Philippines

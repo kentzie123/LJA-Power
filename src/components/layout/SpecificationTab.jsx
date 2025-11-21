@@ -17,6 +17,7 @@ const SpecificationTab = ({product}) => {
             { label: "Fuel Capacity", value: product.fuelCapacity },
             { label: "Dimensions", value: product.dimensions },
             { label: "Weight", value: product.weight },
+            { label: "Connection Mode", value: product.connectionMode}
           ].map((spec, index) => (
             <div
               key={index}

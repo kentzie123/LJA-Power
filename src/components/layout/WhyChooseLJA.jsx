@@ -77,9 +77,9 @@ const WhyChooseLJA = () => {
   return (
     <section
       id="whyChooseUs"
-      className="bg-[var(--bg-dark)] py-30 lg:px-16 px-6"
+      className="bg-[var(--bg-dark)] py-30"
     >
-      <div className="container mx-auto">
+      <div className="section-container">
         <div className="text-center mb-12">
           <h2 className="wcu-title text-5xl md:text-7xl font-bold text-[var(--accent-yellow)] mb-4">
             <span className="text-white">Why Choose</span> LJA Power

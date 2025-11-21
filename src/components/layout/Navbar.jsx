@@ -33,11 +33,11 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       <div
         ref={mobileNavRef}
-        className={`block md:hidden fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
+        className={`block lg:hidden  px-4 py-8 fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-[-130%] opacity-0"
         }`}
       >
-        <ul className="space-y-4 px-4 py-8">
+        <ul className="space-y-4">
           {navItems.map((link) => (
             <li className="relative group" key={link.href}>
               <NavLink
@@ -55,14 +55,14 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <NavLink
-            className="cursor-pointer btn-yellow"
-            to="/contacts"
-            onClick={() => setOpen(false)}
-          >
-            Get a Quote
-          </NavLink>
         </ul>
+        <NavLink
+          className="cursor-pointer btn-yellow mt-4 w-fit"
+          to="/contacts"
+          onClick={() => setOpen(false)}
+        >
+          Get a Quote
+        </NavLink>
       </div>
 
       {/* Header */}
@@ -100,9 +100,13 @@ const Navbar = () => {
               ))}
             </ul>
 
-            <div className="md:hidden block" ref={hamburgerRef}>
+            <button
+              ref={hamburgerRef}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              className="lg:hidden block"
+            >
               <Hamburger toggled={isOpen} toggle={setOpen} />
-            </div>
+            </button>
           </div>
 
           <NavLink to="/contacts" className="lg:block hidden btn-yellow">

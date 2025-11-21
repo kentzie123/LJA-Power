@@ -1,5 +1,5 @@
 // Hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Routing
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -38,10 +38,6 @@ const ProductDetailPage = () => {
   const { slug } = useParams();
 
   const product = generators.find((items) => items.slug === slug);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
 
   if (!product) {
     return (
@@ -307,7 +303,9 @@ const ProductDetailPage = () => {
 
               {/* Action Buttons */}
               <div className="space-y-4">
-                <Link to="/contacts" className="w-full btn-yellow">Request Quote</Link>
+                <Link to="/contacts" className="w-full btn-yellow">
+                  Request Quote
+                </Link>
                 <div className="grid grid-cols-2 gap-4 text-white">
                   <Link
                     to="tel:09157495102"

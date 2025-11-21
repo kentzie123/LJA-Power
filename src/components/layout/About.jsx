@@ -39,9 +39,9 @@ const About = () => {
   return (
     <section
       id="about"
-      className="min-h-dvh bg-[var(--bg-dark)] text-[var(--white) py-30 lg:px-16 px-6"
+      className="min-h-dvh bg-[var(--bg-dark)] text-[var(--white) py-30"
     >
-      <div className="container mx-auto">
+      <div className="section-container">
         <div className="grid grid-cols-1 md:grid-cols-12 mb-16">
           <div className="col-span-8">
             <div className="text-[var(--accent-yellow)] text-xl font-semibold uppercase tracking-wide">

@@ -5,6 +5,10 @@
   --warning: #f5ec19; /* change the warning color */
 }
 
+html {
+  scroll-behavior: auto !important;
+}
+
 body {
   font-family: "Inter", sans-serif;
 }
@@ -12,21 +16,60 @@ body {
 html,
 body {
   width: 100%;
-  /* scroll-behavior: smooth;
-  overflow-x: hidden; */
+  overflow-x: hidden;
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* smoother lift */
+  }
+}
+
+@keyframes floating-v2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25px); /* stronger float */
+  }
+}
+
+@keyframes bouncing-left-to-right {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-15px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@theme {
+  --bg-dark: #0a1f2a; /* slightly richer deep navy for background */
+  --panel-blue: #145d77; /* teal-blue panels / footer */
+  --card-blue: #0f4b5a; /* mid dark blue for cards / headers */
+  --accent-yellow: #f6e72a; /* a more vivid, softer lemon yellow for highlights */
+  --muted-gray: #c0c9d1; /* slightly warmer light gray for secondary text */
+  --white: #ffffff; /* keep pure white for contrast */
+
+  --animate-floating: floating 6s ease-in-out infinite;
+  --animate-floating-v2: floating-v2 8s ease-in-out infinite;
+  --animate-bouncing: bouncing-left-to-right 1.5s ease-in-out infinite;
+}
+
+@utility section-container {
+  @apply mx-auto container px-6 lg:px-0 xl:px-24;
 }
 
 @utility flex-center {
   @apply flex justify-center items-center;
-}
-
-@theme {
-  --bg-dark: #0c2430; /* deep navy / near-black background */
-  --panel-blue: #145d77; /* teal-blue panels / footer */
-  --card-blue: #0f4b5a; /* mid dark blue for cards / headers */
-  --accent-yellow: #f5ec19; /* bright lemon yellow for CTAs and highlights */
-  --muted-gray: #b8c7ce; /* light gray for secondary text */
-  --white: #ffffff;
 }
 
 @utility bg-backdrop {
@@ -38,9 +81,9 @@ body {
 }
 
 @utility btn-yellow {
-  @apply bg-[var(--accent-yellow)] text-black text-sm font-medium flex-center px-5 py-3 rounded-md;
+  @apply bg-[var(--accent-yellow)] text-black text-sm font-medium flex-center px-5 py-3 rounded-md hover:brightness-110;
 }
 
 @utility btn-blue {
-  @apply bg-[var(--panel-blue)] border flex-center rounded-md px-5 py-3;
+  @apply bg-[var(--panel-blue)] border flex-center rounded-md px-5 py-3 hover:brightness-110;
 }

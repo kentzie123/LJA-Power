@@ -1,12 +1,12 @@
 // Icons
-import { Zap, ShieldCheck, Fuel, Gauge, Settings, Battery } from "lucide-react";
+import { Zap, ShieldCheck, Fuel, Gauge } from "lucide-react";
 
 // Routing
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="product-card group overflow-hidden flex flex-col h-full bg-[#0f4b5a] rounded-lg border border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[5px_3px_10px_0_var(--accent-yellow)]/20 hover:translate-y-[-5px] hover:translate-x-[-3px] transition-all  duration-300">
+    <div className="product-card group overflow-hidden flex flex-col h-full bg-[#0f4b5a] rounded-lg border border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[5px_3px_10px_0_var(--accent-yellow)]/20 hover:translate-y-[-5px] hover:translate-x-[-3px] transition-all duration-300">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           className="group-hover:scale-110 transition-transform duration-500 w-full h-full object-cover"
@@ -26,9 +26,9 @@ const ProductCard = ({ product }) => {
 
       <div className="card-content p-4 flex flex-col flex-1 justify-between">
         <div>
-          <h4 className="text-lg font-bold text-[#f5ec19] mb-2">
+          <div className="text-lg font-bold text-[#f5ec19] mb-2">
             {product.name}
-          </h4>
+          </div>
 
           {/* Power Specifications */}
           <div className="mb-4">

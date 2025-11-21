@@ -58,15 +58,16 @@ const ServicesHomePage = () => {
   });
   return (
     <section id="service-hp" className="bg-[var(--bg-dark)] text-white">
-      <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-22 mx-auto container">
-        <div className="p-6 flex items-center">
-          <img
-            className="service-hp-img object-cover h-72 w-full rounded-md"
-            src="/images/abt4.webp"
-            alt="Technician checking the generator"
-          />
+      <div className="section-container grid grid-cols-1 gap-6 lg:grid-cols-2 py-22">
+        <div className="flex items-center">
+          <div className="overflow-hidden aspect-square rounded-xl">
+            <img
+              src="/images/abt4.webp"
+              alt="Technician Checking the Generator"
+            />
+          </div>
         </div>
-        <div className="space-y-6 p-6">
+        <div className="space-y-8">
           <div className="service-hp-header text-3xl font-bold">
             Complete Power Solutions
           </div>

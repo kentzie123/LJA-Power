@@ -64,14 +64,32 @@ const AboutUsPage = () => {
     const mainHeaderTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".main-header",
-        start: "top center",
+        start: "top 60%",
         scrub: 2,
       },
     });
 
     mainHeaderTimeline
-      .from(".abt-float-left", { y: 40, duration: 1 })
-      .from(".abt-float-right", { y: -40, duration: 1 }, "-=1");
+      .from(".abt-float-left", { y: 40, duration: 1, ease: "power1.inOut" })
+      .from(".abt-float-right", { y: -40, duration: 1, ease: "power1.inOut" }, "-=1")
+      .fromTo(
+        ".right-quote",
+        {
+          y: -20,
+          duration: 1, ease: "power1.inOut"
+        },
+        { y: 0, rotate: 5 },
+        "-=1"
+      )
+      .fromTo(
+        ".left-quote",
+        {
+          y: 50,
+          duration: 1, ease: "power1.inOut"
+        },
+        { y: 0, rotate: 5 },
+        "-=1"
+      );
   });
 
   return (
@@ -138,48 +156,61 @@ const AboutUsPage = () => {
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
       />
 
-      <div className="mx-auto container p-6 lg:p-12 space-y-20">
+      <div className="section-container p-6 lg:p-12 space-y-20">
         {/* Company Info */}
-        <section className="main-header grid grid-cols-1 lg:grid-cols-2 gap-10 py-22">
-          <div>
-            <h2 className="text-4xl text-center lg:text-left font-bold mb-4">
-              Our Company
-            </h2>
-            <div className="space-y-4 text-[var(--muted-gray)]">
-              <p>
-                LJA Power Limited Co. is a trusted provider of reliable and
-                efficient energy solutions for homes, businesses, and
-                industries. We are committed to delivering high-quality power
-                services with a focus on safety, innovation, and customer
-                satisfaction.
-              </p>
-              <p>
-                Our services include power generation equipment, installations,
-                maintenance, and energy consulting, all tailored to meet the
-                unique needs of each client.
-              </p>
-              <p>
-                Beyond our services, LJA Power Limited Co. values sustainability
-                and community development, implementing environmentally
-                responsible practices and supporting local communities.
-              </p>
+        <section className="main-header grid grid-cols-1 lg:grid-cols-2 gap-40 lg:gap-10 py-22">
+          <div className="relative">
+            <img
+              className="right-quote absolute size-30 md:size-auto top-[-80px] right-0 z-0 opacity-50"
+              src="/images/right-quote.png"
+              alt="right-quote"
+            />
+            <img
+              className="left-quote absolute size-30 md:size-auto bottom-[-110px] md:bottom-[-130px] lg:bottom-[-80px] xl:bottom-10 left-0 z-0 opacity-50"
+              src="/images/left-quote.png"
+              alt="right-quote"
+            />
+            <div className="relative">
+              <h2 className="text-6xl text-center lg:text-left font-bold mb-4">
+                Our <span className="text-[var(--accent-yellow)]">Company</span>
+              </h2>
+              <div className="space-y-4 text-[var(--muted-gray)]">
+                <p>
+                  LJA Power Limited Co. is a trusted provider of reliable and
+                  efficient energy solutions for homes, businesses, and
+                  industries. We are committed to delivering high-quality power
+                  services with a focus on safety, innovation, and customer
+                  satisfaction.
+                </p>
+                <p>
+                  Our services include power generation equipment,
+                  installations, maintenance, and energy consulting, all
+                  tailored to meet the unique needs of each client.
+                </p>
+                <p>
+                  Beyond our services, LJA Power Limited Co. values
+                  sustainability and community development, implementing
+                  environmentally responsible practices and supporting local
+                  communities.
+                </p>
+              </div>
             </div>
           </div>
 
           <div className="place-self-center relative my-16 lg:my-0">
             <img
-              className="rounded-md shadow-[0_25px_50px_-12px_var(--panel-blue)]"
+              className="relative rounded-md shadow-[0_25px_50px_-12px_var(--panel-blue)] z-10"
               src="/images/about-main-image.webp"
               alt="LJA Power Limited Co. Office"
             />
             <img
-              className="abt-float-right absolute top-[-80px] right-[-40px] md:top-[-100px] md:right-[-150px] lg:top-[-100px] lg:right-[-30px] object-contain h-40 md:h-60 lg:h-50 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
+              className="abt-float-right absolute top-[-80px] right-[-40px] md:top-[-100px] md:right-[-150px] lg:top-[-115px] lg:right-[-60px] object-contain h-45 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)] z-0
 "
               src="/images/about-float-right.webp"
               alt="image floating right"
             />
             <img
-              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-45 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)]
+              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-40 md:h-90 lg:h-70 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)] z-20
 "
               src="/images/abt3.webp"
               alt="image floating left"

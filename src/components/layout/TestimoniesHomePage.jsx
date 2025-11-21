@@ -56,7 +56,7 @@ const TestimoniesHomePage = () => {
 
   return (
     <section id="testimony-hp" className="bg-[var(--card-blue)] text-white">
-      <div className="mx-auto container px-4 py-22">
+      <div className="section-container py-22">
         <div className="text-center">
           <div className="test-hp-header text-3xl font-bold">
             What Our Clients Say
@@ -69,7 +69,7 @@ const TestimoniesHomePage = () => {
 
         <div
           ref={testimonyHpRef}
-          className="grid grid-col-1 lg:grid-cols-3 gap-5 lg:gap-10 mt-12"
+          className="grid grid-col-1 lg:grid-cols-3 gap-8 lg:gap-10 mt-12"
         >
           {testimonies.map((testimony, i) => (
             <TestimoniesCard key={i} testimony={testimony} />
