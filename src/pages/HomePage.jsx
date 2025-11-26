@@ -42,7 +42,7 @@ const HomePage = () => {
         />
         <meta
           property="og:image"
-          content="https://lja-power.com/images/lja-logo.png"
+          content="https://lja-power.com/images/abt1.webp"
         />
         <meta property="og:url" content="https://lja-power.com/" />
         <meta property="og:type" content="website" />

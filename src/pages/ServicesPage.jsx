@@ -230,10 +230,10 @@ const ServicesPage = () => {
           content="Full generator solutions including maintenance, diagnostics, ATS installation, controller upgrades, and delivery & installation services."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ljapower.com/services" />
+        <meta property="og:url" content="https://lja-power.com/services" />
         <meta property="og:image" content="/images/ServicesPageHeroImg.webp" />
 
-        <link rel="canonical" href="https://ljapower.com/services" />
+        <link rel="canonical" href="https://lja-power.com/services" />
 
         <script type="application/ld+json">
           {`
@@ -244,7 +244,7 @@ const ServicesPage = () => {
   "provider": {
     "@type": "Organization",
     "name": "LJA Power Limited Co.",
-    "url": "https://ljapower.com"
+    "url": "https://lja-power.com"
   },
   "description": "Complete generator service solutions including Preventive Maintenance, ATS Installation, Troubleshooting & Diagnostics, Delivery & Installation, and Controller Conversion.",
   "serviceType": [

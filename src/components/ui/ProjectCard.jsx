@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const ProjectCard = ({ project }) => {
   return (
     <Link
-      to={`/projects-and-testimonies/${project.slug}`}
+      to={`/projects/${project.slug}`}
       className="group flex flex-col cursor-pointer bg-[var(--card-blue)] rounded-xl overflow-hidden border border-[var(--card-blue)] hover:border-[var(--accent-yellow)] shadow-2xl"
     >
       <div className="relative aspect-[4/3] overflow-hidden">

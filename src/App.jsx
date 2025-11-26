@@ -22,6 +22,7 @@ import AboutUsPage from "./pages/AboutUsPage";
 import ServicesPage from "./pages/ServicesPage";
 import ProjectsAndTestimonies from "./pages/ProjectsAndTestimonies";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import BranchContactPage from "./pages/BranchContactPage";
 import Page404 from "./pages/Page404";
 
 // Toast
@@ -37,7 +38,6 @@ import gsap from "gsap";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 function App() {
-
   useEffect(() => {
     const lenis = new Lenis(
       {
@@ -79,14 +79,9 @@ function App() {
           <Route path="/contacts" element={<ContactPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route
-            path="/projects-and-testimonies"
-            element={<ProjectsAndTestimonies />}
-          />
-          <Route
-            path="/projects-and-testimonies/:slug"
-            element={<ProjectDetailsPage />}
-          />
+          <Route path="/projects" element={<ProjectsAndTestimonies />} />
+          <Route path="/projects/:slug" element={<ProjectDetailsPage />} />
+          <Route path="/branches/:branchSlug" element={<BranchContactPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
 

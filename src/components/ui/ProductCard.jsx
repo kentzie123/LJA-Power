@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
             <li className="flex items-center gap-2">
               <Gauge className="w-4 h-4 text-[#f5ec19] flex-shrink-0" />
               <div className="text-sm text-[#a9b6bd]">
-                {product.voltageOptions.split(",")[0]}...
+                {product.voltageOptions}
               </div>
             </li>
             <li className="flex items-center gap-2">

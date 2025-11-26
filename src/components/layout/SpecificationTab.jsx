@@ -1,5 +1,4 @@
-
-const SpecificationTab = ({product}) => {
+const SpecificationTab = ({ product }) => {
   return (
     <div className="space-y-8">
       {/* Generator Set Specifications */}
@@ -17,7 +16,10 @@ const SpecificationTab = ({product}) => {
             { label: "Fuel Capacity", value: product.fuelCapacity },
             { label: "Dimensions", value: product.dimensions },
             { label: "Weight", value: product.weight },
-            { label: "Connection Mode", value: product.connectionMode}
+            { label: "Connection Mode", value: product.connectionMode },
+            { label: "Voltage Options", value: product.voltageOptions },
+            { label: "Speed Control", value: product.speedControl },
+            { label: "Type", value: product.type },
           ].map((spec, index) => (
             <div
               key={index}

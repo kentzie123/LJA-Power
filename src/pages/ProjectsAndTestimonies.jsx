@@ -1,18 +1,39 @@
-// Component
 import PageNavigationHeader from "../components/layout/PageNavigationHeader";
-
-// UI
 import ProjectCard from "../components/ui/ProjectCard";
-
-// Data
 import { projects } from "../../constants";
-
-// Styling
 import "../assets/css/pages/ProjectAndTestimonies.css";
+import { Helmet } from "react-helmet";
 
 const ProjectsAndTestimonies = () => {
   return (
     <div className="bg-[var(--bg-dark)]">
+      <Helmet>
+        <title>Projects | LJA Power Limited Co</title>
+        <meta
+          name="description"
+          content="Explore LJA Power Limited Co’s completed generator installations, power solutions, and successful projects across hospitals, factories, commercial sites, data centers, and more."
+        />
+        <meta
+          name="keywords"
+          content="LJA Power projects, generator installations Philippines, power solutions, generator supplier, genset installation, LJA Power Limited Co, industrial generators, commercial generators"
+        />
+        <meta
+          property="og:title"
+          content="Project Portfolio | LJA Power Limited Co"
+        />
+        <meta
+          property="og:description"
+          content="Showcasing our successful generator installations and power projects across different industries."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://lja-power.com/projects" />
+        <meta
+          property="og:image"
+          content="https://lja-power.com/images/ServicesPageHeroImg.webp"
+        />
+        <link rel="canonical" href="https://lja-power.com/projects" />
+      </Helmet>
+
       <PageNavigationHeader
         h1="Our"
         h1Yellow="Project Portfolio"

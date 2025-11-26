@@ -17,6 +17,21 @@ const ChatContainer = ({ setOpenChat }) => {
   const { messages } = useChatStore();
   const { clientId } = useAuthStore();
 
+  const systemGeneratedMessage = {
+    created_at: new Date(),
+    text: `Hi! 👋  
+Thank you for contacting LJA Power Limited Co. Support.  
+To help us assist you efficiently, please provide the following details:
+
+Generator Questions Inquiry
+How many KVA?
+Silent Type or Open Type:
+Single Phase or Three Phase:
+Standby or Prime:
+How many Volts:
+How many Amperes is your main breaker:`,
+  };
+
   // Auto-scroll to bottom when messages update
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -78,26 +93,14 @@ const ChatContainer = ({ setOpenChat }) => {
         className="flex-1 bg-white overflow-y-auto scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent"
       >
         <div className="px-3 py-4 space-y-4 min-h-full">
-          {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center text-[var(--muted-gray)]">
-                <div className="text-lg font-semibold mb-2">
-                  Welcome to LJA Chat!
-                </div>
-                <div className="text-sm">
-                  Start a conversation by sending a message.
-                </div>
-              </div>
-            </div>
-          ) : (
-            messages.map((message) => (
-              <ChatBubble
-                key={message.id}
-                message={message}
-                isMine={clientId === message.sender_id}
-              />
-            ))
-          )}
+          <ChatBubble message={systemGeneratedMessage} isMine={false} />
+          {messages.map((message) => (
+            <ChatBubble
+              key={message.id}
+              message={message}
+              isMine={clientId === message.sender_id}
+            />
+          ))}
         </div>
       </div>
 

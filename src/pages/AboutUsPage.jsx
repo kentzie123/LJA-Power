@@ -71,12 +71,17 @@ const AboutUsPage = () => {
 
     mainHeaderTimeline
       .from(".abt-float-left", { y: 40, duration: 1, ease: "power1.inOut" })
-      .from(".abt-float-right", { y: -40, duration: 1, ease: "power1.inOut" }, "-=1")
+      .from(
+        ".abt-float-right",
+        { y: -40, duration: 1, ease: "power1.inOut" },
+        "-=1"
+      )
       .fromTo(
         ".right-quote",
         {
           y: -20,
-          duration: 1, ease: "power1.inOut"
+          duration: 1,
+          ease: "power1.inOut",
         },
         { y: 0, rotate: 5 },
         "-=1"
@@ -85,7 +90,8 @@ const AboutUsPage = () => {
         ".left-quote",
         {
           y: 50,
-          duration: 1, ease: "power1.inOut"
+          duration: 1,
+          ease: "power1.inOut",
         },
         { y: 0, rotate: 5 },
         "-=1"
@@ -217,19 +223,75 @@ const AboutUsPage = () => {
             />
           </div>
         </section>
-
-        {/* Mission, Vision, Values */}
-        <section className="grid md:grid-cols-3 grid-cols-1 gap-10">
-          {aboutUsData.map((abt, i) => (
-            <InfoCard
-              key={i}
-              icon={abt.icon}
-              title={abt.title}
-              desc={abt.desc}
-            />
-          ))}
-        </section>
       </div>
+
+      {/* Mission, Vision, Values */}
+      <section className="">
+        {/* First Row */}
+        <div className="grid grid-col-1 md:grid-cols-3 overflow-hidden">
+          <div className="bg-[var(--card-blue)] flex-center p-14">
+            <div className="space-y-6">
+              <div className="text-5xl">
+                <div className="">Our</div>
+                <div className="font-bold">Mission.</div>
+              </div>
+              <p className="text-lg">
+                Deliver reliable and innovative power solutions that empower
+                businesses and communities.
+              </p>
+            </div>
+          </div>
+          <div className="overflow-hidden">
+            <img
+              className="object-cover h-full w-full aspect-[5/6]"
+              src="/images/abt3.webp"
+              alt=""
+            />
+          </div>
+          <div className="bg-[var(--card-blue)] flex-center p-14">
+            <div className="space-y-6">
+              <div className="text-5xl">
+                <div className="">Our</div>
+                <div className="font-bold">Vision.</div>
+              </div>
+              <p className="text-lg">
+                Be the leading power solutions provider recognized for quality,
+                innovation, and customer satisfaction.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Second Row */}
+        <div className="grid grid-col-1 md:grid-cols-3">
+          <div className="overflow-hidden">
+            <img
+              className="object-cover h-full w-full aspect-[5/6]"
+              src="/images/abt4.webp"
+              alt=""
+            />
+          </div>
+          <div className="bg-[var(--accent-yellow)] text-black flex-center p-14">
+            <div className="space-y-6">
+              <div className="text-5xl">
+                <div className="">Our</div>
+                <div className="font-bold">Values.</div>
+              </div>
+              <p className="text-lg">
+                Integrity, Reliability, Innovation, Customer Focus,
+                Sustainability, Excellence.
+              </p>
+            </div>
+          </div>
+          <div className="overflow-hidden">
+            <img
+              className="object-cover h-full w-full aspect-[5/6]"
+              src="/images/about-float-right.webp"
+              alt=""
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Why Businesses Choose Us */}
       <section className="bg-[var(--card-blue)]">
@@ -237,9 +299,9 @@ const AboutUsPage = () => {
           <h2 className="text-center text-4xl font-bold mb-10">
             Why Businesses Choose Us
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-center md:text-left">
             {whyChooseUsData.map((item, i) => (
-              <div key={i} className="p-4">
+              <div key={i} className="px-4 border-l-2 border-[var(--accent-yellow)]">
                 <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                 <p className="text-[var(--muted-gray)]">{item.desc}</p>
               </div>

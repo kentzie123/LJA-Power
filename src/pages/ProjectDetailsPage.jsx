@@ -173,7 +173,7 @@ const ProjectDetailsPage = () => {
             <Link to="/contacts" className="btn-yellow">
               Get in Touch
             </Link>
-            <Link to="/projects-and-testimonies" className="btn-blue">
+            <Link to="/projects" className="btn-blue">
               View All Projects
             </Link>
           </div>
