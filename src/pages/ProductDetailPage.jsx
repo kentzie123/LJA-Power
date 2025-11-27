@@ -103,7 +103,8 @@ const ProductDetailPage = () => {
         <meta
           name="twitter:description"
           content={
-            product.description || "High-performance generator by LJA Power."
+            product.description ||
+            "High-performance generator by LJA Power Limited Co."
           }
         />
         <meta
@@ -129,28 +130,7 @@ const ProductDetailPage = () => {
             description:
               product.description ||
               "High-performance power generator by LJA Power Limited Co.",
-            sku: product.slug,
-            brand: {
-              "@type": "Brand",
-              name: "LJA Power",
-            },
             category: product.category,
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.8",
-              reviewCount: "56",
-            },
-            offers: {
-              "@type": "Offer",
-              url: `https://lja-power.com/products/${product.slug}`,
-              priceCurrency: "PHP",
-              price: product.price || "0",
-              availability: "https://schema.org/InStock",
-              seller: {
-                "@type": "Organization",
-                name: "LJA Power Limited Co.",
-              },
-            },
           })}
         </script>
       </Helmet>

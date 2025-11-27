@@ -276,28 +276,34 @@ const ProductsPage = () => {
   return (
     <>
       <Helmet>
-        {/* Page Title & Meta Description */}
+        {/* Page Title */}
         <title>
           {`Diesel Generators ${powerRange.min}-${powerRange.max}kVA | LJA Power Limited Co.`}
         </title>
+
+        {/* Meta Description */}
         <meta
           name="description"
-          content={`Browse ${totalGenerators} high-quality diesel generators (${powerRange.min}-${powerRange.max}kVA) from FAW & Cummins. Reliable power solutions for homes, businesses, and industries across the Philippines.`}
+          content={`Browse ${totalGenerators} high-quality diesel generators (${powerRange.min}-${powerRange.max}kVA) from FAW, Cummins, and Isuzu. Reliable backup power solutions for homes, businesses, and industries across the Philippines.`}
         />
-        <meta
-          name="keywords"
-          content={`diesel generators, FAW generators, Cummins generators, silent generators Philippines, backup power, commercial generators, industrial generators`}
-        />
+
+        {/* Canonical URL */}
         <link rel="canonical" href="https://lja-power.com/products" />
 
-        {/* Open Graph / Social Sharing */}
+        {/* Robots */}
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+
+        {/* Open Graph */}
         <meta
           property="og:title"
           content={`Diesel Generators ${powerRange.min}-${powerRange.max}kVA | LJA Power Limited Co.`}
         />
         <meta
           property="og:description"
-          content={`Explore ${totalGenerators} diesel generators from ${powerRange.min}-${powerRange.max}kVA. Silent and efficient power solutions for every need.`}
+          content={`Explore ${totalGenerators} diesel generators (${powerRange.min}-${powerRange.max}kVA). Silent and efficient power solutions for every need.`}
         />
         <meta
           property="og:image"
@@ -320,17 +326,11 @@ const ProductsPage = () => {
         />
         <meta
           name="twitter:description"
-          content={`Discover our range of silent diesel generators (${powerRange.min}-${powerRange.max}kVA). Perfect for residential, commercial, and industrial use.`}
+          content={`Discover our range of diesel generators (${powerRange.min}-${powerRange.max}kVA). Perfect for residential, commercial, and industrial use.`}
         />
         <meta
           name="twitter:image"
           content="https://lja-power.com/images/abt1.webp"
-        />
-
-        {/* Robots */}
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
 
         {/* Structured Data */}
@@ -338,10 +338,15 @@ const ProductsPage = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: "LJA Power Limited Co. Generator Products",
-            description:
-              "Explore LJA Power's complete line of diesel generators for commercial and industrial use.",
+            name: "LJA Power Limited Co. Diesel Generators",
+            description: `Explore ${totalGenerators} diesel generators from FAW, Cummins, and Isuzu (${powerRange.min}-${powerRange.max}kVA). Reliable backup power solutions in the Philippines.`,
             url: "https://lja-power.com/products",
+            mainEntity: categories.map((cat) => ({
+              "@type": "Product",
+              name: cat.name,
+              url: `https://lja-power.com/products/${cat.id}`,
+              description: `${cat.count} generators available under ${cat.name}.`,
+            })),
             isPartOf: {
               "@type": "WebSite",
               name: "LJA Power Limited Co.",

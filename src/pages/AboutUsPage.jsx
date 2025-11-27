@@ -146,10 +146,6 @@ const AboutUsPage = () => {
             ],
             description:
               "LJA Power Limited Co. is a trusted provider of reliable and efficient energy solutions for homes, businesses, and industries.",
-            mission:
-              "Deliver reliable and innovative power solutions that empower businesses and communities.",
-            vision:
-              "Be the leading power solutions provider recognized for quality, innovation, and customer satisfaction.",
           })}
         </script>
       </Helmet>
@@ -301,7 +297,10 @@ const AboutUsPage = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-center md:text-left">
             {whyChooseUsData.map((item, i) => (
-              <div key={i} className="px-4 border-l-2 border-[var(--accent-yellow)]">
+              <div
+                key={i}
+                className="px-4 border-l-2 border-[var(--accent-yellow)]"
+              >
                 <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                 <p className="text-[var(--muted-gray)]">{item.desc}</p>
               </div>

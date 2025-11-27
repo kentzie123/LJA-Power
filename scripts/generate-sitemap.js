@@ -42,6 +42,6 @@ ${urls
   .join("")}
 </urlset>`;
 
-// Save file to public folder
-fs.writeFileSync("./public/sitemap.xml", sitemap);
+// Save file to build (dist) folder
+fs.writeFileSync("./dist/sitemap.xml", sitemap);
 console.log("✅ Sitemap generated successfully!");
