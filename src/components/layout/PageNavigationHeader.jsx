@@ -54,8 +54,9 @@ const PageNavigationHeader = ({
 
   return (
     <>
+      {/* Yellow Shape Background */}
       <div
-        className="absolute top-0 left-0 h-[400px] w-full bg-[var(--accent-yellow)]/70 translate-y-1.5 z-0"
+        className="absolute top-0 left-0 h-[400px] w-full bg-[var(--accent-yellow)]/70 translate-y-1.5 z-0 pointer-events-none"
         style={{
           clipPath: "polygon(100% 60%, 50% 100%, 0 60%, 0 0, 100% 0)",
         }}
@@ -68,54 +69,61 @@ const PageNavigationHeader = ({
           clipPath: "polygon(100% 60%, 50% 100%, 0 60%, 0 0, 100% 0)",
         }}
       >
-        <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/80" />
+        <div className="absolute top-0 inset-0 bg-[var(--bg-dark)]/90" />
 
-        <div className="relative max-w-7xl mx-auto text-center space-y-4">
+        <div className="relative max-w-7xl mx-auto text-center space-y-6 px-4">
+          {/* Main Title: Industrial Typography */}
           <h1
             ref={titleRef}
-            className="text-4xl md:text-7xl font-bold text-[var(--accent-yellow)]"
+            className="font-heading text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-[var(--accent-yellow)]"
           >
             <span className="text-white">{h1}</span> {h1Yellow}
           </h1>
 
-          <p ref={pRef} className="max-w-2xl mx-auto text-[var(--muted-gray)] text-xs md:text-base">
+          <p
+            ref={pRef}
+            className="max-w-2xl mx-auto text-gray-300 text-sm md:text-lg font-light leading-relaxed"
+          >
             {p}
           </p>
 
-          <div ref={routeRef} className="text-white">
-            <ul className="flex-center gap-1 w-full max-w-md mx-auto text-sm md:text-base">
-              {breadcrumbs
-                .map((crumb, index) => (
-                  <li
-                    key={`crumb-${index}`}
-                    className={`flex items-center ${
-                      index === breadcrumbs.length - 1
-                        ? ""
-                        : "hover:link hover:text-[var(--accent-yellow)]"
-                    }`}
-                  >
-                    {index < breadcrumbs.length - 1 ? (
-                      <Link to={crumb.to}>{crumb.label}</Link>
+          {/* Breadcrumbs Navigation */}
+          <nav
+            aria-label="Breadcrumb"
+            ref={routeRef}
+            className="text-white pt-2"
+          >
+            <ul className="flex flex-wrap justify-center items-center gap-2 w-full max-w-md mx-auto text-xs md:text-sm font-medium tracking-wide uppercase">
+              {breadcrumbs.map((crumb, index) => {
+                const isLast = index === breadcrumbs.length - 1;
+
+                return (
+                  <li key={`crumb-${index}`} className="flex items-center">
+                    {/* Add Chevron before item (except the first one) */}
+                    {index > 0 && (
+                      <ChevronRight className="size-4 text-[var(--accent-yellow)] mx-2" />
+                    )}
+
+                    {isLast ? (
+                      <span
+                        className="text-[var(--accent-yellow)]"
+                        aria-current="page"
+                      >
+                        {crumb.label}
+                      </span>
                     ) : (
-                      <span>{crumb.label}</span>
+                      <Link
+                        to={crumb.to}
+                        className="hover:text-[var(--accent-yellow)] transition-colors border-b border-transparent hover:border-[var(--accent-yellow)]"
+                      >
+                        {crumb.label}
+                      </Link>
                     )}
                   </li>
-                ))
-                .flatMap((li, index) =>
-                  index < breadcrumbs.length - 1
-                    ? [
-                        li,
-                        <li
-                          key={`chevron-${index}`}
-                          className="flex items-center"
-                        >
-                          <ChevronRight className="text-[var(--accent-yellow)]" />
-                        </li>,
-                      ]
-                    : [li]
-                )}
+                );
+              })}
             </ul>
-          </div>
+          </nav>
         </div>
       </section>
     </>

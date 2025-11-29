@@ -1,11 +1,12 @@
-// Helmet
-import { Helmet } from "react-helmet";
+// SEO
+import SEO from "../components/layout/SEO";
 
 // Styling
 import "../assets/css/pages/ProductsPage.css";
 
 // Components
 import PageNavigationHeader from "../components/layout/PageNavigationHeader";
+import ProductFilters from "../components/ui/ProductFilters";
 
 // Routing
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 
 // Icons
-import { Search, ChevronRight, Filter, X } from "lucide-react";
+import { Search, Filter } from "lucide-react";
 
 // UI
 import ProductCard from "../components/ui/ProductCard";
@@ -28,6 +29,8 @@ const ProductsPage = () => {
   const [sortBy, setSortBy] = useState("name-asc");
   const [limit, setLimit] = useState(8);
   const [showFilters, setShowFilters] = useState(false);
+
+  // State for the advanced filters
   const [activeFilters, setActiveFilters] = useState({
     connectionMode: [],
     aspiration: [],
@@ -38,17 +41,8 @@ const ProductsPage = () => {
     powerRange: { min: "", max: "" },
   });
 
-  //---------------- FOR SEO ---------------------
+  // --- LOGIC: SEO Calculations ---
   const totalGenerators = generators.length;
-  const fawCount = generators.filter((g) => g.category === "faw-diesel").length;
-  const cumminsCount = generators.filter(
-    (g) => g.category === "cummins-diesel"
-  ).length;
-  const isuzuCount = generators.filter(
-    (g) => g.category === "isuzu-diesel"
-  ).length;
-
-  // Get power range
   const powerRange = generators.reduce(
     (range, generator) => {
       const power = parseInt(
@@ -61,9 +55,8 @@ const ProductsPage = () => {
     },
     { min: Infinity, max: -Infinity }
   );
-  //--------------------------------------------------
 
-  // Get unique values for filters
+  // --- LOGIC: Calculate Unique Filter Options ---
   const filterOptions = useMemo(() => {
     const connectionModes = [
       ...new Set(generators.map((g) => g.connectionMode)),
@@ -87,15 +80,14 @@ const ProductsPage = () => {
       ...new Set(generators.map((g) => g.startingVoltage).filter(Boolean)),
     ];
 
-    // Extract control systems from features
     const controlSystems = [];
     generators.forEach((g) => {
       if (g.features) {
         if (g.features.some((f) => f.includes("SMARTGEN")))
           controlSystems.push("SMARTGEN");
-        if (g.features.some((f) => f.includes("DEEP SEA ELECTRONICS")))
+        if (g.features.some((f) => f.includes("DEEP SEA")))
           controlSystems.push("DEEP SEA ELECTRONICS");
-        if (g.features.some((f) => f.includes("Woodward easYgen")))
+        if (g.features.some((f) => f.includes("Woodward")))
           controlSystems.push("Woodward easYgen");
       }
     });
@@ -108,13 +100,25 @@ const ProductsPage = () => {
       alternatorTechs: [...new Set(alternatorTechs)],
       voltages: [...new Set(voltages)],
     };
-  }, [generators]);
+  }, []);
 
   const categories = [
     { id: "all", name: "All Generators", count: totalGenerators },
-    { id: "faw-diesel", name: "FAW Diesel", count: fawCount },
-    { id: "cummins-diesel", name: "Cummins Diesel", count: cumminsCount },
-    { id: "isuzu-diesel", name: "Isuzu Diesel", count: isuzuCount },
+    {
+      id: "faw-diesel",
+      name: "FAW Diesel",
+      count: generators.filter((g) => g.category === "faw-diesel").length,
+    },
+    {
+      id: "cummins-diesel",
+      name: "Cummins Diesel",
+      count: generators.filter((g) => g.category === "cummins-diesel").length,
+    },
+    {
+      id: "isuzu-diesel",
+      name: "Isuzu Diesel",
+      count: generators.filter((g) => g.category === "isuzu-diesel").length,
+    },
   ];
 
   const sortOptions = [
@@ -124,29 +128,23 @@ const ProductsPage = () => {
     { value: "power-desc", label: "Power (High to Low)" },
   ];
 
-  // Handle filter changes
+  // --- LOGIC: Handle Filter Updates ---
   const handleFilterChange = (filterType, value) => {
     setActiveFilters((prev) => {
       const currentValues = prev[filterType];
-      if (Array.isArray(currentValues)) {
-        return {
-          ...prev,
-          [filterType]: currentValues.includes(value)
-            ? currentValues.filter((v) => v !== value)
-            : [...currentValues, value],
-        };
-      }
-      return prev;
+      return {
+        ...prev,
+        [filterType]: currentValues.includes(value)
+          ? currentValues.filter((v) => v !== value)
+          : [...currentValues, value],
+      };
     });
   };
 
   const handlePowerRangeChange = (type, value) => {
     setActiveFilters((prev) => ({
       ...prev,
-      powerRange: {
-        ...prev.powerRange,
-        [type]: value,
-      },
+      powerRange: { ...prev.powerRange, [type]: value },
     }));
   };
 
@@ -164,62 +162,40 @@ const ProductsPage = () => {
     setSearchTerm("");
   };
 
-  // Count active filters
-  const activeFilterCount = Object.values(activeFilters).reduce(
-    (count, filter) => {
-      if (Array.isArray(filter)) {
-        return count + filter.length;
-      } else if (typeof filter === "object" && filter.min && filter.max) {
-        return count + 2;
-      } else if (typeof filter === "object" && (filter.min || filter.max)) {
-        return count + 1;
-      }
-      return count;
-    },
-    0
-  );
-
-  // Filter generators based on all criteria
+  // --- LOGIC: Filter the Data ---
   const filteredGenerators = useMemo(() => {
     return generators.filter((g) => {
-      // Category filter
+      // 1. Basic Filters
       const matchesCategory =
         selectedCategory === "all" || g.category === selectedCategory;
-
-      // Search filter
       const matchesSearch = [g.name, g.standbyPower, g.engine, g.category].some(
         (field) => field?.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      // Advanced filters
+      // 2. Advanced Filters
       const matchesConnectionMode =
         activeFilters.connectionMode.length === 0 ||
         activeFilters.connectionMode.includes(g.connectionMode);
-
       const matchesAspiration =
         activeFilters.aspiration.length === 0 ||
         activeFilters.aspiration.includes(g.engineSpecs?.aspiration);
-
       const matchesCylinders =
         activeFilters.cylinders.length === 0 ||
         activeFilters.cylinders.includes(g.engineSpecs?.cylinders);
-
       const matchesVoltage =
         activeFilters.voltage.length === 0 ||
         activeFilters.voltage.includes(g.startingVoltage);
-
       const matchesAlternatorTech =
         activeFilters.alternatorTech.length === 0 ||
         activeFilters.alternatorTech.includes(g.alternatorSpecs?.technology);
 
-      // Control system filter
       const matchesControlSystem =
         activeFilters.controlSystem.length === 0 ||
         activeFilters.controlSystem.some((system) =>
           g.features?.some((feature) => feature.includes(system))
         );
 
-      // Power range filter
+      // 3. Power Range Logic
       const generatorPower = parseInt(
         g.standbyPower?.match(/\d+/)?.[0] || "0",
         10
@@ -247,7 +223,7 @@ const ProductsPage = () => {
     });
   }, [generators, selectedCategory, searchTerm, activeFilters]);
 
-  // Sort filtered generators
+  // --- LOGIC: Sorting ---
   const sortedGenerators = [...filteredGenerators].sort((a, b) => {
     switch (sortBy) {
       case "name-asc":
@@ -269,92 +245,19 @@ const ProductsPage = () => {
     }
   });
 
-  const loadMoreProducts = () => {
-    setLimit((prev) => prev + 8);
-  };
+  const activeFilterCount = Object.values(activeFilters).reduce(
+    (acc, val) =>
+      acc + (Array.isArray(val) ? val.length : val.min || val.max ? 1 : 0),
+    0
+  );
 
   return (
     <>
-      <Helmet>
-        {/* Page Title */}
-        <title>
-          {`Diesel Generators ${powerRange.min}-${powerRange.max}kVA | LJA Power Limited Co.`}
-        </title>
-
-        {/* Meta Description */}
-        <meta
-          name="description"
-          content={`Browse ${totalGenerators} high-quality diesel generators (${powerRange.min}-${powerRange.max}kVA) from FAW, Cummins, and Isuzu. Reliable backup power solutions for homes, businesses, and industries across the Philippines.`}
-        />
-
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://lja-power.com/products" />
-
-        {/* Robots */}
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-        />
-
-        {/* Open Graph */}
-        <meta
-          property="og:title"
-          content={`Diesel Generators ${powerRange.min}-${powerRange.max}kVA | LJA Power Limited Co.`}
-        />
-        <meta
-          property="og:description"
-          content={`Explore ${totalGenerators} diesel generators (${powerRange.min}-${powerRange.max}kVA). Silent and efficient power solutions for every need.`}
-        />
-        <meta
-          property="og:image"
-          content="https://lja-power.com/images/abt1.webp"
-        />
-        <meta
-          property="og:image:alt"
-          content="Diesel Generators by LJA Power Limited Co."
-        />
-        <meta property="og:url" content="https://lja-power.com/products" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="LJA Power Limited Co." />
-        <meta property="og:locale" content="en_PH" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`Diesel Generators ${powerRange.min}-${powerRange.max}kVA | LJA Power Limited Co.`}
-        />
-        <meta
-          name="twitter:description"
-          content={`Discover our range of diesel generators (${powerRange.min}-${powerRange.max}kVA). Perfect for residential, commercial, and industrial use.`}
-        />
-        <meta
-          name="twitter:image"
-          content="https://lja-power.com/images/abt1.webp"
-        />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: "LJA Power Limited Co. Diesel Generators",
-            description: `Explore ${totalGenerators} diesel generators from FAW, Cummins, and Isuzu (${powerRange.min}-${powerRange.max}kVA). Reliable backup power solutions in the Philippines.`,
-            url: "https://lja-power.com/products",
-            mainEntity: categories.map((cat) => ({
-              "@type": "Product",
-              name: cat.name,
-              url: `https://lja-power.com/products/${cat.id}`,
-              description: `${cat.count} generators available under ${cat.name}.`,
-            })),
-            isPartOf: {
-              "@type": "WebSite",
-              name: "LJA Power Limited Co.",
-              url: "https://lja-power.com",
-            },
-          })}
-        </script>
-      </Helmet>
+      <SEO
+        title={`Diesel Generators ${powerRange.min}-${powerRange.max}kVA`}
+        description={`${totalGenerators} diesel generators (${powerRange.min}-${powerRange.max}kVA) from FAW, Cummins & Isuzu.`}
+        url="https://lja-power.com/products"
+      />
 
       <div className="min-h-screen bg-[var(--bg-dark)]">
         <PageNavigationHeader
@@ -365,337 +268,146 @@ const ProductsPage = () => {
           breadcrumbs={[{ label: "Home", to: "/" }, { label: "Products" }]}
         />
 
-        {/* Main Content */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Category Filters and Sort */}
-          <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
-            <div className="product-filter flex flex-wrap gap-2">
+        <section className="section-container py-12">
+          {/* --- CONTROL BAR --- */}
+          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between mb-10 gap-6 border-b border-white/10 pb-8">
+            <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                    selectedCategory === category.id
-                      ? "bg-[var(--accent-yellow)] text-[var(--bg-dark)]"
-                      : "bg-[var(--panel-blue)] text-white border border-[var(--card-blue)] hover:bg-[var(--card-blue)]"
-                  }`}
+                  className={`
+                    px-6 py-2 rounded-md text-sm font-heading font-bold uppercase tracking-wide transition-all border
+                    ${
+                      selectedCategory === category.id
+                        ? "bg-[var(--accent-yellow)] text-black border-[var(--accent-yellow)] shadow-[0_0_15px_rgba(246,231,42,0.3)]"
+                        : "bg-transparent text-[var(--muted-gray)] border-white/10 hover:border-white/30 hover:text-white"
+                    }
+                  `}
                 >
-                  {category.name} ({category.count})
+                  {category.name}{" "}
+                  <span className="opacity-60 text-xs ml-1">
+                    ({category.count})
+                  </span>
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center gap-4">
-              {/* Filter Toggle Button */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full xl:w-auto">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 bg-[var(--panel-blue)] border border-[var(--card-blue)] text-white rounded-lg px-4 py-2 hover:bg-[var(--card-blue)] transition-colors"
+                className={`
+                  flex items-center gap-2 px-5 py-2.5 rounded-md font-heading font-bold uppercase tracking-wide text-sm transition-all border
+                  ${
+                    showFilters
+                      ? "bg-[var(--panel-blue)] text-white border-[var(--panel-blue)]"
+                      : "bg-transparent text-white border-white/20 hover:border-[var(--accent-yellow)]"
+                  }
+                `}
               >
-                <Filter size={18} />
+                <Filter size={16} />
                 Filters
                 {activeFilterCount > 0 && (
-                  <span className="bg-[var(--accent-yellow)] text-[var(--bg-dark)] rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                  <span className="bg-[var(--accent-yellow)] text-black rounded-full size-5 text-[10px] flex items-center justify-center font-sans font-bold">
                     {activeFilterCount}
                   </span>
                 )}
               </button>
 
-              <select
-                id="product-sort"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="select bg-[var(--panel-blue)] border border-[var(--card-blue)] text-white rounded-lg px-4 py-2 focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent w-40"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Advanced Filters Panel */}
-          {showFilters && (
-            <div className="bg-[var(--panel-blue)] border border-[var(--card-blue)] rounded-lg p-6 mb-8">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-white text-lg font-semibold">
-                  Advanced Filters
-                </h3>
-                <div className="flex gap-2">
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-[var(--muted-gray)] hover:text-white text-sm flex items-center gap-1"
-                  >
-                    <X size={16} />
-                    Clear All
-                  </button>
-                  <button
-                    onClick={() => setShowFilters(false)}
-                    className="text-[var(--muted-gray)] hover:text-white"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {/* Connection Mode */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Connection Mode
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.connectionModes.map((mode) => (
-                      <label
-                        key={mode}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.connectionMode.includes(mode)}
-                          onChange={() =>
-                            handleFilterChange("connectionMode", mode)
-                          }
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {mode}
-                      </label>
-                    ))}
-                  </div>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <div className="relative w-full sm:w-64">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-gray)] size-4" />
+                  <input
+                    type="text"
+                    placeholder="Search model or power..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#0C2430] border border-white/10 rounded-md focus:border-[var(--accent-yellow)] focus:ring-1 focus:ring-[var(--accent-yellow)] text-white placeholder-white/30 outline-none text-sm transition-all"
+                  />
                 </div>
 
-                {/* Aspiration Type */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Aspiration Type
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.aspirations.map((asp) => (
-                      <label
-                        key={asp}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.aspiration.includes(asp)}
-                          onChange={() => handleFilterChange("aspiration", asp)}
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {asp}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Cylinders */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Cylinders
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.cylinders.map((cyl) => (
-                      <label
-                        key={cyl}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.cylinders.includes(cyl)}
-                          onChange={() => handleFilterChange("cylinders", cyl)}
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {cyl}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Control System */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Control System
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.controlSystems.map((sys) => (
-                      <label
-                        key={sys}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.controlSystem.includes(sys)}
-                          onChange={() =>
-                            handleFilterChange("controlSystem", sys)
-                          }
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {sys}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Alternator Technology */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Alternator Tech
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.alternatorTechs.map((tech) => (
-                      <label
-                        key={tech}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.alternatorTech.includes(tech)}
-                          onChange={() =>
-                            handleFilterChange("alternatorTech", tech)
-                          }
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {tech}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Starting Voltage */}
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Starting Voltage
-                  </label>
-                  <div className="space-y-2">
-                    {filterOptions.voltages.map((volt) => (
-                      <label
-                        key={volt}
-                        className="flex items-center text-[var(--muted-gray)] cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={activeFilters.voltage.includes(volt)}
-                          onChange={() => handleFilterChange("voltage", volt)}
-                          className="mr-2 text-[var(--accent-yellow)] focus:ring-[var(--accent-yellow)]"
-                        />
-                        {volt}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Power Range */}
-                <div className="md:col-span-2">
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Power Range (kVA)
-                  </label>
-                  <div className="flex gap-4">
-                    <div className="flex-1">
-                      <input
-                        type="number"
-                        placeholder="Min"
-                        value={activeFilters.powerRange.min}
-                        onChange={(e) =>
-                          handlePowerRangeChange("min", e.target.value)
-                        }
-                        className="w-full bg-[var(--bg-dark)] border border-[var(--card-blue)] rounded px-3 py-2 text-white placeholder-[var(--muted-gray)] focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <input
-                        type="number"
-                        placeholder="Max"
-                        value={activeFilters.powerRange.max}
-                        onChange={(e) =>
-                          handlePowerRangeChange("max", e.target.value)
-                        }
-                        className="w-full bg-[var(--bg-dark)] border border-[var(--card-blue)] rounded px-3 py-2 text-white placeholder-[var(--muted-gray)] focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Results Count and Search */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-            <p className="text-[var(--muted-gray)]">
-              Showing {Math.min(sortedGenerators.length, limit)} of{" "}
-              {sortedGenerators.length} generators
-              {selectedCategory !== "all" &&
-                ` in ${
-                  categories.find((c) => c.id === selectedCategory)?.name
-                }`}
-              {searchTerm && ` matching "${searchTerm}"`}
-              {activeFilterCount > 0 &&
-                ` with ${activeFilterCount} filter${
-                  activeFilterCount > 1 ? "s" : ""
-                }`}
-            </p>
-
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--muted-gray)] h-4 w-4" />
-                <input
-                  type="text"
-                  placeholder="Search generators..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-[var(--panel-blue)] border border-[var(--card-blue)] rounded-lg focus:ring-2 focus:ring-[var(--accent-yellow)] focus:border-transparent text-white placeholder-[var(--muted-gray)] w-64"
-                />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="bg-[#0C2430] border border-white/10 text-white text-sm rounded-md px-4 py-2.5 focus:border-[var(--accent-yellow)] outline-none cursor-pointer font-heading tracking-wide"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
 
-          {/* Products Grid */}
+          {/* --- NEW EXTRACTED FILTER COMPONENT --- */}
+          <ProductFilters
+            showFilters={showFilters}
+            setShowFilters={setShowFilters}
+            activeFilters={activeFilters}
+            filterOptions={filterOptions}
+            handleFilterChange={handleFilterChange}
+            handlePowerRangeChange={handlePowerRangeChange}
+            clearAllFilters={clearAllFilters}
+          />
+
+          {/* --- PRODUCTS GRID --- */}
           {sortedGenerators.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {sortedGenerators.slice(0, limit).map((generator) => (
                 <ProductCard key={generator.slug} product={generator} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-[var(--muted-gray)] text-lg">
-                No generators found matching your criteria.
+            <div className="text-center py-20 bg-[#0C2430]/50 rounded-xl border border-dashed border-white/10">
+              <div className="text-[var(--accent-yellow)] mb-4 flex justify-center">
+                <Search size={48} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-white text-2xl font-heading font-bold uppercase mb-2">
+                No Generators Found
+              </h3>
+              <p className="text-[var(--muted-gray)]">
+                Try adjusting your search or filters to find what you need.
               </p>
-              <button
-                onClick={clearAllFilters}
-                className="mt-4 bg-[var(--panel-blue)] text-[var(--muted-gray)] border border-[var(--card-blue)] px-6 py-2 rounded-lg hover:bg-[var(--card-blue)] transition-colors font-medium"
-              >
-                Clear All Filters
+              <button onClick={clearAllFilters} className="mt-6 btn-blue">
+                Reset Filters
               </button>
             </div>
           )}
 
-          {/* Load More */}
+          {/* --- LOAD MORE --- */}
           {limit < sortedGenerators.length && (
-            <div className="flex justify-center mt-12">
+            <div className="flex justify-center mt-16">
               <button
-                onClick={loadMoreProducts}
-                className="bg-[var(--panel-blue)] text-white cursor-pointer border border-[var(--card-blue)] px-6 py-3 rounded-lg hover:bg-[var(--card-blue)] transition-colors font-medium"
+                onClick={() => setLimit((prev) => prev + 8)}
+                className="btn-backdrop px-10 py-4 font-heading font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all"
               >
-                Load More Generators ({sortedGenerators.length - limit}{" "}
-                remaining)
+                Load More Units
               </button>
             </div>
           )}
 
-          {/* CTA Section */}
-          <div className="bg-[var(--card-blue)] flex-center flex-col gap-6 py-12 p-4 mx-2 md:mx-6 my-12 rounded-md">
-            <div className="text-2xl font-bold text-white text-center">
-              Not Sure Which Generator You Need?
-            </div>
-            <p className="text-center text-[var(--muted-gray)] text-balance">
-              Our power generation experts are ready to help you find the
-              perfect solution for your specific requirements. We'll assess your
-              power needs and recommend the ideal generator configuration.
-            </p>
+          {/* --- CTA --- */}
+          <div className="bg-[var(--card-blue)] flex flex-col items-center text-center gap-6 py-16 px-6 mt-20 rounded-xl border border-white/5 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent-yellow)]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-            <Link to="/contacts" className="btn-yellow">
-              Get Expert Consultation
-            </Link>
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-white uppercase tracking-tight mb-2">
+                Not Sure Which Generator You Need?
+              </h2>
+              <p className="text-[var(--muted-gray)] max-w-2xl mx-auto mb-8 text-lg">
+                Our power generation experts are ready to assess your
+                requirements and recommend the perfect configuration.
+              </p>
+
+              <Link
+                to="/contacts"
+                className="btn-yellow inline-flex px-8 py-4 text-base"
+              >
+                Get Expert Consultation
+              </Link>
+            </div>
           </div>
         </section>
       </div>

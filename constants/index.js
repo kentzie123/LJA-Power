@@ -3,7 +3,7 @@ const navItems = [
   { name: "About Us", href: "/about" },
   { name: "Products", href: "/products" },
   { name: "Services", href: "/services" },
-  { name: "Projects", href: "/projects" },
+  { name: "Our Works", href: "/our-works" },
   { name: "Contact Us", href: "/contacts" },
 ];
 
@@ -5028,7 +5028,7 @@ const generators = [
     },
   },
 
- // Single Phase ISUZU
+  // Single Phase ISUZU
   {
     name: "PGS-1-30-IJE",
     slug: "pgs-1-30-ije",
@@ -5581,129 +5581,91 @@ const generators = [
   },
 ];
 
-const projects = [
+const SINGLE_IMAGE = "/images/genset-repair-services.webp";
+const works = [
   {
-    slug: "hospital-backup-power-system",
-    title: "Hospital Backup Power System",
-    client: "Regional Medical Center",
-    location: "Downtown District",
-    capacity: "1,500 kW",
-    image:
-      "https://images.pexels.com/photos/4667439/pexels-photo-4667439.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    slug: "genset-installation-cdo",
+    title: "Commercial Genset Installation",
+    category: "Installation",
+    location: "Cagayan de Oro",
+    image: SINGLE_IMAGE,
     description:
-      "Complete backup power solution ensuring uninterrupted operations during power outages with dual redundancy.",
+      "Successful installation and commissioning of a 300kVA standby generator for a regional warehousing facility, ensuring zero downtime during power interruptions.",
     details: {
-      duration: "6 months",
-      completedDate: "March 2024",
-      challenges:
-        "Installing critical infrastructure while maintaining hospital operations",
-      solution:
-        "Phased installation with redundant systems to ensure zero downtime during construction",
-      outcome:
-        "100% uptime since installation with seamless automatic failover tested monthly",
+      completedDate: "2025-11-01",
+      duration: "4 Days",
+      capacity: "300 KVA",
+    },
+    // Add other fields like client, etc., if needed
+  },
+  {
+    slug: "quarterly-maintenance-cebu",
+    title: "Quarterly Preventive Maintenance",
+    category: "Maintenance",
+    location: "Cebu City",
+    image: SINGLE_IMAGE,
+    description:
+      "Completed comprehensive quarterly maintenance check, including oil, filter, and fluid replacements, ensuring the unit operates at peak efficiency.",
+    details: {
+      completedDate: "2025-10-25",
+      duration: "1 Day",
+      capacity: "150 KVA",
     },
   },
   {
-    slug: "manufacturing-facility-power",
-    title: "Manufacturing Facility Power",
-    client: "Manufacturing Solutions Inc.",
-    location: "Industrial Park",
-    capacity: "2,000 kW",
-    image:
-      "https://cdn.pixabay.com/photo/2017/12/18/18/43/generator-3029389_1280.jpg",
+    slug: "ats-controller-upgrade",
+    title: "ATS Controller Conversion",
+    category: "Repair",
+    location: "Makati, NCR",
+    image: SINGLE_IMAGE,
     description:
-      "Prime power installation supporting continuous 24/7 manufacturing operations with load management system.",
+      "Upgraded an outdated manual transfer system to a modern SMARTGEN automatic controller, enhancing reliability and remote monitoring capabilities.",
     details: {
-      duration: "8 months",
-      completedDate: "January 2024",
-      challenges:
-        "Supporting continuous operations with precise power quality requirements",
-      solution:
-        "Custom load management system with advanced voltage regulation and harmonic filtering",
-      outcome:
-        "Zero production interruptions with 15% energy cost reduction through load optimization",
+      completedDate: "2025-11-15",
+      duration: "2 Days",
+      capacity: "N/A",
     },
   },
   {
-    slug: "data-center-infrastructure",
-    title: "Data Center Infrastructure",
-    client: "Tech Industries Corp.",
-    location: "Technology District",
-    capacity: "3,000 kW",
-    image:
-      "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    slug: "500kva-unit-delivery",
+    title: "500kVA Unit Delivery & Positioning",
+    category: "Delivery",
+    location: "Pagadian City",
+    image: SINGLE_IMAGE,
     description:
-      "Mission-critical power system with N+1 redundancy and automated failover capabilities.",
+      "Transport, unloading, and precise positioning of a large 500kVA industrial generator set on a prepared concrete pad at a new manufacturing plant.",
     details: {
-      duration: "10 months",
-      completedDate: "November 2023",
-      challenges:
-        "Meeting Tier III data center uptime requirements with multiple redundancy levels",
-      solution:
-        "N+1 generator configuration with automatic transfer switches and UPS integration",
-      outcome:
-        "99.982% uptime achieved, exceeding Tier III certification requirements",
+      completedDate: "2025-09-10",
+      duration: "1 Day",
+      capacity: "500 KVA",
     },
   },
   {
-    slug: "commercial-complex-backup",
-    title: "Commercial Complex Backup",
-    client: "Metro Shopping Center",
-    location: "City Center",
-    capacity: "800 kW",
-    image:
-      "https://cdn.pixabay.com/photo/2016/11/29/03/53/power-1868762_1280.jpg",
+    slug: "engine-troubleshooting-davao",
+    title: "Engine Troubleshooting & Repair",
+    category: "Repair",
+    location: "Davao City",
+    image: SINGLE_IMAGE,
     description:
-      "Emergency backup power for high-traffic commercial facility with integrated building management.",
+      "Diagnosed and repaired an intermittent fault in the engine fuel system of a standby generator, restoring full operational status.",
     details: {
-      duration: "4 months",
-      completedDate: "September 2023",
-      challenges: "Limited space in urban environment with noise restrictions",
-      solution:
-        "Compact rooftop installation with advanced sound attenuation and vibration isolation",
-      outcome:
-        "Maintains full operations during outages while meeting strict city noise ordinances",
+      completedDate: "2025-08-05",
+      duration: "1 Day",
+      capacity: "40 KVA",
     },
   },
   {
-    slug: "university-campus-power",
-    title: "University Campus Power",
-    client: "State University",
-    location: "University District",
-    capacity: "1,200 kW",
-    image:
-      "https://images.pexels.com/photos/373541/pexels-photo-373541.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    slug: "residential-installation-iloilo",
+    title: "Residential Backup Genset Install",
+    category: "Installation",
+    location: "Iloilo",
+    image: SINGLE_IMAGE,
     description:
-      "Distributed power generation system serving multiple campus buildings with central monitoring.",
+      "Complete installation of a sound-proof backup diesel generator for a private residence, integrated with the home's existing electrical system.",
     details: {
-      duration: "12 months",
-      completedDate: "June 2023",
-      challenges:
-        "Coordinating installation across active campus during academic year",
-      solution:
-        "Distributed generator placement with centralized monitoring and control system",
-      outcome:
-        "Uninterrupted campus operations with integrated smart grid capabilities",
-    },
-  },
-  {
-    slug: "water-treatment-facility",
-    title: "Water Treatment Facility",
-    client: "Municipal Water Authority",
-    location: "Waterfront",
-    capacity: "1,800 kW",
-    image:
-      "https://cdn.pixabay.com/photo/2018/07/24/20/34/energy-3558035_1280.jpg",
-    description:
-      "Critical infrastructure power backup ensuring continuous water treatment and distribution.",
-    details: {
-      duration: "7 months",
-      completedDate: "April 2023",
-      challenges: "Ensuring continuous water supply to 500,000+ residents",
-      solution:
-        "Dual generator system with automatic load sharing and priority load management",
-      outcome:
-        "Zero service interruptions with automated testing and maintenance schedules",
+      completedDate: "2025-07-20",
+      duration: "3 Days",
+      capacity: "15 KVA",
     },
   },
 ];
@@ -5744,11 +5706,12 @@ const contacts = [
     schedules: ["Monday - Saturday: 8:00 AM - 5:00 PM", "Sunday: Closed"],
     number: "0915-749-5102",
     seo: {
-      title: "Cagayan de Oro – LJA Power Limited Co.",
+      title: "Generator Supplier Cagayan de Oro",
+
       description:
-        "Visit LJA Power Limited Co. Cagayan de Oro Branch for high-quality generators and expert power solutions. Contact us today!",
+        "Trusted diesel generator supplier in Cagayan de Oro & Misamis Oriental. We offer sales, ATS installation, and preventive maintenance. Visit our Opol branch today!",
       content:
-        "LJA Power Limited Co. Cagayan de Oro Branch provides reliable generators and complete power solutions for homes, businesses, and industries in Misamis Oriental and surrounding areas. Our team is ready to assist you with expert guidance and fast service.",
+        "LJA Power Limited Co. Cagayan de Oro is your premier partner for industrial and commercial power solutions. Located in Opol, we serve the entire Misamis Oriental region with high-quality diesel generators, 24/7 technical support, and professional installation services.",
     },
   },
   {
@@ -5761,11 +5724,12 @@ const contacts = [
     schedules: ["Monday - Saturday: 8:00 AM - 5:00 PM", "Sunday: Closed"],
     number: "0915-749-5102",
     seo: {
-      title: "Bukidnon – LJA Power Limited Co.",
+      title: "Generator Supplier Bukidnon & Malaybalay City",
+
       description:
-        "LJA Power Bukidnon Branch provides reliable generators and power solutions for homes, farms, and industries. Contact us today!",
+        "Looking for generators in Bukidnon? LJA Power in Malaybalay City provides reliable power solutions for farms, businesses, and homes. Sales & Service available.",
       content:
-        "Located in Malaybalay City, Bukidnon, LJA Power Limited Co. offers top-quality generators and power solutions for residential, agricultural, and industrial clients. Our expert team ensures prompt service and reliable support.",
+        "Strategically located in Malaybalay City, our Bukidnon branch specializes in power solutions for the agricultural and commercial sectors. Whether you need a backup generator for your farm or a prime power unit for your business, LJA Power delivers reliable equipment and expert maintenance across Bukidnon.",
     },
   },
   {
@@ -5778,13 +5742,14 @@ const contacts = [
     schedules: ["Monday - Saturday: 8:00 AM - 5:00 PM", "Sunday: Closed"],
     number: "0915-749-5102",
     seo: {
-      title: "Zamboanga Del Sur – LJA Power Limited Co.",
+      title: "Pagadian City Generator Supplier & Services",
+
       description:
-        "LJA Power Limited Co. Zamboanga Del Sur Branch offers top-quality generators and professional power solutions. Visit us or contact now!",
+        "Leading generator supplier in Pagadian City, Zamboanga Del Sur. High-quality diesel gensets, repair services, and ATS installation. Contact us for a quote.",
       content:
-        "Serving Pagadian City and surrounding areas, LJA Power Limited Co. Zamboanga Del Sur Branch delivers high-quality generators and power solutions for homes, businesses, and industries. Our team is ready to provide expert guidance and support.",
+        "Serving Pagadian City and the wider Zamboanga Del Sur region, LJA Power Limited Co. brings world-class power generation expertise to your doorstep. From residential backup units to large-scale industrial generators, our Tiguma branch ensures you have the power you need, when you need it.",
     },
   },
 ];
 
-export { navItems, generators, testimonies, projects, contacts };
+export { navItems, generators, testimonies, works, contacts };

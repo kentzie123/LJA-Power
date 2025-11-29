@@ -1,6 +1,6 @@
-// BranchContactPage.jsx
+// SEO
+import SEO from "../components/layout/SEO";
 
-import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -19,7 +19,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { contacts } from "../../constants";
 
 const BranchContactPage = () => {
-  const { branchSlug } = useParams(); // Get slug from URL
+  const { branchSlug } = useParams();
   const branchData = contacts.find((c) => c.slug === branchSlug) || contacts[0];
 
   const [selectedLocation, setSelectedLocation] = useState(branchData);
@@ -34,29 +34,45 @@ const BranchContactPage = () => {
 
   return (
     <div className="bg-[var(--bg-dark)]">
-      {/* SEO */}
-      <Helmet>
-        <title>{branchData.seo.title}</title>
-        <meta name="description" content={branchData.seo.description} />
-        <link
-          rel="canonical"
-          href={`https://lja-power.com/branches/${branchData.slug}`}
-        />
+      {/* 3. SEO Component Implementation */}
+      <SEO
+        title={branchData.seo.title}
+        description={branchData.seo.description}
+        url={`https://lja-power.com/branches/${branchData.slug}`}
+        image="https://lja-power.com/images/contacts-hero-page.webp"
+      />
 
-        {/* Open Graph */}
-        <meta property="og:title" content={branchData.seo.title} />
-        <meta property="og:description" content={branchData.seo.description} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content={`https://lja-power.com/branches/${branchData.slug}`}
-        />
-        <meta
-          property="og:image"
-          content="https://www.lja-power.com/images/contacts-hero-page"
-        />
-        <meta property="og:image:alt" content={branchData.seo.title} />
-      </Helmet>
+      {/* 4. LocalBusiness Schema (Crucial for Google Maps/Local Search) */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: `LJA Power Limited Co. - ${branchData.office}`,
+          image: "https://lja-power.com/images/contacts-hero-page.webp",
+          telephone: branchData.number,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: branchData.address,
+            addressCountry: "PH",
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+              ],
+              opens: "08:00",
+              closes: "17:00",
+            },
+          ],
+          url: `https://lja-power.com/branches/${branchData.slug}`,
+        })}
+      </script>
 
       {/* Hero Section */}
       <PageNavigationHeader
@@ -66,12 +82,12 @@ const BranchContactPage = () => {
         id="contact-page-hero"
         breadcrumbs={[
           { label: "Home", to: "/" },
-          { label: "Contacts", to:"/contacts" },
+          { label: "Contacts", to: "/contacts" },
           { label: branchData.office },
         ]}
       />
 
-      {/* Main Content */}
+      {/* Main Content (Keep exactly as is) */}
       <div className="mx-auto container text-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-30 p-6 lg:p-12">
           {/* Contact Form */}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from "react"; // Removed: lazy, Suspense
 
 // Routing
 import { Routes, Route } from "react-router-dom";
@@ -7,37 +7,32 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 
-// UI
+// UI/Common
 import ChatFloatingButton from "./components/ui/ChatFloatingButton";
-
-// Common
 import ScrollToTop from "./components/common/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
-// Pages
+// Libraries
+import Lenis from "@studio-freight/lenis";
+import { ScrollTrigger, SplitText } from "gsap/all";
+import gsap from "gsap";
+
+// 👇 STATIC IMPORTS: Code for all pages loads immediately on startup
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ContactPage from "./pages/ContactPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ServicesPage from "./pages/ServicesPage";
-import ProjectsAndTestimonies from "./pages/ProjectsAndTestimonies";
-import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import OurWorksPage from "./pages/OurWorksPage";
+import OurWorkDetailsPage from "./pages/OurWorkDetailsPage";
 import BranchContactPage from "./pages/BranchContactPage";
 import Page404 from "./pages/Page404";
-
-// Toast
-import { ToastContainer } from "react-toastify";
-
-// Lenis
-import Lenis from "@studio-freight/lenis";
-
-// GSAP
-import { ScrollTrigger, SplitText } from "gsap/all";
-import gsap from "gsap";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 function App() {
+  // ... (Lenis setup remains the same) ...
   useEffect(() => {
     const lenis = new Lenis(
       {
@@ -48,7 +43,6 @@ function App() {
       []
     );
 
-    // Make Lenis globally accessible for ScrollToTop
     window.lenis = lenis;
 
     function raf(time) {
@@ -60,18 +54,19 @@ function App() {
 
     return () => {
       lenis.destroy();
-      // Clean up global reference
       window.lenis = null;
     };
   }, []);
 
   return (
-    <div id="app-wrapper">
+    <div className="min-h-screen" id="app-wrapper">
       <Navbar />
       <main>
         <ScrollToTop />
         <ToastContainer />
         <ChatFloatingButton />
+
+        {/* 🚀 REMOVED SUSPENSE WRAPPER */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
@@ -79,8 +74,11 @@ function App() {
           <Route path="/contacts" element={<ContactPage />} />
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/projects" element={<ProjectsAndTestimonies />} />
-          <Route path="/projects/:slug" element={<ProjectDetailsPage />} />
+
+          {/* Projects/Works Routes */}
+          <Route path="/our-works" element={<OurWorksPage />} />
+          <Route path="/our-works/:slug" element={<OurWorkDetailsPage />} />
+
           <Route path="/branches/:branchSlug" element={<BranchContactPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>

@@ -1,11 +1,11 @@
+// SEO
+import SEO from "../components/layout/SEO";
+
 // Hooks
 import { useState } from "react";
 
 // Routing
 import { useParams, useNavigate, Link } from "react-router-dom";
-
-// SEO
-import { Helmet } from "react-helmet";
 
 // Components
 import SpecificationTab from "../components/layout/SpecificationTab";
@@ -41,14 +41,15 @@ const ProductDetailPage = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#0c2430] pt-[60px] flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--bg-dark)] pt-[60px] flex items-center justify-center text-white">
+        <title>Product Not Found | LJA Power Limited Co.</title>
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">
+          <h1 className="font-heading text-4xl font-bold uppercase mb-4">
             Product Not Found
           </h1>
           <button
             onClick={() => navigate("/products")}
-            className="bg-[#f5ec19] text-[#0c2430] px-6 py-2 rounded-lg hover:bg-[#e6dc17] transition-colors font-semibold"
+            className="btn-yellow px-6 py-2 font-heading uppercase tracking-wider"
           >
             Back to Products
           </button>
@@ -57,92 +58,49 @@ const ProductDetailPage = () => {
     );
   }
 
+  // Construct the image URL safely
+  const productImageUrl = `https://lja-power.com${product.images[0]}`;
+
   return (
     <>
-      <Helmet>
-        {/* Meta Title & Description */}
-        <title>{`${product.name} | LJA Power Limited Co.`}</title>
-        <meta
-          name="description"
-          content={`Buy ${product.name} — a dependable ${product.category} generator featuring ${product.engine} engine and ${product.standbyPower} standby power. Ideal for commercial and industrial use.`}
-        />
+      {/* 3. The SEO Component (Handles Title, Meta, OpenGraph) */}
+      <SEO
+        title={product.name}
+        description={
+          product.description ||
+          `Buy ${product.name} - ${product.standbyPower} generator. Reliable power solutions from LJA Power Limited Co.`
+        }
+        url={`https://lja-power.com/products/${product.slug}`}
+        image={productImageUrl}
+      />
 
-        {/* Canonical URL */}
-        <link
-          rel="canonical"
-          href={`https://lja-power.com/products/${product.slug}`}
-        />
+      {/* 4. The Product Schema (Crucial for Rich Results) */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          name: product.name,
+          image: product.images.map((img) => `https://lja-power.com${img}`),
+          description: product.description,
+          category: product.category,
+          brand: { "@type": "Brand", name: "LJA Power Limited Co." },
+          offers: {
+            "@type": "Offer",
+            url: `https://lja-power.com/products/${product.slug}`,
+            priceCurrency: "PHP",
+            availability: "https://schema.org/InStock",
+          },
+        })}
+      </script>
 
-        {/* Open Graph */}
-        <meta property="og:type" content="product" />
-        <meta
-          property="og:title"
-          content={`${product.name} | LJA Power Limited Co.`}
-        />
-        <meta
-          property="og:description"
-          content={`Explore ${product.name} — ${product.description}`}
-        />
-        <meta
-          property="og:image"
-          content={`https://lja-power.com${product.images[0]}`}
-        />
-        <meta
-          property="og:url"
-          content={`https://lja-power.com/products/${product.slug}`}
-        />
-        <meta property="og:site_name" content="LJA Power Limited Co." />
-        <meta property="og:locale" content="en_PH" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`${product.name} | LJA Power Limited Co.`}
-        />
-        <meta
-          name="twitter:description"
-          content={
-            product.description ||
-            "High-performance generator by LJA Power Limited Co."
-          }
-        />
-        <meta
-          name="twitter:image"
-          content={`https://lja-power.com${product.images[0]}`}
-        />
-
-        {/* Preload Hero Image for faster LCP */}
-        <link
-          rel="preload"
-          as="image"
-          href={`https://lja-power.com${product.images[0]}`}
-          fetchpriority="high"
-        />
-
-        {/* Structured Data (JSON-LD) */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org/",
-            "@type": "Product",
-            name: product.name,
-            image: product.images.map((img) => `https://lja-power.com${img}`),
-            description:
-              product.description ||
-              "High-performance power generator by LJA Power Limited Co.",
-            category: product.category,
-          })}
-        </script>
-      </Helmet>
-
-      <div className="min-h-screen bg-[#0c2430] pt-[60px]">
+      <div className="min-h-screen bg-[var(--bg-dark)] pt-[60px]">
         {/* Navigation */}
-        <nav className="bg-[#0f4b5a] shadow-lg">
+        <nav className="bg-[var(--card-blue)] shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               <button
                 onClick={() => navigate("/products")}
-                className="flex items-center text-[#a9b6bd] hover:text-white"
+                className="flex items-center text-[var(--muted-gray)] hover:text-white font-heading uppercase tracking-wider text-sm"
               >
                 <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Generators
@@ -151,23 +109,25 @@ const ProductDetailPage = () => {
           </div>
         </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Image Gallery */}
             <div>
-              <div className="overflow-hidden rounded-lg shadow-lg border border-[#145d77] mb-4">
-                <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="overflow-hidden rounded-lg shadow-2xl border border-[var(--panel-blue)] mb-4">
+                <div className="relative aspect-[4/3] overflow-hidden bg-black/20">
                   <img
                     className="w-full h-full object-contain transition-transform duration-500"
                     src={product.images[activeImage]}
                     alt={product.name}
                     loading="eager"
-                    fetchpriority="high"
+                    fetchPriority="high"
+                    width="600"
+                    height="450"
                     onError={(e) => {
                       e.target.src = "/images/placeholder-generator.jpg";
                     }}
                   />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#0c2430_100%)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_var(--bg-dark)_100%)]" />
                 </div>
               </div>
               <div className="grid grid-cols-4 gap-2">
@@ -175,10 +135,10 @@ const ProductDetailPage = () => {
                   <button
                     key={index}
                     onClick={() => setActiveImage(index)}
-                    className={`group overflow-hidden rounded-lg border-2 ${
+                    className={`group overflow-hidden rounded-lg border-2 transition-all duration-300 ${
                       activeImage === index
-                        ? "border-[#f5ec19]"
-                        : "border-[#145d77]"
+                        ? "border-[var(--accent-yellow)] shadow-lg"
+                        : "border-[var(--panel-blue)] hover:border-white/50"
                     }`}
                   >
                     <div className="relative aspect-square">
@@ -187,6 +147,8 @@ const ProductDetailPage = () => {
                         alt={`${product.name} view ${index + 1}`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        width="150"
+                        height="150"
                         onError={(e) => {
                           e.target.src = "/images/placeholder-generator.jpg";
                         }}
@@ -198,16 +160,18 @@ const ProductDetailPage = () => {
             </div>
 
             {/* Product Info */}
-            <div>
+            <div className="space-y-6">
               <div className="mb-6">
-                <span className="inline-block bg-[#145d77] text-[#f5ec19] text-sm px-3 py-1 rounded-full mb-2 font-semibold">
+                <span className="inline-block bg-[var(--panel-blue)] text-[var(--accent-yellow)] text-xs px-3 py-1 rounded-full mb-2 font-heading uppercase tracking-wider">
                   {product.category.toUpperCase()} •{" "}
                   {product.type.toUpperCase()} SERIES
                 </span>
-                <h1 className="text-3xl font-bold text-white mb-2">
+                <h1 className="text-4xl lg:text-5xl font-bold font-heading uppercase tracking-tight text-white mb-2 leading-tight">
                   {product.name}
                 </h1>
-                <p className="text-[#a9b6bd]">{product.description}</p>
+                <p className="text-[var(--muted-gray)] text-lg leading-relaxed">
+                  {product.description}
+                </p>
               </div>
 
               {/* Key Specs */}
@@ -228,53 +192,42 @@ const ProductDetailPage = () => {
                 ].map(({ icon: Icon, label, value }, i) => (
                   <div
                     key={i}
-                    className="bg-[#145d77] p-4 rounded-lg border border-[#1a6d8a]"
+                    className="bg-[var(--panel-blue)] p-4 rounded-lg border border-[var(--card-blue)] shadow-md"
                   >
                     <div className="flex items-center mb-2">
-                      <Icon className="h-5 w-5 text-[#f5ec19] mr-2" />
-                      <span className="font-medium text-white">{label}</span>
+                      <Icon className="h-5 w-5 text-[var(--accent-yellow)] mr-2" />
+                      <span className="font-heading uppercase text-xs text-[var(--muted-gray)]">
+                        {label}
+                      </span>
                     </div>
-                    <p className="text-lg font-semibold text-white">{value}</p>
+                    <p className="text-xl font-bold text-white font-heading">
+                      {value}
+                    </p>
                   </div>
                 ))}
               </div>
 
-              {/* Key Features */}
-              <div className="bg-[#0f4b5a] rounded-lg border border-[#145d77] p-6 mb-6">
-                <div className="font-semibold text-white mb-4">
-                  Key Features
-                </div>
-                <ul className="space-y-3">
-                  {product.features.slice(0, 3).map((feature, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-[#f5ec19]" />
-                      <span className="text-[#a9b6bd]">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
               {/* Operation Conditions */}
-              <div className="bg-[#0f4b5a] rounded-lg border border-[#145d77] p-4 mb-6">
-                <div className="font-semibold text-white mb-3">
+              <div className="bg-[var(--card-blue)] rounded-lg border border-[var(--panel-blue)] p-4 mb-6">
+                <div className="font-heading font-semibold text-white mb-3 uppercase tracking-wider text-sm">
                   Operation Conditions
                 </div>
-                <div className="grid grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-3 gap-4 text-sm text-[var(--muted-gray)]">
                   <div className="flex items-center gap-2">
-                    <Mountain className="w-4 h-4 text-[#f5ec19]" />
-                    <span className="text-[#a9b6bd]">
+                    <Mountain className="w-4 h-4 text-[var(--accent-yellow)]" />
+                    <span className="text-xs">
                       Altitude: {product.operationConditions.altitude}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Thermometer className="w-4 h-4 text-[#f5ec19]" />
-                    <span className="text-[#a9b6bd]">
+                    <Thermometer className="w-4 h-4 text-[var(--accent-yellow)]" />
+                    <span className="text-xs">
                       Temp: {product.operationConditions.temperature}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-[#f5ec19]" />
-                    <span className="text-[#a9b6bd]">
+                    <Activity className="w-4 h-4 text-[var(--accent-yellow)]" />
+                    <span className="text-xs">
                       Derating: {product.operationConditions.derating}
                     </span>
                   </div>
@@ -282,33 +235,38 @@ const ProductDetailPage = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="space-y-4">
-                <Link to="/contacts" className="w-full btn-yellow">
+              <div className="space-y-4 pt-4">
+                <Link
+                  to="/contacts"
+                  className="w-full btn-yellow font-heading uppercase tracking-wider text-lg py-3"
+                >
                   Request Quote
                 </Link>
                 <div className="grid grid-cols-2 gap-4 text-white">
-                  <Link
-                    to="tel:09157495102"
-                    className="flex items-center justify-center btn-blue"
+                  <a
+                    href="tel:09157495102"
+                    className="flex items-center justify-center btn-blue font-heading uppercase tracking-wider text-base py-3"
+                    aria-label="Call Now"
                   >
                     <Phone className="h-5 w-5 mr-2" />
                     Call Now
-                  </Link>
-                  <Link
-                    to="mail:lja.ljapowerlimitedco@gmail.com"
-                    className="flex items-center justify-center btn-blue"
+                  </a>
+                  <a
+                    href="mailto:lja.ljapowerlimitedco@gmail.com"
+                    className="flex items-center justify-center btn-blue font-heading uppercase tracking-wider text-base py-3"
+                    aria-label="Email Us"
                   >
                     <Mail className="h-5 w-5 mr-2" />
                     Email Us
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Tabs Section */}
-          <div className="mt-12">
-            <div className="border-b border-[#145d77]">
+          <div className="mt-12 lg:mt-20">
+            <div className="border-b border-[var(--panel-blue)]">
               <nav className="flex space-x-8 overflow-x-auto">
                 {[
                   "specifications",
@@ -319,10 +277,10 @@ const ProductDetailPage = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm capitalize ${
+                    className={`py-4 px-1 border-b-2 font-heading font-bold uppercase tracking-wide text-sm transition-colors duration-300 ${
                       activeTab === tab
-                        ? "border-[#f5ec19] text-[#f5ec19]"
-                        : "border-transparent text-[#a9b6bd] hover:text-white hover:border-[#a9b6bd]"
+                        ? "border-[var(--accent-yellow)] text-[var(--accent-yellow)]"
+                        : "border-transparent text-[var(--muted-gray)] hover:text-white hover:border-white/30"
                     }`}
                   >
                     {tab}

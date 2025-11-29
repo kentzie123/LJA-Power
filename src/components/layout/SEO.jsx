@@ -1,49 +1,33 @@
-// src/components/SEO.jsx
-import React from "react";
-import { Helmet } from "react-helmet";
-
-const SEO = ({ title, description, url, image, type = "website" }) => {
+const SEO = ({ title, description, url, image }) => {
+  // Defaults
   const siteName = "LJA Power Limited Co.";
-  const logoUrl = "https://lja-power.com/images/lja-logo.png";
+  const fullTitle = title ? `${title} | ${siteName}` : siteName;
+  const defaultDescription =
+    "Supplier of diesel generators and provider of complete power generation services across the Philippines.";
+  const finalDescription = description || defaultDescription;
+  const currentUrl = url || "https://lja-power.com";
+  const shareImage = image || "https://lja-power.com/images/lja-logo.png";
 
   return (
-    <Helmet>
-      <title>{title ? `${title} | ${siteName}` : siteName}</title>
-      <meta name="description" content={description || ""} />
-      <link rel="canonical" href={url || "https://lja-power.com"} />
+    <>
+      {/* 1. Standard Tags */}
+      <title>{fullTitle}</title>
+      <meta name="description" content={finalDescription} />
+      <link rel="canonical" href={currentUrl} />
 
-      {/* Open Graph */}
-      <meta property="og:type" content={type} />
-      <meta property="og:title" content={title || siteName} />
-      <meta property="og:description" content={description || ""} />
-      <meta property="og:image" content={image || logoUrl} />
-      <meta property="og:url" content={url || "https://lja-power.com"} />
-      <meta property="og:site_name" content={siteName} />
+      {/* 2. Open Graph (Facebook / LinkedIn) */}
+      {/* Note: og:site_name and og:type are already in index.html! */}
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={finalDescription} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:image" content={shareImage} />
 
-      {/* Twitter */}
+      {/* 3. Twitter (Minimal Setup) */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title || siteName} />
-      <meta name="twitter:description" content={description || ""} />
-      <meta name="twitter:image" content={image || logoUrl} />
-
-      {/* Organization Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: siteName,
-          url: "https://lja-power.com",
-          logo: logoUrl,
-          sameAs: [
-            "https://www.facebook.com/profile.php?id=61572436091637",
-            "https://www.facebook.com/marc88fyi",
-            "https://www.facebook.com/profile.php?id=61576825362962",
-          ],
-          description:
-            "LJA Power Limited Co. is a trusted provider of reliable and efficient energy solutions for homes, businesses, and industries.",
-        })}
-      </script>
-    </Helmet>
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={finalDescription} />
+      <meta name="twitter:image" content={shareImage} />
+    </>
   );
 };
 

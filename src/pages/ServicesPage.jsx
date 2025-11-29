@@ -1,3 +1,6 @@
+// SEO
+import SEO from "../components/layout/SEO";
+
 // Styling
 import "../assets/css/pages/ServicesPage.css";
 
@@ -12,167 +15,94 @@ import {
   Clock,
   Users,
   Lightbulb,
+  CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
-
-// SEO
-import { Helmet } from "react-helmet";
-
-// Routing
-import { Link } from "react-router-dom";
 
 // Components
 import PageNavigationHeader from "../components/layout/PageNavigationHeader";
 
-// UI
-import ServiceCard from "../components/ui/ServicesCard";
+// Routing
+import { Link } from "react-router-dom";
 
-// Hooks
-import { useEffect, useState } from "react";
+// GSAP
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ServicesPage = () => {
-  const [selectedService, setSelectedService] = useState(null);
-
   const services = [
     {
       id: "preventive-maintenance",
       image: "/images/preventive-maintenance.webp",
       icon: Wrench,
       title: "Preventive Maintenance",
-      tagline: "Keep systems running at peak performance",
-      description:
-        "Proactive maintenance programs designed to keep your generator operating reliably and efficiently.",
       fullDescription:
-        "Our preventive maintenance programs are designed to keep your generator operating reliably and efficiently. We handle regular inspections, fluid checks, filter replacements, and comprehensive testing to prevent unexpected breakdowns. Regular maintenance is critical to ensuring your generator operates reliably when you need it most.",
+        "Our preventive maintenance programs are designed to keep your generator operating reliably and efficiently. We handle regular inspections, fluid checks, filter replacements, and comprehensive testing to prevent unexpected breakdowns.",
       benefits: [
         "Extended equipment lifespan",
         "Reduced risk of failures",
         "Optimized fuel efficiency",
-        "Warranty compliance",
         "Detailed service reports",
       ],
-      process: [
-        "Equipment assessment",
-        "Maintenance schedule planning",
-        "Inspections",
-        "Fluid and filter checks",
-        "Battery testing",
-        "Full performance report",
-      ],
-      color: "from-blue-500 to-cyan-500",
-      darkColor: "bg-blue-600/30",
-      accentBg: "bg-blue-100",
     },
     {
       id: "ats-installation",
       image: "/images/ats-installation.webp",
       icon: Zap,
       title: "ATS Installation",
-      tagline: "Automatic power failover in seconds",
-      description: "Professional ATS installation for seamless transitions.",
       fullDescription:
-        "Professional Automatic Transfer Switch installation that seamlessly switches between utility power and your generator with zero downtime. Ensures continuous operation during outages with intelligent control systems. An ATS system provides automatic failover, eliminating the need for manual switching and ensuring uninterrupted power supply to your critical systems.",
+        "Professional Automatic Transfer Switch installation that seamlessly switches between utility power and your generator with zero downtime. Ensures continuous operation during outages with intelligent control systems.",
       benefits: [
         "Automatic transfer",
         "Zero downtime",
         "Seamless electrical integration",
         "Certified installation",
-        "24/7 monitoring",
       ],
-      process: [
-        "Electrical assessment",
-        "Sizing analysis",
-        "Installation",
-        "Generator integration",
-        "Testing",
-        "Training & documentation",
-      ],
-      color: "from-yellow-500 to-orange-500",
-      darkColor: "bg-yellow-600/30",
-      accentBg: "bg-yellow-100",
     },
     {
       id: "controller-conversion",
-      image: "images/controller-conversion.webp",
+      image: "/images/controller-conversion.webp",
       icon: Cpu,
       title: "Controller Conversion",
-      tagline: "Upgrade to smart generator controls",
-      description: "Upgrade outdated controllers to modern smart systems.",
       fullDescription:
-        "Replace outdated controllers with modern, intelligent generator control systems. Enhanced monitoring, diagnostics, and remote capabilities provide superior performance and management of your power generation infrastructure. Modern controllers offer real-time data, predictive maintenance alerts, and remote management capabilities that older systems cannot provide.",
+        "Replace outdated controllers with modern, intelligent generator control systems. Enhanced monitoring, diagnostics, and remote capabilities provide superior performance and management of your power generation infrastructure.",
       benefits: [
         "Advanced monitoring",
         "Better fuel efficiency",
         "Remote management",
-        "Load shedding",
-        "Data logging",
+        "Data logging capabilities",
       ],
-      process: [
-        "Assessment",
-        "Controller compatibility check",
-        "Installation",
-        "Configuration",
-        "Calibration",
-        "Training",
-      ],
-      color: "from-purple-500 to-pink-500",
-      darkColor: "bg-purple-600/30",
-      accentBg: "bg-purple-100",
     },
     {
       id: "troubleshooting",
       image: "/images/genset-repair-services.webp",
       icon: AlertTriangle,
-      title: "Troubleshooting & Diagnostics",
-      tagline: "Fast diagnosis and expert solutions",
-      description: "Quickly identify and resolve generator issues.",
+      title: "Troubleshooting",
       fullDescription:
-        "Expert diagnostic services to quickly identify and resolve generator issues. Our experienced technicians use advanced testing equipment to pinpoint problems and implement effective solutions with minimal downtime. When issues arise, quick diagnosis and professional resolution can be the difference between a minor repair and major equipment failure.",
+        "Expert diagnostic services to quickly identify and resolve generator issues. Our experienced technicians use advanced testing equipment to pinpoint problems and implement effective solutions with minimal downtime.",
       benefits: [
-        "Accurate testing",
-        "Rapid resolution",
+        "Accurate diagnostic testing",
+        "Rapid issue resolution",
         "Preventive recommendations",
-        "Detailed reports",
         "24/7 availability",
       ],
-      process: [
-        "Issue assessment",
-        "Diagnostic testing",
-        "Root cause ID",
-        "Repair planning",
-        "Professional repairs",
-        "Post-testing",
-      ],
-      color: "from-red-500 to-rose-500",
-      darkColor: "bg-red-600/30",
-      accentBg: "bg-red-100",
     },
     {
       id: "delivery",
       image: "/images/delivery-installation.webp",
       icon: Truck,
       title: "Delivery & Installation",
-      tagline: "Professional setup from delivery to operation",
-      description: "Complete end-to-end delivery and installation.",
       fullDescription:
-        "Complete delivery and installation service for your new generator equipment. We handle transportation, site preparation, professional installation, initial startup, and comprehensive testing to ensure reliable operation. Our team ensures your new equipment is properly positioned, connected, and tested before handover.",
+        "Complete delivery and installation service for your new generator equipment. We handle transportation, site preparation, professional installation, initial startup, and comprehensive testing.",
       benefits: [
         "Insured transport",
         "Certified installation",
         "Proper positioning",
         "Startup testing",
-        "Documentation",
       ],
-      process: [
-        "Scheduling",
-        "Transportation",
-        "Site preparation",
-        "Installation",
-        "Load testing",
-        "Training",
-      ],
-      color: "from-green-500 to-emerald-500",
-      darkColor: "bg-green-600/30",
-      accentBg: "bg-green-100",
     },
   ];
 
@@ -181,158 +111,230 @@ const ServicesPage = () => {
       icon: Shield,
       title: "Industry-Leading Expertise",
       description:
-        "4+ years of experience serving generator systems with certified technicians and proven track records",
+        "4+ years of experience serving generator systems with certified technicians.",
     },
     {
       icon: Clock,
       title: "Rapid Response",
       description:
-        "Average emergency response under 2 hours, 24/7 availability for critical situations",
+        "Average emergency response under 2 hours, 24/7 availability for critical situations.",
     },
     {
       icon: Users,
       title: "Dedicated Support",
       description:
-        "Access to experienced techniciansPersonalized service with direct access to experienced professionals who know your systems",
+        "Personalized service with direct access to experienced professionals who know your systems.",
     },
     {
       icon: Lightbulb,
       title: "Smart Solutions",
       description:
-        "Modern technology and innovative approaches to maximize your generator performance",
+        "Modern technology and innovative approaches to maximize your generator performance.",
     },
   ];
 
+  useGSAP(() => {
+    // Animate each service row as it comes into view
+    const sections = gsap.utils.toArray(".service-row");
+
+    sections.forEach((section) => {
+      gsap.from(section.querySelectorAll(".animate-item"), {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%", // Start animating when top of section hits 80% of viewport
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+      });
+    });
+  });
+
   return (
-    <div className="bg-[var(--bg-dark)]  text-white">
-      <Helmet>
-        <title>
-          Generator Services | Preventive Maintenance, ATS Installation &
-          Repairs | LJA Power Limited Co.
-        </title>
-
-        <meta
-          name="description"
-          content="LJA Power Limited Co. offers professional generator services including preventive maintenance, ATS installation, troubleshooting, delivery, installation, and controller conversions. Ensure reliable power for homes, buildings, and businesses."
-        />
-
-        <meta
-          name="keywords"
-          content="generator services, preventive maintenance, ATS installation, generator repair, genset troubleshooting, controller conversion, generator delivery installation, LJA Power, generator technician Philippines"
-        />
-
-        <meta
-          property="og:title"
-          content="Professional Generator Services | LJA Power Limited Co."
-        />
-        <meta
-          property="og:description"
-          content="Full generator solutions including maintenance, diagnostics, ATS installation, controller upgrades, and delivery & installation services."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://lja-power.com/services" />
-        <meta property="og:image" content="/images/ServicesPageHeroImg.webp" />
-
-        <link rel="canonical" href="https://lja-power.com/services" />
-
-        <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Generator Services",
-  "provider": {
-    "@type": "Organization",
-    "name": "LJA Power Limited Co.",
-    "url": "https://lja-power.com"
-  },
-  "description": "Complete generator service solutions including Preventive Maintenance, ATS Installation, Troubleshooting & Diagnostics, Delivery & Installation, and Controller Conversion.",
-  "serviceType": [
-    "Preventive Maintenance",
-    "Automatic Transfer Switch (ATS) Installation",
-    "Troubleshooting & Diagnostics",
-    "Delivery & Installation",
-    "Controller Conversion"
-  ],
-  "areaServed": "Philippines"
-}
-`}
-        </script>
-      </Helmet>
+    <div className="bg-[var(--bg-dark)] text-white overflow-hidden">
+      <SEO
+        title="Generator Services | Maintenance & Installation"
+        description="Professional generator services: preventive maintenance, ATS installation, troubleshooting & repairs. 24/7 support across Philippines. LJA Power Limited Co."
+        url="https://lja-power.com/services"
+        image="https://lja-power.com/images/ServicesPageHeroImg.webp"
+      />
 
       <PageNavigationHeader
         h1="Professional"
-        h1Yellow="Generator Services"
-        p="Complete power generation solutions tailored to your needs"
+        h1Yellow="Services"
+        p="Comprehensive power generation solutions tailored to your specific operational needs."
         id="services-page-hero"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Services" }]}
       />
 
-      <section className="mx-auto container py-22">
-        <div className="lg:mx-20">
-          <div className="text-center">
-            <h2 className="text-5xl font-bold mb-4">Our Core Services</h2>
-            <p className="text-balance text-[var(--muted-gray)]">
-              LJA Power Limited Co. provides comprehensive generator solutions
-              covering everything from preventive maintenance to emergency
-              support. We ensure your power generation systems operate reliably
-              when you need them most.
-            </p>
-          </div>
-
-          <div className="mt-10">
-            {services.map((service) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
-                selectedService={selectedService}
-                setSelectedService={setSelectedService}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY CHOOSE US */}
-      <section className="bg-[var(--card-blue)] py-24">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Why LJA Power?</h2>
-          <p className="text-lg text-muted-foreground">
-            Expertise, reliability, and customer-focused service
+      <div className="section-container py-20 lg:py-32 space-y-32">
+        {/* Intro Text */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="font-heading text-4xl lg:text-5xl font-bold uppercase tracking-tight mb-6">
+            Our Core{" "}
+            <span className="text-[var(--accent-yellow)]">Expertise</span>
+          </h2>
+          <p className="text-[var(--muted-gray)] text-lg leading-relaxed">
+            LJA Power Limited Co. provides end-to-end generator solutions. From
+            installation to emergency repairs, we ensure your power systems
+            operate reliably when you need them most.
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, i) => {
-            const Icon = feature.icon;
-            return (
-              <div key={i} className="text-center group">
-                <div className="w-16 h-16 rounded-full bg-[var(--accent-yellow)]/20 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="h-8 w-8 text-[var(--accent-yellow)]" />
+        {/* --- SERVICE ROWS (Zig-Zag Layout) --- */}
+        {services.map((service, index) => {
+          const isEven = index % 2 === 0; // Check if row is even (0, 2, 4...)
+          const Icon = service.icon;
+
+          return (
+            <div
+              key={service.id}
+              className={`service-row grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center ${
+                !isEven ? "lg:flex-row-reverse" : ""
+              }`}
+            >
+              {/* IMAGE SIDE (Swaps position using CSS Grid order or Flex direction logic if needed, but handled by grid cols here) */}
+              <div className={`relative group ${!isEven ? "lg:order-2" : ""}`}>
+                {/* Image Container */}
+                <div className="relative overflow-hidden rounded-xl border border-white/10 shadow-2xl aspect-[4/3] animate-item">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    loading="lazy"
+                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Dark Gradient Overlay for mood */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-dark)] via-transparent to-transparent opacity-60"></div>
+
+                  {/* Big Number Watermark (e.g., "01") */}
+                  <div className="absolute -bottom-10 -right-4 font-heading text-9xl font-bold text-white/5 select-none pointer-events-none tracking-tighter">
+                    0{index + 1}
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold">{feature.title}</h3>
-                <p className="text-[var(--muted-gray)] text-sm">
-                  {feature.description}
-                </p>
+
+                {/* Decorative Box Behind */}
+                <div
+                  className={`absolute -bottom-4 -left-4 w-24 h-24 bg-[var(--accent-yellow)]/10 rounded-lg -z-10 animate-item border border-[var(--accent-yellow)]/20 ${
+                    !isEven ? "left-auto -right-4" : ""
+                  }`}
+                ></div>
               </div>
-            );
-          })}
+
+              {/* TEXT SIDE */}
+              <div
+                className={`space-y-8 animate-item ${
+                  !isEven ? "lg:order-1" : ""
+                }`}
+              >
+                {/* Title & Icon */}
+                <div className="flex items-center gap-4">
+                  <div className="bg-[var(--panel-blue)] p-3 rounded-lg shadow-lg border border-white/10 shrink-0">
+                    <Icon className="size-8 text-[var(--accent-yellow)]" />
+                  </div>
+                  <h3 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-wide text-white">
+                    {service.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="text-gray-300 text-lg leading-relaxed border-l-4 border-[var(--accent-yellow)] pl-6">
+                  {service.fullDescription}
+                </p>
+
+                {/* Benefits List */}
+                <div>
+                  <h4 className="font-heading text-sm font-bold uppercase tracking-widest text-[var(--muted-gray)] mb-4 flex items-center gap-2">
+                    Key Benefits{" "}
+                    <div className="h-[1px] w-12 bg-[var(--muted-gray)]/50"></div>
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {service.benefits.map((benefit, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 group/item"
+                      >
+                        <CheckCircle2 className="size-5 text-[var(--accent-yellow)] shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                        <span className="text-sm text-gray-300 group-hover/item:text-white transition-colors">
+                          {benefit}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Link */}
+                <div className="pt-4">
+                  <Link
+                    to="/contacts"
+                    className="group inline-flex items-center gap-2 text-[var(--accent-yellow)] font-heading uppercase font-bold tracking-wider hover:text-white transition-colors"
+                  >
+                    Request this service{" "}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* --- WHY CHOOSE US (GRID) --- */}
+      <section className="bg-[var(--card-blue)] py-24 px-6 relative overflow-hidden">
+        {/* Background texture optional */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--accent-yellow)]/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-4xl font-bold uppercase tracking-wide mb-4 text-white">
+              Why LJA Power?
+            </h2>
+            <p className="text-lg text-[var(--muted-gray)]">
+              Expertise, reliability, and customer-focused service
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, i) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={i}
+                  className="group p-8 bg-[var(--bg-dark)]/80 rounded-xl border border-white/5 hover:border-[var(--accent-yellow)] transition-all duration-300 hover:-translate-y-2 shadow-lg"
+                >
+                  <div className="w-14 h-14 rounded-lg bg-[var(--accent-yellow)]/10 flex items-center justify-center mb-6 group-hover:bg-[var(--accent-yellow)] transition-colors duration-300">
+                    <Icon className="h-7 w-7 text-[var(--accent-yellow)] group-hover:text-black transition-colors" />
+                  </div>
+                  <h3 className="text-xl font-heading font-bold uppercase tracking-wide mb-3 text-white group-hover:text-[var(--accent-yellow)] transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[var(--muted-gray)] text-sm leading-relaxed group-hover:text-white transition-colors">
+                    {feature.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6 bg-card text-center">
+      {/* --- CTA --- */}
+      <section className="py-24 px-6 bg-[var(--bg-dark)] text-center border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="font-heading text-4xl lg:text-5xl font-bold mb-6 uppercase tracking-tight text-white">
             Ready to Protect Your Power?
           </h2>
-          <p className="text-xl text-muted-foreground mb-10">
+          <p className="text-xl text-[var(--muted-gray)] mb-10">
             Contact LJA Power Limited Co. today to discuss your generator needs
             and discover how we can ensure your operations never miss a beat.
           </p>
 
-          <div className="flex-center">
-            <Link to="/contacts" className="btn-yellow w-fit">
+          <div className="flex justify-center">
+            <Link
+              to="/contacts"
+              className="btn-yellow px-10 py-4 text-base font-heading font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(246,231,42,0.4)] hover:shadow-[0_0_30px_rgba(246,231,42,0.6)]"
+            >
               Schedule Your Consultation
             </Link>
           </div>

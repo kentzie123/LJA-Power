@@ -1,6 +1,6 @@
 // scripts/generate-sitemap.js
 import fs from "fs";
-import { generators, projects, contacts } from "../constants/index.js";
+import { generators, works, contacts } from "../constants/index.js";
 
 const BASE_URL = "https://lja-power.com";
 
@@ -9,7 +9,7 @@ const urls = [
   { loc: "/products", priority: 0.9 },
   { loc: "/about", priority: 0.8 },
   { loc: "/services", priority: 0.8 },
-  { loc: "/projects", priority: 0.9 },
+  { loc: "/our-works", priority: 0.9 },
   { loc: "/contacts", priority: 0.8 },
 ];
 
@@ -19,8 +19,8 @@ generators.forEach((gen) => {
 });
 
 // Add projects
-projects.forEach((proj) => {
-  urls.push({ loc: `/projects/${proj.slug}`, priority: 0.8 });
+works.forEach((work) => {
+  urls.push({ loc: `/our-works/${work.slug}`, priority: 0.8 });
 });
 
 // Add branches (contacts)

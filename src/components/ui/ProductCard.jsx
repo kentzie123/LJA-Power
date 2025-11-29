@@ -6,92 +6,94 @@ import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="product-card group overflow-hidden flex flex-col h-full bg-[#0f4b5a] rounded-lg border border-[var(--accent-yellow)]/40 hover:border-[var(--accent-yellow)]/60 hover:shadow-[5px_3px_10px_0_var(--accent-yellow)]/20 hover:translate-y-[-5px] hover:translate-x-[-3px] transition-all duration-300">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <div className="product-card group overflow-hidden flex flex-col h-full bg-[var(--card-blue)] rounded-lg border border-[var(--accent-yellow)]/20 hover:border-[var(--accent-yellow)]/60 hover:shadow-[0_4px_20px_rgba(246,231,42,0.15)] hover:-translate-y-1 transition-all duration-300">
+      {/* Image Container */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-black/20">
         <img
-          className="group-hover:scale-110 transition-transform duration-500 w-full h-full object-cover"
+          className="group-hover:scale-110 transition-transform duration-700 w-full h-full object-cover"
           src={product.images[0]}
           alt={product.name}
+          loading="lazy" // Performance Boost
+          width="400" // Aspect Ratio Hint
+          height="300"
           onError={(e) => {
             e.target.src = "/images/placeholder-generator.jpg";
           }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle,_transparent_50%,_#0c2430_100%)]" />
+        {/* Dark Gradient Overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-blue)] via-transparent to-transparent opacity-80" />
 
         {/* Power Badge */}
-        <div className="absolute top-3 right-3 bg-[#f5ec19] text-[#0c2430] px-2 py-1 rounded-full text-xs font-bold">
+        <div className="absolute top-3 right-3 bg-[var(--accent-yellow)] text-black px-3 py-1 rounded-md text-xs font-bold font-heading uppercase tracking-wide shadow-md">
           {product.standbyPower.split("/")[0].trim()}
         </div>
       </div>
 
-      <div className="card-content p-4 flex flex-col flex-1 justify-between">
+      {/* Content */}
+      <div className="card-content p-5 flex flex-col flex-1 justify-between">
         <div>
-          <div className="text-lg font-bold text-[#f5ec19] mb-2">
+          {/* Title */}
+          <h3 className="text-xl font-bold font-heading uppercase tracking-wide text-[var(--accent-yellow)] mb-3 leading-tight group-hover:text-white transition-colors">
             {product.name}
-          </div>
+          </h3>
 
-          {/* Power Specifications */}
-          <div className="mb-4">
-            <div className="flex justify-between text-sm">
-              <span className="text-[#a9b6bd]">Standby:</span>
-              <span className="text-white font-medium">
+          {/* Power Specifications Grid */}
+          <div className="grid grid-cols-2 gap-2 mb-4 bg-black/20 p-2 rounded-md border border-white/5">
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-wider text-[var(--muted-gray)]">
+                Standby
+              </span>
+              <span className="text-white font-bold text-sm">
                 {product.standbyPower}
               </span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-[#a9b6bd]">Prime:</span>
-              <span className="text-white font-medium">
+            <div className="flex flex-col border-l border-white/10 pl-2">
+              <span className="text-[10px] uppercase tracking-wider text-[var(--muted-gray)]">
+                Prime
+              </span>
+              <span className="text-white font-bold text-sm">
                 {product.primePower}
               </span>
             </div>
           </div>
 
-          {/* Key Features */}
+          {/* Key Features List */}
           <ul className="space-y-2">
-            <li className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#f5ec19] flex-shrink-0" />
-              <div className="text-sm text-[#a9b6bd]">
-                <span className="font-medium text-white">{product.engine}</span>
+            <li className="flex items-start gap-2">
+              <Zap className="w-4 h-4 text-[var(--accent-yellow)] flex-shrink-0 mt-0.5" />
+              <div className="text-xs text-[var(--muted-gray)] leading-snug">
+                <span className="text-gray-300 font-medium">
+                  {product.engine}
+                </span>{" "}
+                Engine
               </div>
             </li>
-            <li className="flex items-center gap-2">
-              <Fuel className="w-4 h-4 text-[#f5ec19] flex-shrink-0" />
-              <div className="text-sm text-[#a9b6bd]">
+            <li className="flex items-start gap-2">
+              <Fuel className="w-4 h-4 text-[var(--accent-yellow)] flex-shrink-0 mt-0.5" />
+              <div className="text-xs text-[var(--muted-gray)]">
                 {product.fuelType} • {product.speed}
               </div>
             </li>
-            <li className="flex items-center gap-2">
-              <Gauge className="w-4 h-4 text-[#f5ec19] flex-shrink-0" />
-              <div className="text-sm text-[#a9b6bd]">
-                {product.voltageOptions}
+            <li className="flex items-start gap-2">
+              <Gauge className="w-4 h-4 text-[var(--accent-yellow)] flex-shrink-0 mt-0.5" />
+              <div className="text-xs text-[var(--muted-gray)] truncate">
+                {product.voltageOptions.split(",")[0]}...{" "}
+                {/* Truncate long volt list */}
               </div>
             </li>
             <li className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#f5ec19] flex-shrink-0" />
-              <div className="text-sm text-[#a9b6bd]">
+              <ShieldCheck className="w-4 h-4 text-[var(--accent-yellow)] flex-shrink-0" />
+              <div className="text-xs text-[var(--muted-gray)]">
                 Sound Proof Enclosure
               </div>
             </li>
           </ul>
-
-          {/* Additional Info */}
-          <div className="mt-3 pt-3 border-t border-[#145d77]">
-            <div className="flex justify-between text-xs text-[#a9b6bd]">
-              <div>
-                <span className="font-medium text-white me-1">Weight:</span>
-                {product.weight}
-              </div>
-              <div>
-                <span className="font-medium text-white me-1">Fuel:</span>
-                {product.fuelCapacity}
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="mt-6">
-          <Link to={`/products/${product.slug}`}>
-            <button className="w-full bg-[var(--accent-yellow)]/90 text-black hover:bg-[#1a6d8a] hover:text-white py-2 px-4 rounded-lg transition-colors font-medium border cursor-pointer">
+        {/* Action Button */}
+        <div className="mt-6 pt-4 border-t border-white/10">
+          <Link to={`/products/${product.slug}`} className="block">
+            <button className="w-full bg-[var(--accent-yellow)] text-black hover:bg-[var(--panel-blue)] hover:text-white py-3 px-4 rounded-md transition-all duration-300 font-heading font-bold uppercase tracking-wider text-sm shadow-sm hover:shadow-md cursor-pointer border border-transparent hover:border-white/20">
               View Details
             </button>
           </Link>

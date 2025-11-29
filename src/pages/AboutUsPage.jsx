@@ -1,38 +1,24 @@
-import { Helmet } from "react-helmet";
+// SEO
+import SEO from "../components/layout/SEO";
 
 // Components
 import PageNavigationHeader from "../components/layout/PageNavigationHeader";
-import InfoCard from "../components/ui/InfoCard";
 
 // Styling
 import "../assets/css/pages/AboutUsPage.css";
 
 // Icons
-import { Target, Eye, Award } from "lucide-react";
+import { CheckCircle2, Target, Eye, Award } from "lucide-react";
 
 // GSAP
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger to be safe
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutUsPage = () => {
-  const aboutUsData = [
-    {
-      title: "Our Mission",
-      desc: "Deliver reliable and innovative power solutions that empower businesses and communities.",
-      icon: <Target className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    },
-    {
-      title: "Our Vision",
-      desc: "Be the leading power solutions provider recognized for quality, innovation, and customer satisfaction.",
-      icon: <Eye className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    },
-    {
-      title: "Our Values",
-      desc: "Integrity, Reliability, Innovation, Customer Focus, Sustainability, Excellence.",
-      icon: <Award className="w-8 h-8 text-[var(--accent-yellow)]" />,
-    },
-  ];
-
   const whyChooseUsData = [
     {
       title: "Expert Team",
@@ -61,94 +47,88 @@ const AboutUsPage = () => {
   ];
 
   useGSAP(() => {
+    // 1. Main Header Animation
     const mainHeaderTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: ".main-header",
-        start: "top 60%",
-        scrub: 2,
+        start: "top 80%", // Trigger slightly earlier for better visibility
       },
     });
 
     mainHeaderTimeline
-      .from(".abt-float-left", { y: 40, duration: 1, ease: "power1.inOut" })
+      .from(".abt-title", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      })
       .from(
-        ".abt-float-right",
-        { y: -40, duration: 1, ease: "power1.inOut" },
-        "-=1"
-      )
-      .fromTo(
-        ".right-quote",
+        ".abt-content p",
         {
-          y: -20,
-          duration: 1,
-          ease: "power1.inOut",
+          y: 30,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
         },
-        { y: 0, rotate: 5 },
-        "-=1"
-      )
-      .fromTo(
-        ".left-quote",
-        {
-          y: 50,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        { y: 0, rotate: 5 },
-        "-=1"
+        "-=0.4"
       );
+
+    // 2. Parallax Effect for Images
+    gsap.to(".abt-float-right", {
+      yPercent: -20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".main-header",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    gsap.to(".abt-float-left", {
+      yPercent: 30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".main-header",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    // 3. FIXED: Why Choose Us Cards (Using fromTo)
+    // This prevents cards from getting stuck at opacity: 0
+    gsap.fromTo(
+      ".wcu-card",
+      {
+        opacity: 0,
+        y: 50,
+      }, // Start State
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#why-choose-us",
+          start: "top 85%", // Starts as soon as the section touches bottom of screen
+          toggleActions: "play none none reverse", // Re-plays if you scroll up and down
+        },
+      } // End State
+    );
   });
 
   return (
-    <div className="bg-[var(--bg-dark)] text-white">
-      {/* SEO Meta Tags */}
-      <Helmet>
-        <title>About Us | LJA Power Limited Co.</title>
-        <meta
-          name="description"
-          content="Learn about LJA Power Limited Co., a leading provider of reliable power solutions. Discover our mission, vision, values, and why businesses choose us."
-        />
-        <meta
-          name="keywords"
-          content="LJA Power, power solutions, generators, mission, vision, values, reliable energy, business solutions"
-        />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.lja-power.com/about" />
-
-        {/* Open Graph / Social Media */}
-        <meta property="og:title" content="About Us | LJA Power Limited Co." />
-        <meta
-          property="og:description"
-          content="Learn about LJA Power Limited Co., a leading provider of reliable power solutions. Discover our mission, vision, values, and why businesses choose us."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.lja-power.com/about" />
-        <meta
-          property="og:image"
-          content="https://www.lja-power.com/images/abt2.webp"
-        />
-        <meta
-          property="og:image:alt"
-          content="LJA Power Limited Co. Office and Team"
-        />
-
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "LJA Power Limited Co.",
-            url: "https://www.lja-power.com",
-            logo: "https://www.lja-power.com/images/lja-logo.png",
-            sameAs: [
-              "https://www.facebook.com/profile.php?id=61572436091637",
-              "https://www.facebook.com/marc88fyi",
-              "https://www.facebook.com/profile.php?id=61576825362962",
-            ],
-            description:
-              "LJA Power Limited Co. is a trusted provider of reliable and efficient energy solutions for homes, businesses, and industries.",
-          })}
-        </script>
-      </Helmet>
+    <div className="bg-[var(--bg-dark)] text-white overflow-hidden">
+      {/* SEO */}
+      <SEO
+        title="About LJA Power | Mission & Vision"
+        description="Learn about LJA Power Limited Co.'s mission to deliver reliable power solutions in Philippines. Discover our vision for quality generators & 24/7 support."
+        url="https://lja-power.com/about"
+        image="https://lja-power.com/images/about-main-image.webp"
+      />
 
       <PageNavigationHeader
         h1="About"
@@ -158,25 +138,24 @@ const AboutUsPage = () => {
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
       />
 
-      <div className="section-container p-6 lg:p-12 space-y-20">
-        {/* Company Info */}
-        <section className="main-header grid grid-cols-1 lg:grid-cols-2 gap-40 lg:gap-10 py-22">
-          <div className="relative">
+      {/* SECTION 1: COMPANY INFO */}
+      <div className="section-container px-6 lg:px-12 py-20 lg:py-32">
+        <section className="main-header grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Text Content */}
+          <div className="relative order-2 lg:order-1">
             <img
-              className="right-quote absolute size-30 md:size-auto top-[-80px] right-0 z-0 opacity-50"
+              className="right-quote absolute w-24 opacity-10 -top-16 right-0 pointer-events-none"
               src="/images/right-quote.png"
-              alt="right-quote"
+              alt=""
+              aria-hidden="true"
             />
-            <img
-              className="left-quote absolute size-30 md:size-auto bottom-[-110px] md:bottom-[-130px] lg:bottom-[-80px] xl:bottom-10 left-0 z-0 opacity-50"
-              src="/images/left-quote.png"
-              alt="right-quote"
-            />
-            <div className="relative">
-              <h2 className="text-6xl text-center lg:text-left font-bold mb-4">
+
+            <div className="relative z-10">
+              <h2 className="abt-title font-heading text-5xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-8">
                 Our <span className="text-[var(--accent-yellow)]">Company</span>
               </h2>
-              <div className="space-y-4 text-[var(--muted-gray)]">
+
+              <div className="abt-content space-y-6 text-[var(--muted-gray)] text-lg leading-relaxed">
                 <p>
                   LJA Power Limited Co. is a trusted provider of reliable and
                   efficient energy solutions for homes, businesses, and
@@ -189,120 +168,147 @@ const AboutUsPage = () => {
                   installations, maintenance, and energy consulting, all
                   tailored to meet the unique needs of each client.
                 </p>
-                <p>
-                  Beyond our services, LJA Power Limited Co. values
-                  sustainability and community development, implementing
-                  environmentally responsible practices and supporting local
-                  communities.
-                </p>
+
+                <div className="flex items-start gap-4 p-4 bg-[var(--card-blue)] rounded-lg border-l-4 border-[var(--accent-yellow)]">
+                  <Award className="text-[var(--accent-yellow)] size-8 shrink-0" />
+                  <p className="text-white text-sm italic">
+                    "Values sustainability and community development,
+                    implementing environmentally responsible practices."
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="place-self-center relative my-16 lg:my-0">
+          {/* Image Composition */}
+          <div className="relative order-1 lg:order-2 flex justify-center">
+            <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl border-4 border-[var(--bg-dark)]">
+              <img
+                className="w-full max-w-md object-cover"
+                src="/images/about-main-image.webp"
+                alt="LJA Power Limited Co. Office"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Floating Images */}
             <img
-              className="relative rounded-md shadow-[0_25px_50px_-12px_var(--panel-blue)] z-10"
-              src="/images/about-main-image.webp"
-              alt="LJA Power Limited Co. Office"
-            />
-            <img
-              className="abt-float-right absolute top-[-80px] right-[-40px] md:top-[-100px] md:right-[-150px] lg:top-[-115px] lg:right-[-60px] object-contain h-45 md:h-90 lg:h-80 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)] z-0
-"
+              className="abt-float-right absolute -top-12 -right-12 w-48 lg:w-64 rounded-lg shadow-xl z-0 opacity-80 border-2 border-[var(--card-blue)]"
               src="/images/about-float-right.webp"
-              alt="image floating right"
+              alt="Generator Detail"
+              loading="lazy"
             />
             <img
-              className="abt-float-left absolute bottom-[-80px] left-[-40px] md:bottom-[-150px] md:left-[-150px] lg:bottom-[-100px] lg:left-[-30px] object-contain h-40 md:h-90 lg:h-70 rounded-lg shadow-[0_25px_50px_-12px_var(--panel-blue)] z-20
-"
+              className="abt-float-left absolute -bottom-12 -left-12 w-40 lg:w-56 rounded-lg shadow-xl z-20 border-2 border-[var(--accent-yellow)]"
               src="/images/abt3.webp"
-              alt="image floating left"
+              alt="Technician Working"
+              loading="lazy"
             />
           </div>
         </section>
       </div>
 
-      {/* Mission, Vision, Values */}
-      <section className="">
-        {/* First Row */}
-        <div className="grid grid-col-1 md:grid-cols-3 overflow-hidden">
-          <div className="bg-[var(--card-blue)] flex-center p-14">
-            <div className="space-y-6">
-              <div className="text-5xl">
-                <div className="">Our</div>
-                <div className="font-bold">Mission.</div>
-              </div>
-              <p className="text-lg">
-                Deliver reliable and innovative power solutions that empower
-                businesses and communities.
-              </p>
+      {/* SECTION 2: MISSION / VISION / VALUES */}
+      <section className="bg-white/5 backdrop-blur-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {/* Mission */}
+          <div className="bg-[var(--card-blue)] p-14 flex flex-col justify-center group hover:bg-[#1a5f7a] transition-colors duration-300">
+            <Target className="size-12 text-[var(--accent-yellow)] mb-6" />
+            <div className="font-heading text-4xl font-bold uppercase tracking-tight mb-4">
+              Our <br />
+              <span className="text-[var(--accent-yellow)]">Mission</span>
             </div>
+            <p className="text-[var(--muted-gray)] group-hover:text-white transition-colors">
+              Deliver reliable and innovative power solutions that empower
+              businesses and communities.
+            </p>
           </div>
-          <div className="overflow-hidden">
-            <img
-              className="object-cover h-full w-full aspect-[5/6]"
-              src="/images/abt3.webp"
-              alt=""
-            />
-          </div>
-          <div className="bg-[var(--card-blue)] flex-center p-14">
-            <div className="space-y-6">
-              <div className="text-5xl">
-                <div className="">Our</div>
-                <div className="font-bold">Vision.</div>
-              </div>
-              <p className="text-lg">
-                Be the leading power solutions provider recognized for quality,
-                innovation, and customer satisfaction.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        {/* Second Row */}
-        <div className="grid grid-col-1 md:grid-cols-3">
-          <div className="overflow-hidden">
+          <div className="relative group overflow-hidden h-80 md:h-auto">
             <img
-              className="object-cover h-full w-full aspect-[5/6]"
-              src="/images/abt4.webp"
-              alt=""
+              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+              src="/images/abt3.webp"
+              alt="Mission"
+              loading="lazy"
             />
+            <div className="absolute inset-0 bg-[var(--accent-yellow)]/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
-          <div className="bg-[var(--accent-yellow)] text-black flex-center p-14">
-            <div className="space-y-6">
-              <div className="text-5xl">
-                <div className="">Our</div>
-                <div className="font-bold">Values.</div>
-              </div>
-              <p className="text-lg">
-                Integrity, Reliability, Innovation, Customer Focus,
-                Sustainability, Excellence.
-              </p>
+
+          {/* Vision */}
+          <div className="bg-[var(--card-blue)] p-14 flex flex-col justify-center group hover:bg-[#1a5f7a] transition-colors duration-300 border-l border-white/5">
+            <Eye className="size-12 text-[var(--accent-yellow)] mb-6" />
+            <div className="font-heading text-4xl font-bold uppercase tracking-tight mb-4">
+              Our <br />
+              <span className="text-[var(--accent-yellow)]">Vision</span>
             </div>
+            <p className="text-[var(--muted-gray)] group-hover:text-white transition-colors">
+              Be the leading power solutions provider recognized for quality,
+              innovation, and customer satisfaction.
+            </p>
           </div>
-          <div className="overflow-hidden">
+
+          <div className="relative group overflow-hidden h-80 md:h-auto md:order-last lg:order-none">
             <img
-              className="object-cover h-full w-full aspect-[5/6]"
+              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+              src="/images/abt4.webp"
+              alt="Vision"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-[var(--card-blue)]/30 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+
+          {/* Values */}
+          <div className="bg-[var(--accent-yellow)] text-[var(--bg-dark)] p-14 flex flex-col justify-center">
+            <Award className="size-12 text-[var(--bg-dark)] mb-6" />
+            <div className="font-heading text-4xl font-bold uppercase tracking-tight mb-4">
+              Our <br />
+              <span>Values</span>
+            </div>
+            <p className="font-medium text-[var(--bg-dark)]/80">
+              Integrity, Reliability, Innovation, Customer Focus,
+              Sustainability, Excellence.
+            </p>
+          </div>
+
+          <div className="relative group overflow-hidden h-80 md:h-auto">
+            <img
+              className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
               src="/images/about-float-right.webp"
-              alt=""
+              alt="Values"
+              loading="lazy"
             />
           </div>
         </div>
       </section>
 
-      {/* Why Businesses Choose Us */}
-      <section className="bg-[var(--card-blue)]">
-        <div className="mx-auto container p-12">
-          <h2 className="text-center text-4xl font-bold mb-10">
-            Why Businesses Choose Us
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-center md:text-left">
+      {/* SECTION 3: WHY CHOOSE US */}
+      <section id="why-choose-us" className="bg-[var(--card-blue)] py-24">
+        <div className="section-container px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight mb-4">
+              Why Businesses{" "}
+              <span className="text-[var(--accent-yellow)]">Choose Us</span>
+            </h2>
+            <div className="h-1 w-20 bg-[var(--accent-yellow)] mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {whyChooseUsData.map((item, i) => (
               <div
                 key={i}
-                className="px-4 border-l-2 border-[var(--accent-yellow)]"
+                className="wcu-card group p-8 bg-[var(--bg-dark)]/50 border border-white/5 rounded-xl hover:bg-[var(--bg-dark)] hover:border-[var(--accent-yellow)] transition-all duration-300 hover:-translate-y-2 shadow-lg"
               >
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-[var(--muted-gray)]">{item.desc}</p>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="bg-[var(--accent-yellow)]/10 p-3 rounded-lg group-hover:bg-[var(--accent-yellow)] transition-colors duration-300">
+                    <CheckCircle2 className="size-6 text-[var(--accent-yellow)] group-hover:text-[var(--bg-dark)]" />
+                  </div>
+                  <h3 className="font-heading text-xl font-bold uppercase tracking-wide group-hover:text-[var(--accent-yellow)] transition-colors">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-[var(--muted-gray)] group-hover:text-gray-300 leading-relaxed text-sm">
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>

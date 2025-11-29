@@ -5,67 +5,94 @@ import { MapPin, Phone, Clock, Navigation, PhoneCall } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ContactCard = ({ contact, setLocation, selectedContact }) => {
+  const isSelected = contact.slug === selectedContact.slug;
+
   return (
     <div
-      onClick={() => {
-        setLocation(contact);
-      }}
-      className={`bg-[var(--panel-blue)] rounded-2xl p-6 space-y-4 hover:brightness-110 cursor-pointer ${
-        contact === selectedContact
-          ? "border-2 border-[var(--accent-yellow)]"
-          : ""
-      } `}
+      onClick={() => setLocation(contact)}
+      className={`
+        relative p-6 rounded-xl transition-all duration-300 cursor-pointer border-2 group
+        ${
+          isSelected
+            ? "bg-[var(--card-blue)] border-[var(--accent-yellow)] shadow-[0_0_20px_rgba(246,231,42,0.15)] scale-[1.02]"
+            : "bg-[var(--panel-blue)] border-transparent hover:border-white/10 hover:bg-[var(--card-blue)]"
+        }
+      `}
     >
-      <div className="flex gap-4">
-        <div className="bg-[var(--accent-yellow)]/20 p-3 rounded-xl h-fit">
-          <MapPin className="text-[var(--accent-yellow)] size-6" />
+      {/* Active Indicator Dot */}
+      {isSelected && (
+        <div className="absolute top-4 right-4 size-3 bg-[var(--accent-yellow)] rounded-full shadow-[0_0_10px_var(--accent-yellow)] animate-pulse"></div>
+      )}
+
+      {/* Header Info */}
+      <div className="flex gap-4 mb-6">
+        <div
+          className={`
+            shrink-0 p-3 rounded-lg h-fit transition-colors duration-300
+            ${
+              isSelected
+                ? "bg-[var(--accent-yellow)] text-black"
+                : "bg-[var(--bg-dark)] text-[var(--accent-yellow)] group-hover:text-white"
+            }
+        `}
+        >
+          <MapPin className="size-6" />
         </div>
 
         <div>
-          <div className="font-semibold text-xl">{contact.office}</div>
-
-          <p className="text-sm text-[var(--muted-gray)]">{contact.address}</p>
+          <h3
+            className={`font-heading text-xl font-bold uppercase tracking-wide leading-tight mb-1 transition-colors ${
+              isSelected ? "text-[var(--accent-yellow)]" : "text-white"
+            }`}
+          >
+            {contact.office}
+          </h3>
+          <p className="text-sm text-[var(--muted-gray)] leading-snug">
+            {contact.address}
+          </p>
         </div>
       </div>
 
-      <div>
-        <Phone className="text-[var(--accent-yellow)] size-4 inline me-2" />
-        <span className="text-sm text-[var(--muted-gray)]">
-          {contact.number}
-        </span>
-      </div>
+      {/* Details Grid */}
+      <div className="space-y-3 mb-6 pl-1">
+        <div className="flex items-center gap-3">
+          <Phone className="text-[var(--accent-yellow)] size-4 shrink-0" />
+          <span className="text-sm text-gray-300 font-medium tracking-wide">
+            {contact.number}
+          </span>
+        </div>
 
-      <div className="flex gap-2">
-        <Clock className="size-4 text-[var(--accent-yellow)]" />
-        <div className="text-sm space-y-1">
-          {contact.schedules.map((sched, i) => (
-            <div key={i} className="text-[var(--muted-gray)]">
-              {sched}
+        <div className="flex gap-3">
+          <Clock className="size-4 text-[var(--accent-yellow)] shrink-0 mt-0.5" />
+          <div className="text-sm space-y-1 text-gray-300">
+            {contact.schedules.map((sched, i) => (
+              <div key={i}>{sched}</div>
+            ))}
+            <div className="text-[var(--accent-yellow)] font-bold text-xs uppercase tracking-wider pt-1">
+              • Emergency Service: 24/7
             </div>
-          ))}
-
-          <div className="text-[var(--accent-yellow)]">
-            Emergency Service: 24/7
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Link
-          to={`tel:${contact.number}`}
-          className="btn-yellow space-x-2 hover:scale-105 transition-all duration-200 cursor-pointer"
+      {/* Action Buttons */}
+      <div className="grid grid-cols-2 gap-3">
+        <a
+          href={`tel:${contact.number}`}
+          className="btn-yellow flex items-center justify-center gap-2 py-2 text-xs md:text-sm font-heading font-bold uppercase tracking-wider hover:-translate-y-1 transition-transform"
         >
           <PhoneCall className="size-4" />
-          <span>Call</span>
-        </Link>
+          Call
+        </a>
 
         <Link
           to={contact.direction}
           target="_blank"
-          className="btn-blue space-x-2 hover:scale-105 transition-all duration-200 cursor-pointer"
+          rel="noopener noreferrer"
+          className="btn-blue flex items-center justify-center gap-2 py-2 text-xs md:text-sm font-heading font-bold uppercase tracking-wider hover:-translate-y-1 transition-transform border border-white/10"
         >
           <Navigation className="size-4" />
-          <span className="text-sm">Directions</span>
+          Map
         </Link>
       </div>
     </div>

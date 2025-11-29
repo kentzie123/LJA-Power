@@ -1,3 +1,6 @@
+// Style
+import "../../assets/css/pages/FeaturedProducts.css";
+
 // Hooks
 import { useRef } from "react";
 
@@ -77,40 +80,49 @@ const FeaturedProducts = () => {
   return (
     <section
       id="featured-products"
-      className="min-h-dvh relative text-white py-30"
+      className="min-h-dvh relative text-white py-30 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[var(--bg-dark)]/80" />
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-[var(--bg-dark)]/90" />
 
-      <div className="relative">
-        <div className="relative">
-          <div className="text-center mb-12">
-            <h2 className="fp-header text-5xl md:text-7xl font-bold mb-4">
+      {/* Content Wrapper */}
+      <div className="relative z-10">
+        <div className="section-container">
+          <div className="text-center mb-20">
+            {/* Main Heading: Industrial Style */}
+            <h2 className="fp-header font-heading text-5xl md:text-7xl font-bold mb-6 uppercase tracking-tight leading-none">
               Featured{" "}
               <span className="text-[var(--accent-yellow)]">Products</span>
             </h2>
-            <p className="fp-p text-[var(--muted-gray)] max-w-2xl mx-auto">
+
+            {/* Subtext: Clean & Readable */}
+            <p className="fp-p text-[var(--muted-gray)] text-lg max-w-2xl mx-auto leading-relaxed">
               Explore our range of high-quality generators designed to keep your
               world powered — anytime, anywhere.
             </p>
           </div>
-        </div>
 
-        <div
-          ref={featuredProductsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-7 items-stretch section-container"
-        >
-          {featuredProducts.map((featuredProduct) => (
-            <ProductCard key={featuredProduct.slug} product={featuredProduct} />
-          ))}
-        </div>
-
-        <div className="mt-20 flex-center">
-          <Link
-            to="/products"
-            className="bg-[#145d77] border border-[var(--panel-blue)] hover:border-[#1a6d8a] px-6 py-3 rounded-lg hover:bg-[var(--accent-yellow)] hover:text-black transition-colors font-medium"
+          <div
+            ref={featuredProductsRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch"
           >
-            View all products
-          </Link>
+            {featuredProducts.map((featuredProduct) => (
+              <ProductCard
+                key={featuredProduct.slug}
+                product={featuredProduct}
+              />
+            ))}
+          </div>
+
+          <div className="mt-20 flex-center">
+            <Link
+              to="/products"
+              // Updated Button Style: Oswald Font, Uppercase, Tracking
+              className="bg-[#145d77] border border-[var(--panel-blue)] hover:border-[#1a6d8a] px-8 py-4 rounded-lg hover:bg-[var(--accent-yellow)] hover:text-black transition-all duration-300 font-heading font-bold uppercase tracking-wider text-sm md:text-base"
+            >
+              View all products
+            </Link>
+          </div>
         </div>
       </div>
     </section>

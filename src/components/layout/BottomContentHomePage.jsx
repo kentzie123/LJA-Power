@@ -13,58 +13,74 @@ const BottomContentHomePage = () => {
     const btmHPTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: "#btm-hp",
-        start: "top 70%",
+        start: "top bottom",
+        toggleActions: "play none none reverse",
       },
     });
 
     btmHPTimeline
       .from(".btm-hp-header", {
         opacity: 0,
-        yPercent: 100,
-        ease: "power2.inOut",
+        y: 50, // Changed yPercent to y for smoother small movement
+        ease: "power2.out",
+        duration: 0.8,
       })
       .from(
         ".btm-hp-p",
         {
           opacity: 0,
-          yPercent: 100,
-          ease: "power2.inOut",
+          y: 30,
+          ease: "power2.out",
         },
-        "-=0.2"
+        "-=0.6"
       )
-      .from(".btm-hp-btn", {
-        opacity: 0,
-        xPercent: 100,
-        ease: "power2.inOut",
-        stagger: 0.2,
-      });
+      .from(
+        ".btm-hp-btn",
+        {
+          opacity: 0,
+          y: 20,
+          ease: "power2.out",
+          stagger: 0.1,
+          // CRITICAL: Clears opacity override after animation so hover effects work perfectly
+          clearProps: "all",
+        },
+        "-=0.4"
+      );
   });
 
   return (
     <section
       id="btm-hp"
-      className="bg-[var(--accent-yellow)] text-[var(--bg-dark)]"
+      className="bg-[var(--accent-yellow)] text-[var(--bg-dark)] py-24 lg:py-32"
     >
-      <div className="section-container flex-center flex-col py-22 space-y-4  text-center md:text-left">
-        <div className="btm-hp-header text-3xl font-bold">
-          Ready to Power Your Business?
+      <div className="section-container flex flex-col items-center text-center space-y-8">
+        <div className="overflow-hidden">
+          <h2 className="btm-hp-header font-heading text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight leading-none">
+            Ready to Power Your Business?
+          </h2>
         </div>
-        <p className="btm-hp-p">
+
+        <p className="btm-hp-p text-lg md:text-xl font-medium max-w-2xl opacity-90 leading-relaxed">
           Get in touch with our experts to find the perfect generator solution
-          for your needs
+          for your specific needs.
         </p>
-        <div className="flex items-center gap-2">
+
+        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+          {/* Button 1: Solid Dark */}
           <Link
             to="/contacts"
-            className="btm-hp-btn px-6 py-3 bg-[var(--panel-blue)] rounded text-white text-sm"
+            className="btm-hp-btn bg-[var(--bg-dark)] text-white hover:bg-black px-8 py-4 rounded-lg font-heading font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             Contact Us Today
           </Link>
-          <Link to="/products" className="btm-hp-btn btn-yellow">
+
+          {/* Button 2: Dark Outline */}
+          <Link
+            to="/products"
+            className="btm-hp-btn group flex items-center gap-2 border-2 border-[var(--bg-dark)] text-[var(--bg-dark)] px-8 py-4 rounded-lg font-heading font-bold uppercase tracking-wider hover:bg-[var(--bg-dark)] hover:text-[var(--accent-yellow)] transition-all"
+          >
             Browse our generators
-            <span>
-              <MoveRight className="ms-2" />
-            </span>
+            <MoveRight className="size-5 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

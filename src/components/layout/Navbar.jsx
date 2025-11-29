@@ -1,17 +1,20 @@
+import logoNav from "../../assets/images/lja-logo.png?w=80&format=webp";
+
 import { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Twirl as Hamburger } from "hamburger-react";
 import { navItems } from "../../../constants";
 
+// Removed: preloadPage function and import { LAZY_PAGE_IMPORTS }
+
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const mobileNavRef = useRef(null);
-  const hamburgerRef = useRef(null); // ref for hamburger menu
+  const hamburgerRef = useRef(null);
 
-  // Close navbar if click outside
+  // Close navbar if click outside (This logic is kept)
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if click is outside both mobile nav AND hamburger button
       if (
         mobileNavRef.current &&
         !mobileNavRef.current.contains(event.target) &&
@@ -31,9 +34,10 @@ const Navbar = () => {
   return (
     <>
       {/* Mobile Navigation */}
-      <div
+      <nav
         ref={mobileNavRef}
-        className={`block lg:hidden  px-4 py-8 fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
+        aria-label="Mobile Navigation"
+        className={`block lg:hidden px-4 py-8 fixed top-[72px] left-0 bg-backdrop w-full transition-all duration-500 ease-in-out z-40 ${
           isOpen ? "translate-y-0 opacity-100" : "translate-y-[-130%] opacity-0"
         }`}
       >
@@ -43,11 +47,12 @@ const Navbar = () => {
               <NavLink
                 to={link.href}
                 onClick={() => setOpen(false)}
+                // Removed: onMouseEnter preload
                 className={({ isActive }) =>
-                  `relative text-md transition-all duration-300 transform after:absolute after:left-0 after:bottom-[-4px] after:h-[2px] after:bg-[var(--accent-yellow)] after:transition-all after:duration-300 ${
+                  `relative text-lg font-heading uppercase tracking-wide transition-all duration-300 transform after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-[var(--accent-yellow)] after:transition-all after:duration-300 ${
                     isActive
                       ? "text-[var(--accent-yellow)] after:w-full"
-                      : "text-white group-hover:text-[var(--accent-yellow)] after:w-0 group-hover:after:w-full"
+                      : "text-white hover:text-[var(--accent-yellow)] after:w-0 hover:after:w-full"
                   }`
                 }
               >
@@ -57,28 +62,39 @@ const Navbar = () => {
           ))}
         </ul>
         <NavLink
-          className="cursor-pointer btn-yellow mt-4 w-fit"
+          className="cursor-pointer btn-yellow mt-6 w-fit font-heading font-bold uppercase tracking-wider block"
           to="/contacts"
           onClick={() => setOpen(false)}
         >
           Get a Quote
         </NavLink>
-      </div>
+      </nav>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 w-full z-50">
-        <nav className="flex items-center justify-between px-4 py-3 bg-backdrop text-white">
-          <NavLink to="/" className="flex items-center gap-2">
+      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <nav className="flex items-center justify-between px-4 lg:px-8 py-3 bg-backdrop text-white shadow-md">
+          {/* Logo */}
+          <NavLink to="/" className="flex items-center gap-3 group">
             <img
-              className="rounded-full size-8 lg:size-9"
-              src="/images/favicon-96x96.png"
-              alt="LJA Power Limited Co. company logo"
+              className="rounded-full w-10 h-10 object-contain group-hover:rotate-12 transition-transform duration-500"
+              src={logoNav}
+              width="40"
+              height="40"
+              alt="LJA Power Limited Co. Logo"
             />
-            <h2 className="lg:text-xl font-[600]">LJA Power Limited Co.</h2>
+            <div className="flex flex-col justify-center leading-none">
+              <span className="font-heading text-xl font-bold tracking-wide text-white group-hover:text-[var(--accent-yellow)] transition-colors">
+                LJA POWER
+              </span>
+              <span className="text-[10px] font-medium tracking-[0.2em] text-gray-400">
+                LIMITED CO.
+              </span>
+            </div>
           </NavLink>
 
-          <div className="h-[100%]">
-            <ul className="lg:flex hidden items-center gap-7">
+          <div className="h-full flex items-center">
+            {/* Desktop Menu */}
+            <ul className="lg:flex hidden items-center gap-8">
               {navItems.map((link) => (
                 <li
                   className="relative group flex flex-col items-center justify-center"
@@ -86,11 +102,12 @@ const Navbar = () => {
                 >
                   <NavLink
                     to={link.href}
+                    // Removed: onMouseEnter preload
                     className={({ isActive }) =>
-                      `relative text-sm transition-all duration-300 transform after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-[var(--accent-yellow)] after:transition-all after:duration-300 ${
+                      `relative text-sm font-heading uppercase tracking-wider transition-all duration-300 transform after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-[var(--accent-yellow)] after:transition-all after:duration-300 ${
                         isActive
-                          ? "text-[var(--accent-yellow)] -translate-y-[5px] after:w-full after:translate-y-[5px]"
-                          : "text-white group-hover:text-[var(--accent-yellow)] group-hover:-translate-y-[5px] after:w-0 group-hover:after:w-full group-hover:after:translate-y-[5px]"
+                          ? "text-[var(--accent-yellow)] -translate-y-[2px] after:w-full after:translate-y-[4px]"
+                          : "text-white hover:text-[var(--accent-yellow)] hover:-translate-y-[2px] after:w-0 hover:after:w-full hover:after:translate-y-[4px]"
                       }`
                     }
                   >
@@ -100,16 +117,22 @@ const Navbar = () => {
               ))}
             </ul>
 
+            {/* Mobile Toggle */}
             <button
               ref={hamburgerRef}
               aria-label={isOpen ? "Close menu" : "Open menu"}
-              className="lg:hidden block"
+              className="lg:hidden block text-white hover:text-[var(--accent-yellow)] transition-colors ml-4"
             >
-              <Hamburger toggled={isOpen} toggle={setOpen} />
+              <Hamburger toggled={isOpen} toggle={setOpen} size={24} />
             </button>
           </div>
 
-          <NavLink to="/contacts" className="lg:block hidden btn-yellow">
+          {/* Desktop CTA */}
+          <NavLink
+            to="/contacts"
+            // Removed: onMouseEnter preload
+            className="lg:block hidden btn-yellow font-heading font-bold uppercase tracking-wider text-sm px-6 py-2 shadow-lg hover:shadow-[var(--accent-yellow)]/20"
+          >
             Get a Quote
           </NavLink>
         </nav>
